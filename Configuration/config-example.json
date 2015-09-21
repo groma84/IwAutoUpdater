@@ -1,0 +1,27 @@
+﻿{
+  "eMailSettings": {
+    "Server": "smtp.mailserver.com",
+    "Username": "mailUser",
+    "Password": "superSecure"
+  },
+  "workFolder": "C:\\Temp\\IwAutoUpdater\\",
+  "checkIntervalMinutes": 15,
+  "resultMessageReceivers": [
+    {
+      "type": "eMail",
+      "receiver": "admin@mymail.com"
+    }
+  ],
+  "servers": [
+    {
+      "type": "unc",
+      "path": "//otherSystem/buildDir/Server1_Packaged.zip",
+      "downloadOnly": "false",
+      "skipDatabaseUpdate": "false",
+      "installerCommand": "install-stuff.bat",
+      "installerCommandArguments": "fromA toB",
+      "databaseUpdateConnectionString": "Server=x;Initial Catalog=y;",
+      "databaseScriptSubfolder": "/DBUpdater/DDLs/"
+    }
+  ]
+}
