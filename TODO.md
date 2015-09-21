@@ -12,6 +12,8 @@
 
 - E-Mail Versand via Command (Success und Failed)
 
+- Command, das eine HTTP Verbindung aufbaut zu einer URL und den Status 200 als True nimmt, und alle anderen abweichenden Codes als "Fehler, Response als Fehlermeldung rausgeben"
+
 ## DONE
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette
 - Command: CleanupOldUnpackedFiles
