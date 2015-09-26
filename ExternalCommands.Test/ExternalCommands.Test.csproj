@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F6E2F8B1-37F8-420B-950E-73B33CA1E8B1}</ProjectGuid>
+    <ProjectGuid>{712E576E-D20B-4B29-BCC7-040D7D76A0F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IwAutoUpdater.DAL.LocalFiles.Test</RootNamespace>
-    <AssemblyName>IwAutoUpdater.DAL.LocalFiles.Test</AssemblyName>
+    <RootNamespace>IwAutoUpdater.DAL.ExternalCommands.Test</RootNamespace>
+    <AssemblyName>IwAutoUpdater.DAL.ExternalCommands.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,17 +51,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DirectoryTest.cs" />
-    <Compile Include="SingleFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LocalFiles.Contracts\LocalFiles.Contracts.csproj">
-      <Project>{b35169c2-c480-494c-adc9-bea1b193d84e}</Project>
-      <Name>LocalFiles.Contracts</Name>
+    <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
+      <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>
+      <Name>ExternalCommands.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LocalFiles\LocalFiles.csproj">
-      <Project>{1bd42b33-a93a-49ca-a997-609322d513d9}</Project>
-      <Name>LocalFiles</Name>
+    <ProjectReference Include="..\ExternalCommands\ExternalCommands.csproj">
+      <Project>{2b4d64bf-792c-457b-9bb9-c77b0b2e430f}</Project>
+      <Name>ExternalCommands</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

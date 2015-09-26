@@ -45,8 +45,8 @@
     <Compile Include="CommandMock.cs" />
     <Compile Include="ConfigurationConverterMock.cs" />
     <Compile Include="ConfigurationFileAccessMock.cs" />
-    <Compile Include="DatabaseScriptMock.cs" />
     <Compile Include="DirectoryMock.cs" />
+    <Compile Include="RunExternalCommandMock.cs" />
     <Compile Include="LoggerMock.cs" />
     <Compile Include="NotificationReceiverFactoryMock.cs" />
     <Compile Include="NotificationReceiverMock.cs" />
@@ -70,6 +70,10 @@
     <ProjectReference Include="..\Configuration.Contracts\Configuration.Contracts.csproj">
       <Project>{1a58f82c-2d06-4d23-a39f-2e871e69dcff}</Project>
       <Name>Configuration.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
+      <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>
+      <Name>ExternalCommands.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\LocalFiles.Contracts\LocalFiles.Contracts.csproj">
       <Project>{b35169c2-c480-494c-adc9-bea1b193d84e}</Project>

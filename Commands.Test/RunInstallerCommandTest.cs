@@ -1,4 +1,5 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
 using System;
@@ -23,6 +24,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         UpdatePackageMock _updatePackageMock;
         UpdatePackageAccessMock _updatePackageAccessMock;
         LoggerMock _loggerMock;
+        RunExternalCommandMock _runExternalCommandMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -41,12 +43,14 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _loggerMock = new LoggerMock();
 
+            _runExternalCommandMock = new RunExternalCommandMock();
+
             TryDeleteFile();
 
             Directory.CreateDirectory(_updatePackageMock.PackageName);
             File.Copy(_installerCommand, Path.Combine(_updatePackageMock.PackageName, _installerCommand));
 
-            _runInstallerCommand = new RunInstallerCommand(_installerCommand, _installerCommandArguments, _workFolder, _updatePackageMock, _loggerMock);
+            _runInstallerCommand = new RunInstallerCommand(_installerCommand, _installerCommandArguments, _workFolder, _updatePackageMock, _runExternalCommandMock, _loggerMock);
         }
 
         [TestCleanup]
@@ -72,6 +76,12 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestMethod]
         public void RunInstallerCommandTest_RunExternalCommand()
         {
+            _runExternalCommandMock.Run = new ExternalCommandResult()
+            {
+                ExitCode = 0,
+                RecordedStandardOutput = "abc testtest\r\n"
+            };
+
             var actual = _runInstallerCommand.Do(_commandResult);
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
@@ -79,6 +89,8 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             Assert.AreEqual(1, _updatePackageAccessMock.GetFilenameOnlyCalls);
             Assert.AreEqual(1, _loggerMock.InfoMessageCalled);
+            Assert.AreEqual(1, _runExternalCommandMock.RunCalled);
+
             Assert.AreEqual("abc testtest\r\n", _loggerMock.InfoMessages.First());
         }
     }

@@ -13,7 +13,8 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public string InstallerCommand;
         public string InstallerCommandArguments;
 
-        public string DatabaseUpdateConnectionString;
-        public string DatabaseScriptSubfolder;
+        public string DatabaseUpdaterCommand;
+        public string DatabaseUpdaterCommandArguments;
+        public string ConnectionString;
     }
 }

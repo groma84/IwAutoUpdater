@@ -20,8 +20,9 @@
       "skipDatabaseUpdate": "false",
       "installerCommand": "install-stuff.bat",
       "installerCommandArguments": "fromA toB",
-      "databaseUpdateConnectionString": "Server=x;Initial Catalog=y;",
-      "databaseScriptSubfolder": "/DBUpdater/DDLs/"
+      "databaseUpdaterCommand": "update-db.exe",
+      "databaseUpdaterCommandArguments": "--cs='<<connectionString>>'",
+      "connectionString": "Server=myServerAddress;Database=myDataBase;Integrated Security=true;"
     }
   ]
 }

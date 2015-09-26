@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SimpleInjector">
-      <HintPath>..\External Libraries\SimpleInjector\SimpleInjector.dll</HintPath>
+      <HintPath>..\3rdParty\SimpleInjector\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +49,7 @@
     <Compile Include="CrossCutting\ConfigurationMappings.cs" />
     <Compile Include="CrossCutting\LoggingMappings.cs" />
     <Compile Include="CrossCutting\SFWMappings.cs" />
+    <Compile Include="DAL\ExternalCommandsMapping.cs" />
     <Compile Include="DAL\NotificationsMappings.cs" />
     <Compile Include="DAL\LocalFilesMapping.cs" />
     <Compile Include="DAL\UpdatesMappings.cs" />
@@ -79,6 +80,14 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{785b531a-1d2a-4dc0-8510-d22aa570894c}</Project>
       <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
+      <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>
+      <Name>ExternalCommands.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalCommands\ExternalCommands.csproj">
+      <Project>{2b4d64bf-792c-457b-9bb9-c77b0b2e430f}</Project>
+      <Name>ExternalCommands</Name>
     </ProjectReference>
     <ProjectReference Include="..\LocalFiles.Contracts\LocalFiles.Contracts.csproj">
       <Project>{b35169c2-c480-494c-adc9-bea1b193d84e}</Project>

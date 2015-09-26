@@ -66,6 +66,10 @@
       <Project>{516ddbb9-8e42-4280-8514-e446a831181f}</Project>
       <Name>Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
+      <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>
+      <Name>ExternalCommands.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LocalFiles.Contracts\LocalFiles.Contracts.csproj">
       <Project>{b35169c2-c480-494c-adc9-bea1b193d84e}</Project>
       <Name>LocalFiles.Contracts</Name>

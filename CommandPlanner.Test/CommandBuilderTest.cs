@@ -23,11 +23,11 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         NotificationReceiverMock _mockMailReceiver = new NotificationReceiverMock();
         LoggerMock _loggerMock;
         DirectoryMock _directoryMock;
+        RunExternalCommandMock _runExternalCommandMock;
 
         static string _workFolder = @"C:\zork\";
         static string _fileName = "zork.zip";
         string _fullPath = Path.Combine(_workFolder, _fileName);
-        private DatabaseScriptMock _databaseScript;
 
         [TestInitialize]
         public void TestInitialize()
@@ -39,16 +39,16 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             _updatePackageMock = new UpdatePackageMock() { Access = _updatePackageAccessMock };
             _updatePackageMock.Settings = new ServerSettings()
             {
-                DatabaseScriptSubfolder = "ddl",
-                DatabaseUpdateConnectionString = "connectionString"
+                DatabaseUpdaterCommandArguments = "ddl",
+                DatabaseUpdaterCommand = "connectionString"
             };
 
             _singleFileMock = new SingleFileMock();
             _loggerMock = new LoggerMock();
             _directoryMock = new DirectoryMock();
-            _databaseScript = new DatabaseScriptMock();
+            _runExternalCommandMock = new RunExternalCommandMock();
 
-            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _databaseScript);
+            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock);
         }
 
         [TestCleanup]
@@ -83,7 +83,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(RunInstallerCommand), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(UpdateInterWattDatabase), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(UpdateDatabase), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
             Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B35169C2-C480-494C-ADC9-BEA1B193D84E}</ProjectGuid>
+    <ProjectGuid>{D39CF5D6-26D3-4851-8E11-D560B7A517B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IwAutoUpdater.DAL.LocalFiles.Contracts</RootNamespace>
-    <AssemblyName>IwAutoUpdater.DAL.LocalFiles.Contracts</AssemblyName>
+    <RootNamespace>IwAutoUpdater.DAL.ExternalCommands.Contracts</RootNamespace>
+    <AssemblyName>IwAutoUpdater.DAL.ExternalCommands.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDirectory.cs" />
-    <Compile Include="ISingleFile.cs" />
+    <Compile Include="ExternalCommandResult.cs" />
+    <Compile Include="IRunExternalCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

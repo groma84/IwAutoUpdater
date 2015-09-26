@@ -43,6 +43,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GetDataMethod.cs" />
     <Compile Include="MessageReceiverType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

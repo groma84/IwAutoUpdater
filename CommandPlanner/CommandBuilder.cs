@@ -10,22 +10,23 @@ using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.BLL.Commands;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
     public class CommandBuilder : ICommandBuilder
     {
-        private readonly IDatabaseScript _databaseScript;
+        private readonly IRunExternalCommand _runExternalCommand;
         private readonly IDirectory _directory;
         private readonly ILogger _logger;
         private readonly ISingleFile _singleFile;
 
-        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IDatabaseScript databaseScript)
+        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand)
         {
             _singleFile = singleFile;
             _logger = logger;
             _directory = directory;
-            _databaseScript = databaseScript;
+            _runExternalCommand = runExternalCommand;
         }
 
         IEnumerable<Command> ICommandBuilder.GetCommands(string workFolder, IEnumerable<IUpdatePackage> updatePackages, IEnumerable<INotificationReceiver> notificationReceivers)
@@ -49,16 +50,18 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                 if (!package.Settings.DownloadOnly)
                 {
-                    var runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder, 
-                        package, _logger);
+                    var runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder,
+                        package, _runExternalCommand, _logger);
 
                     unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
                     finalCommand = runInstallerCommand;
 
                     if (!package.Settings.SkipDatabaseUpdate)
                     {
-                        var updateDatabase = new UpdateInterWattDatabase(package.Settings.DatabaseUpdateConnectionString, package.Settings.DatabaseScriptSubfolder, workFolder,
-                            package, _directory, _databaseScript);
+                        var updateDatabase = new UpdateDatabase(
+                            package.Settings.DatabaseUpdaterCommand, package.Settings.DatabaseUpdaterCommandArguments, package.Settings.ConnectionString,
+                            workFolder,
+                            package, _runExternalCommand, _logger);
 
                         runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
                         finalCommand = updateDatabase;

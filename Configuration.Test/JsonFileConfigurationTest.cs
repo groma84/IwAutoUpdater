@@ -64,8 +64,9 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                               'skipDatabaseUpdate': 'false',
                               'installerCommand': 'install-stuff.bat',
                               'installerCommandArguments':  'fromA toB',
-                              'databaseUpdateConnectionString': 'Server = x; Initial Catalog = y;',
-                                'databaseScriptSubfolder': '/DBUpdater/DDLs/'
+                              'databaseUpdaterCommand': 'update-db.exe',
+                              'databaseUpdaterCommandArguments': '--cs=""<<connectionString>>""',
+                              'connectionString': 'Server=myServerAddress;Database=myDataBase;Integrated Security=true;'
                             }
                           ]
                         }";
@@ -104,8 +105,9 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                         Type = Base.GetDataMethod.LocalFile,
                         InstallerCommand = "install-stuff.bat",
                         InstallerCommandArguments = "fromA toB",
-                        DatabaseUpdateConnectionString = "Server = x; Initial Catalog = y;",
-                        DatabaseScriptSubfolder = @"/DBUpdater/DDLs/",
+                        DatabaseUpdaterCommand = "update-db.exe",
+                        DatabaseUpdaterCommandArguments = @"--cs=""<<connectionString>>""",
+                        ConnectionString = "Server=myServerAddress;Database=myDataBase;Integrated Security=true;"
                     }
                 }
             };
@@ -126,8 +128,10 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             Assert.AreEqual(expected.Servers.ElementAt(0).SkipDatabaseUpdate, actual.Servers.ElementAt(0).SkipDatabaseUpdate);
             Assert.AreEqual(expected.Servers.ElementAt(0).InstallerCommand, actual.Servers.ElementAt(0).InstallerCommand);
             Assert.AreEqual(expected.Servers.ElementAt(0).InstallerCommandArguments, actual.Servers.ElementAt(0).InstallerCommandArguments);
-            Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseUpdateConnectionString, actual.Servers.ElementAt(0).DatabaseUpdateConnectionString);
-            Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseScriptSubfolder, actual.Servers.ElementAt(0).DatabaseScriptSubfolder);
+
+            Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseUpdaterCommand, actual.Servers.ElementAt(0).DatabaseUpdaterCommand);
+            Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseUpdaterCommandArguments, actual.Servers.ElementAt(0).DatabaseUpdaterCommandArguments);
+            Assert.AreEqual(expected.Servers.ElementAt(0).ConnectionString, actual.Servers.ElementAt(0).ConnectionString);
         }
     }
 }

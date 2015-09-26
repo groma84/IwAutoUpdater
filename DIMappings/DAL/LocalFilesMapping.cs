@@ -16,7 +16,6 @@ namespace IwAutoUpdater.DIMappings.DAL
         {
             container.RegisterSingle<ISingleFile, SingleFile>();
             container.RegisterSingle<IDirectory, Directory>();
-            container.RegisterSingle<IDatabaseScript, IwAutoUpdater.DAL.LocalFiles.DatabaseScript>();
         }
     }
 }
