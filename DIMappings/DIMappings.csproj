@@ -49,6 +49,7 @@
     <Compile Include="CrossCutting\ConfigurationMappings.cs" />
     <Compile Include="CrossCutting\LoggingMappings.cs" />
     <Compile Include="CrossCutting\SFWMappings.cs" />
+    <Compile Include="DAL\WebAccessMappings.cs" />
     <Compile Include="DAL\ExternalCommandsMapping.cs" />
     <Compile Include="DAL\NotificationsMappings.cs" />
     <Compile Include="DAL\LocalFilesMapping.cs" />
@@ -128,6 +129,14 @@
     <ProjectReference Include="..\Updates\Updates.csproj">
       <Project>{b42fc4fb-f16c-4ef8-8259-493ebf09d73c}</Project>
       <Name>Updates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAccess.Contracts\WebAccess.Contracts.csproj">
+      <Project>{6a31f43e-1857-44a5-871e-088571424b50}</Project>
+      <Name>WebAccess.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAccess\WebAccess.csproj">
+      <Project>{6d67e93a-f654-41f0-b405-be053613f266}</Project>
+      <Name>WebAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

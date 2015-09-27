@@ -66,7 +66,13 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                               'installerCommandArguments':  'fromA toB',
                               'databaseUpdaterCommand': 'update-db.exe',
                               'databaseUpdaterCommandArguments': '--cs=""<<connectionString>>""',
-                              'connectionString': 'Server=myServerAddress;Database=myDataBase;Integrated Security=true;'
+                              'connectionString': 'Server=myServerAddress;Database=myDataBase;Integrated Security=true;',
+                                'checkUrlsAfterInstallation': [
+                                        'http://www.firsturl.de', 'https://localnetwork:7000/'
+                                        ],
+                                'checkUrlProxyAddress': 'http://proxy:8080/',
+                                'checkUrlProxyUsername':  'user',
+                                'checkUrlProxyPassword':  'pw'
                             }
                           ]
                         }";
@@ -107,7 +113,11 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                         InstallerCommandArguments = "fromA toB",
                         DatabaseUpdaterCommand = "update-db.exe",
                         DatabaseUpdaterCommandArguments = @"--cs=""<<connectionString>>""",
-                        ConnectionString = "Server=myServerAddress;Database=myDataBase;Integrated Security=true;"
+                        ConnectionString = "Server=myServerAddress;Database=myDataBase;Integrated Security=true;",
+                        CheckUrlsAfterInstallation = new[] { "http://www.firsturl.de", "https://localnetwork:7000/" },
+                        CheckUrlProxyAddress = "http://proxy:8080/",
+                        CheckUrlProxyPassword = "pw",
+                        CheckUrlProxyUsername = "user",
                     }
                 }
             };
@@ -132,6 +142,11 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseUpdaterCommand, actual.Servers.ElementAt(0).DatabaseUpdaterCommand);
             Assert.AreEqual(expected.Servers.ElementAt(0).DatabaseUpdaterCommandArguments, actual.Servers.ElementAt(0).DatabaseUpdaterCommandArguments);
             Assert.AreEqual(expected.Servers.ElementAt(0).ConnectionString, actual.Servers.ElementAt(0).ConnectionString);
+
+            Assert.IsTrue(expected.Servers.ElementAt(0).CheckUrlsAfterInstallation.SequenceEqual(actual.Servers.ElementAt(0).CheckUrlsAfterInstallation));
+            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyAddress, actual.Servers.ElementAt(0).CheckUrlProxyAddress);
+            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyPassword, actual.Servers.ElementAt(0).CheckUrlProxyPassword);
+            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyUsername, actual.Servers.ElementAt(0).CheckUrlProxyUsername);
         }
     }
 }

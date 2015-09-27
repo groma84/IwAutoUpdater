@@ -18,6 +18,11 @@ namespace IwAutoUpdater.DAL.WebAccess
 
         HtmlDownload IHtmlGetter.DownloadHtml(string url, ProxySettings proxySettings)
         {
+            if (proxySettings == null)
+            {
+                return Download(url);
+            }
+
             Action<WebClient> proxySettingsSetter = ((webClient) =>
             {
                 webClient.Proxy = new WebProxy(proxySettings.Address);

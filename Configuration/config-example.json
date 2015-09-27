@@ -22,7 +22,14 @@
       "installerCommandArguments": "fromA toB",
       "databaseUpdaterCommand": "update-db.exe",
       "databaseUpdaterCommandArguments": "--cs='<<connectionString>>'",
-      "connectionString": "Server=myServerAddress;Database=myDataBase;Integrated Security=true;"
+      "connectionString": "Server=myServerAddress;Database=myDataBase;Integrated Security=true;",
+      "checkUrlsAfterInstallation": [
+        "http://www.firsturl.de",
+        "https://localnetwork:7000/"
+      ],
+      "checkUrlProxyAddress": "http://proxy:8080/",
+      "checkUrlProxyUsername":  "user",
+      "checkUrlProxyPassword":  "pw"
     }
   ]
-}
+}       

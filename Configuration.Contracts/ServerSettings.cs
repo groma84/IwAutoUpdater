@@ -1,4 +1,5 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
+using System.Collections.Generic;
 
 namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
 {
@@ -16,5 +17,10 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public string DatabaseUpdaterCommand;
         public string DatabaseUpdaterCommandArguments;
         public string ConnectionString;
+
+        public IEnumerable<string> CheckUrlsAfterInstallation;
+        public string CheckUrlProxyAddress;
+        public string CheckUrlProxyUsername;
+        public string CheckUrlProxyPassword;
     }
 }

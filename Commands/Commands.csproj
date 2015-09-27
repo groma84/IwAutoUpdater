@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckIfNewer.cs" />
+    <Compile Include="CheckUrlHttpStatusIs200.cs" />
     <Compile Include="CleanupOldUnpackedFiles.cs" />
     <Compile Include="GetFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\Updates.Contracts\Updates.Contracts.csproj">
       <Project>{1192ae56-9f3f-4247-87b5-dbccac6ff651}</Project>
       <Name>Updates.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebAccess.Contracts\WebAccess.Contracts.csproj">
+      <Project>{6a31f43e-1857-44a5-871e-088571424b50}</Project>
+      <Name>WebAccess.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

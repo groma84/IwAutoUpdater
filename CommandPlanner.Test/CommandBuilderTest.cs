@@ -24,6 +24,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         LoggerMock _loggerMock;
         DirectoryMock _directoryMock;
         RunExternalCommandMock _runExternalCommandMock;
+        HtmlGetterMock _htmlGetterMock;
 
         static string _workFolder = @"C:\zork\";
         static string _fileName = "zork.zip";
@@ -40,15 +41,17 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             _updatePackageMock.Settings = new ServerSettings()
             {
                 DatabaseUpdaterCommandArguments = "ddl",
-                DatabaseUpdaterCommand = "connectionString"
+                DatabaseUpdaterCommand = "connectionString",
+                CheckUrlsAfterInstallation = new[] { "fakeCheckUrl1", "fakeCheckUrl2" },
             };
 
             _singleFileMock = new SingleFileMock();
             _loggerMock = new LoggerMock();
             _directoryMock = new DirectoryMock();
             _runExternalCommandMock = new RunExternalCommandMock();
+            _htmlGetterMock = new HtmlGetterMock();
 
-            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock);
+            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock, _htmlGetterMock);
         }
 
         [TestCleanup]
@@ -85,8 +88,14 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(UpdateDatabase), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
+            // zwei zu prüfende Urls -> zweimal das Command drin
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
             // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
         [TestMethod]
@@ -108,7 +117,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(UnzipFile), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
-            // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
+            // "immer wenn wir die Default-Queue ändern, muss der Test angepasst werden"
             Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
@@ -133,8 +142,43 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(RunInstallerCommand), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
+            // zwei zu prüfende Urls -> zweimal das Command drin
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            // "immer wenn wir die Default-Queue ändern, muss der Test angepasst werden"
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+        }
+
+        [TestMethod]
+        public void CommandBuilderTest_GetCommands_OneServerAndOneReceiver_KeineZuPruefendenUrls()
+        {
+            _updatePackageMock.Settings.CheckUrlsAfterInstallation = new string[0];
+
+            var actual = _commandBuilder.GetCommands(_workFolder, new[] { _updatePackageMock }, new[] { _mockMailReceiver }).ToArray();
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(1, actual.Length);
+            Assert.AreEqual(typeof(CheckIfNewer), actual[0].GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(GetFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(CleanupOldUnpackedFiles), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(UnzipFile), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(RunInstallerCommand), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(UpdateDatabase), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+          
             // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
     }
 }

@@ -11,6 +11,7 @@ using IwAutoUpdater.BLL.Commands;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
@@ -20,13 +21,15 @@ namespace IwAutoUpdater.BLL.CommandPlanner
         private readonly IDirectory _directory;
         private readonly ILogger _logger;
         private readonly ISingleFile _singleFile;
+        private readonly IHtmlGetter _htmlGetter;
 
-        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand)
+        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter)
         {
             _singleFile = singleFile;
             _logger = logger;
             _directory = directory;
             _runExternalCommand = runExternalCommand;
+            _htmlGetter = htmlGetter;
         }
 
         IEnumerable<Command> ICommandBuilder.GetCommands(string workFolder, IEnumerable<IUpdatePackage> updatePackages, IEnumerable<INotificationReceiver> notificationReceivers)
@@ -65,6 +68,29 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                         runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
                         finalCommand = updateDatabase;
+                    }
+
+                    if (package.Settings.CheckUrlsAfterInstallation != null)
+                    {
+                        ProxySettings proxySettings = null;
+                        if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxyAddress))
+                        {
+                            proxySettings = new ProxySettings();
+                            proxySettings.Address = package.Settings.CheckUrlProxyAddress;
+
+                            if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxyPassword) && !String.IsNullOrEmpty(package.Settings.CheckUrlProxyUsername))
+                            {
+                                proxySettings.Username = package.Settings.CheckUrlProxyUsername;
+                                proxySettings.Password = package.Settings.CheckUrlProxyPassword;
+                            }
+                        }
+
+                        foreach (var url in package.Settings.CheckUrlsAfterInstallation)
+                        {
+                            var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, proxySettings);
+                            finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
+                            finalCommand = checkUrlHttpStatusIs200;
+                        }
                     }
                 }
 

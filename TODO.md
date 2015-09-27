@@ -1,9 +1,9 @@
 # TODO
 ## NEXT
-- Command, das eine HTTP Verbindung aufbaut zu einer URL und den Status 200 als True nimmt, und alle anderen abweichenden Codes als "Fehler, Response als Fehlermeldung rausgeben"
-    - HtmlGetter-Test schreiben
-    - HtmlGetter-Implementierung in DI registrieren
-    - Command mit HtmlGetter umsetzen
+- E-Mail Versand via Command (Success und Failed)
+    - DAL-Schnittstelle erstellen    
+    - DAL-Schnittstelle im DI registrieren
+    - Command mit Schnittstelle implementieren
     - Test für Command schreiben
     - Command in Config berücksichtigen
     - Config-Test anpassen
@@ -15,9 +15,9 @@
 ## FEATURES (unsortiert)
 
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
-  -> Achtung, Parser und Test auch erweitern!
+    - Achtung, Parser und Test auch erweitern!
+    - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
 
-- E-Mail Versand via Command (Success und Failed)
 
 
 ## DONE
@@ -28,3 +28,5 @@
 - Auswertung Config-Parameter (pro Server): DownloadOnly und SkipDatabaseUpdate
 - Command: UpdateInterWattDatabase #1: Datenbankskripte *.DDL aus dem angegebenen Ordner raussuchen und nach Version aufsteigend sortiert zurückgeben
 - UpdateInterWattDatabase rückbauen, stattdessen externes DBUpdater Command einbinden (analog Installer-Programm)
+- Command, das eine HTTP Verbindung aufbaut zu einer URL und den Status 200 als True nimmt, und alle anderen abweichenden Codes als "Fehler, Response als Fehlermeldung rausgeben"
+ 
