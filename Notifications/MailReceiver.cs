@@ -10,10 +10,10 @@ namespace IwAutoUpdater.DAL.Notifications
 {
     public class MailReceiver : INotificationReceiver
     {
-        private readonly EMailSettings _mailSettings;
+        private readonly AddressUsernamePassword _mailSettings;
         private readonly string _address;
 
-        public MailReceiver(string address, EMailSettings mailSettings)
+        public MailReceiver(string address, AddressUsernamePassword mailSettings)
         {
             _address = address;
             _mailSettings = mailSettings;

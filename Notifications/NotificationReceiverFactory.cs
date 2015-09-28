@@ -10,7 +10,7 @@ namespace IwAutoUpdater.DAL.Notifications
 {
     public class NotificationReceiverFactory : INotificationReceiverFactory
     {
-        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, EMailSettings mailSettings)
+        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, AddressUsernamePassword mailSettings)
         {
             return new MailReceiver(receiverMailAddress, mailSettings);
 

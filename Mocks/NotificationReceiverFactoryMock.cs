@@ -9,7 +9,7 @@ namespace Mocks
     {
         public Dictionary<string, INotificationReceiver> CreateMailReceiver = new Dictionary<string, INotificationReceiver>();
         public int CreateMailReceiverCalled = 0;
-        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, EMailSettings mailSettings)
+        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, AddressUsernamePassword mailSettings)
         {
             ++CreateMailReceiverCalled;
             return CreateMailReceiver[receiverMailAddress];

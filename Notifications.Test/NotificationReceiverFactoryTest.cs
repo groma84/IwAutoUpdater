@@ -15,7 +15,7 @@ namespace IwAutoUpdater.DAL.Notifications.Test
         private INotificationReceiverFactory _notificationReceiverFactory;
 
         string _receiver = "testi@testi.de";
-        EMailSettings _eMailSettings = new EMailSettings();
+        AddressUsernamePassword _eMailSettings = new AddressUsernamePassword();
 
         [TestInitialize]
         public void TestInitialize()

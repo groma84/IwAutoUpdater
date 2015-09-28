@@ -4,9 +4,13 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
 {
     public class GlobalSettings
     {
-        public EMailSettings EMailSettings;
+        public string EMailSenderName;
+        public AddressUsernamePassword EMailSettings;
+        public string EMailPickupDirectory;
+
         public string WorkFolder;
         public int CheckIntervalMinutes;
+
         public IEnumerable<MessageReceiver> ResultMessageReceivers;
     }
 }

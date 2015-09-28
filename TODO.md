@@ -1,18 +1,16 @@
 # TODO
 ## NEXT
 - E-Mail Versand via Command (Success und Failed)
-    - DAL-Schnittstelle erstellen    
     - DAL-Schnittstelle im DI registrieren
     - Command mit Schnittstelle implementieren
     - Test für Command schreiben
-    - Command in Config berücksichtigen
-    - Config-Test anpassen
     - CommandBuilder um neues Command erweitern
     - CommandBuilder-Test anpassen
 
 ## BUGS
 
 ## FEATURES (unsortiert)
+
 
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
@@ -29,4 +27,10 @@
 - Command: UpdateInterWattDatabase #1: Datenbankskripte *.DDL aus dem angegebenen Ordner raussuchen und nach Version aufsteigend sortiert zurückgeben
 - UpdateInterWattDatabase rückbauen, stattdessen externes DBUpdater Command einbinden (analog Installer-Programm)
 - Command, das eine HTTP Verbindung aufbaut zu einer URL und den Status 200 als True nimmt, und alle anderen abweichenden Codes als "Fehler, Response als Fehlermeldung rausgeben"
- 
+- ProxySettings und E-Mail-Server-Settings zusammenführen in AddressUsernamePassword-Klasse
+- E-Mail Versand via Command (Success und Failed)
+    - Command in Config berücksichtigen
+    - Config-Test anpassen
+    - DAL-Schnittstelle erstellen    
+        - SMTP-Server-Connection
+        - MailPickupDirectory

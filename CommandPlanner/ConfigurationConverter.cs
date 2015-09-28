@@ -22,7 +22,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
             _notificationReceiverFactory = notificationReceiverFactory;
         }
 
-        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, EMailSettings mailSettings)
+        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, AddressUsernamePassword mailSettings)
         {
             return receivers.Select(receiver =>
             {

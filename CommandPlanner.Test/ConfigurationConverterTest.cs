@@ -21,7 +21,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
 
         string _path = @"C:\zonk\bonk.zip";
         UpdatePackageAccessMock _mockPackageAccess = new UpdatePackageAccessMock();
-        EMailSettings _mailSettings = new EMailSettings();
+        AddressUsernamePassword _mailSettings = new AddressUsernamePassword();
         string _mailAddress = @"Testi@testi.de";
         NotificationReceiverMock _mockMailReceiver = new NotificationReceiverMock();
 

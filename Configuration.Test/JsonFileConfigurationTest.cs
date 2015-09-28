@@ -43,10 +43,12 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             var content = @"{
                           'global': {
                             'eMailSettings': {
-                                        'Server': 'smtp.mailserver.com',
-                              'Username': 'mailUser',
-                              'Password': 'superSecure'
+                                'address': 'smtp.mailserver.com',
+                              'username': 'mailUser',
+                              'password': 'superSecure'
                             },
+                            'eMailPickupDirectory': 'C:\\Mails\\Pickup\\',
+                            'eMailSenderName': 'iwau@wow.com',
                             'workFolder': 'C:\\Temp\\IwAutoUpdater\\',
                             'checkIntervalMinutes': 15,
                             'resultMessageReceivers': [
@@ -70,9 +72,11 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                                 'checkUrlsAfterInstallation': [
                                         'http://www.firsturl.de', 'https://localnetwork:7000/'
                                         ],
-                                'checkUrlProxyAddress': 'http://proxy:8080/',
-                                'checkUrlProxyUsername':  'user',
-                                'checkUrlProxyPassword':  'pw'
+                                'checkUrlProxySettings': {
+                                    'address': 'http://proxy:8080/',
+                                    'username':  'user',
+                                    'password':  'pw'
+                                }
                             }
                           ]
                         }";
@@ -85,12 +89,14 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                 Global = new GlobalSettings()
                 {
                     CheckIntervalMinutes = 15,
-                    EMailSettings = new EMailSettings()
+                    EMailSettings = new AddressUsernamePassword()
                     {
                         Password = "superSecure",
-                        Server = "smtp.mailserver.com",
+                        Address = "smtp.mailserver.com",
                         Username = "mailUser"
                     },
+                    EMailPickupDirectory = "C:\\Mails\\Pickup\\",
+                    EMailSenderName = "iwau@wow.com",
                     ResultMessageReceivers = new MessageReceiver[]
                     {
                         new MessageReceiver()
@@ -115,9 +121,12 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                         DatabaseUpdaterCommandArguments = @"--cs=""<<connectionString>>""",
                         ConnectionString = "Server=myServerAddress;Database=myDataBase;Integrated Security=true;",
                         CheckUrlsAfterInstallation = new[] { "http://www.firsturl.de", "https://localnetwork:7000/" },
-                        CheckUrlProxyAddress = "http://proxy:8080/",
-                        CheckUrlProxyPassword = "pw",
-                        CheckUrlProxyUsername = "user",
+                        CheckUrlProxySettings = new AddressUsernamePassword()
+                        {
+                            Address = "http://proxy:8080/",
+                            Password = "pw",
+                            Username = "user"
+                        },
                     }
                 }
             };
@@ -125,17 +134,23 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             Assert.IsNotNull(actual);
 
             Assert.AreEqual(expected.Global.CheckIntervalMinutes, actual.Global.CheckIntervalMinutes);
+
             Assert.AreEqual(expected.Global.EMailSettings.Password, actual.Global.EMailSettings.Password);
-            Assert.AreEqual(expected.Global.EMailSettings.Server, actual.Global.EMailSettings.Server);
+            Assert.AreEqual(expected.Global.EMailSettings.Address, actual.Global.EMailSettings.Address);
             Assert.AreEqual(expected.Global.EMailSettings.Username, actual.Global.EMailSettings.Username);
+            Assert.AreEqual(expected.Global.EMailPickupDirectory, actual.Global.EMailPickupDirectory);
+            Assert.AreEqual(expected.Global.EMailSenderName, actual.Global.EMailSenderName);
+
             Assert.AreEqual(expected.Global.ResultMessageReceivers.ElementAt(0).Receiver, actual.Global.ResultMessageReceivers.ElementAt(0).Receiver);
             Assert.AreEqual(expected.Global.ResultMessageReceivers.ElementAt(0).Type, actual.Global.ResultMessageReceivers.ElementAt(0).Type);
+
             Assert.AreEqual(expected.Global.WorkFolder, actual.Global.WorkFolder);
 
             Assert.AreEqual(expected.Servers.ElementAt(0).Path, actual.Servers.ElementAt(0).Path);
             Assert.AreEqual(expected.Servers.ElementAt(0).Type, actual.Servers.ElementAt(0).Type);
             Assert.AreEqual(expected.Servers.ElementAt(0).DownloadOnly, actual.Servers.ElementAt(0).DownloadOnly);
             Assert.AreEqual(expected.Servers.ElementAt(0).SkipDatabaseUpdate, actual.Servers.ElementAt(0).SkipDatabaseUpdate);
+
             Assert.AreEqual(expected.Servers.ElementAt(0).InstallerCommand, actual.Servers.ElementAt(0).InstallerCommand);
             Assert.AreEqual(expected.Servers.ElementAt(0).InstallerCommandArguments, actual.Servers.ElementAt(0).InstallerCommandArguments);
 
@@ -144,9 +159,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             Assert.AreEqual(expected.Servers.ElementAt(0).ConnectionString, actual.Servers.ElementAt(0).ConnectionString);
 
             Assert.IsTrue(expected.Servers.ElementAt(0).CheckUrlsAfterInstallation.SequenceEqual(actual.Servers.ElementAt(0).CheckUrlsAfterInstallation));
-            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyAddress, actual.Servers.ElementAt(0).CheckUrlProxyAddress);
-            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyPassword, actual.Servers.ElementAt(0).CheckUrlProxyPassword);
-            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxyUsername, actual.Servers.ElementAt(0).CheckUrlProxyUsername);
+            Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxySettings, actual.Servers.ElementAt(0).CheckUrlProxySettings);
         }
     }
 }

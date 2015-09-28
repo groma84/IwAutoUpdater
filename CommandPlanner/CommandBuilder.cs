@@ -73,15 +73,15 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                     if (package.Settings.CheckUrlsAfterInstallation != null)
                     {
                         ProxySettings proxySettings = null;
-                        if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxyAddress))
+                        if (package.Settings.CheckUrlProxySettings != null)
                         {
                             proxySettings = new ProxySettings();
-                            proxySettings.Address = package.Settings.CheckUrlProxyAddress;
+                            proxySettings.Address = package.Settings.CheckUrlProxySettings.Address;
 
-                            if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxyPassword) && !String.IsNullOrEmpty(package.Settings.CheckUrlProxyUsername))
+                            if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Password) && !String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Username))
                             {
-                                proxySettings.Username = package.Settings.CheckUrlProxyUsername;
-                                proxySettings.Password = package.Settings.CheckUrlProxyPassword;
+                                proxySettings.Username = package.Settings.CheckUrlProxySettings.Username;
+                                proxySettings.Password = package.Settings.CheckUrlProxySettings.Password;
                             }
                         }
 

@@ -9,6 +9,6 @@ namespace IwAutoUpdater.DAL.Notifications.Contracts
 {
     public interface INotificationReceiverFactory
     {
-        INotificationReceiver CreateMailReceiver(string receiverMailAddress, EMailSettings mailSettings);
+        INotificationReceiver CreateMailReceiver(string receiverMailAddress, AddressUsernamePassword mailSettings);
     }
 }

@@ -19,8 +19,8 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public string ConnectionString;
 
         public IEnumerable<string> CheckUrlsAfterInstallation;
-        public string CheckUrlProxyAddress;
-        public string CheckUrlProxyUsername;
-        public string CheckUrlProxyPassword;
+        public AddressUsernamePassword CheckUrlProxySettings;
+
+        public AddressUsernamePassword EMailServer;
     }
 }
