@@ -1,17 +1,17 @@
 # TODO
 ## NEXT
 - E-Mail Versand via Command (Success und Failed)
-    - DAL-Schnittstelle im DI registrieren
-    - Command mit Schnittstelle implementieren
     - Test für Command schreiben
-    - CommandBuilder um neues Command erweitern
     - CommandBuilder-Test anpassen
+- v1 
+    - taggen
+    - deployen
+    - testen
 
 ## BUGS
 
 ## FEATURES (unsortiert)
-
-
+###v2
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
@@ -19,6 +19,7 @@
 
 
 ## DONE
+###v1
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette
 - Command: CleanupOldUnpackedFiles
 - Command: RunInstallerCommand
@@ -34,3 +35,6 @@
     - DAL-Schnittstelle erstellen    
         - SMTP-Server-Connection
         - MailPickupDirectory
+    - DAL-Schnittstelle im DI registrieren
+    - Command mit Schnittstelle implementieren
+    - CommandBuilder um neues Command erweitern

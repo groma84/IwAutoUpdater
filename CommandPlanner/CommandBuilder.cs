@@ -12,24 +12,27 @@ using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
+using IwAutoUpdater.CrossCutting.SFW.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
     public class CommandBuilder : ICommandBuilder
     {
+        private readonly INowGetter _nowGetter;
         private readonly IRunExternalCommand _runExternalCommand;
         private readonly IDirectory _directory;
         private readonly ILogger _logger;
         private readonly ISingleFile _singleFile;
         private readonly IHtmlGetter _htmlGetter;
 
-        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter)
+        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter, INowGetter nowGetter)
         {
             _singleFile = singleFile;
             _logger = logger;
             _directory = directory;
             _runExternalCommand = runExternalCommand;
             _htmlGetter = htmlGetter;
+            _nowGetter = nowGetter;
         }
 
         IEnumerable<Command> ICommandBuilder.GetCommands(string workFolder, IEnumerable<IUpdatePackage> updatePackages, IEnumerable<INotificationReceiver> notificationReceivers)
@@ -94,8 +97,11 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                     }
                 }
 
-                // TODO: Abschließende Nachrichten verschicken (anhängen immer an finalCommand)
-
+                // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
+                var notificationText = BuildNotificationText(package);
+                var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
+                finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
+                finalCommand = sendNotifications;
 
                 // TODO: Command Kette über DoOnTrue (fortschreiten) DoOnFalse (fehlernachricht schicken) bauen
 
@@ -103,6 +109,21 @@ namespace IwAutoUpdater.BLL.CommandPlanner
             }
 
             return commands;
+        }
+
+        private class NotificationText
+        {
+            public string Subject;
+            public string Message;
+        }
+
+        private NotificationText BuildNotificationText(IUpdatePackage package)
+        {
+            return new NotificationText()
+            {
+                Subject = $"Server {package.PackageName} wurde am {_nowGetter.Now} aktualisiert",
+                Message = $"Server {package.PackageName} wurde am {_nowGetter.Now} automatisch aktualisiert"
+            };
         }
     }
 }

@@ -33,7 +33,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
         Task IAutoUpdaterCommandCreator.NeverendingCreationLoop(Settings settings)
         {
             var servers = _configurationConverter.ConvertServers(settings.Servers);
-            var messageReceivers = _configurationConverter.ConvertMessageReceivers(settings.Global.ResultMessageReceivers, settings.Global.EMailSettings);
+            var messageReceivers = _configurationConverter.ConvertMessageReceivers(settings.Global.ResultMessageReceivers, settings.Global.EMailSettings, settings.Global.EMailSenderName);
 
             var t = new Task(() =>
             {

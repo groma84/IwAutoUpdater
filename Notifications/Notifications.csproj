@@ -49,6 +49,10 @@
       <Project>{1a58f82c-2d06-4d23-a39f-2e871e69dcff}</Project>
       <Name>Configuration.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EMails.Contracts\EMails.Contracts.csproj">
+      <Project>{f54e6c38-0792-4ffd-98db-db63d846b54a}</Project>
+      <Name>EMails.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Notifications.Contracts\Notifications.Contracts.csproj">
       <Project>{82f0572f-fdec-408f-a69c-b138a84bf44a}</Project>
       <Name>Notifications.Contracts</Name>

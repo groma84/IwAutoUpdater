@@ -49,6 +49,7 @@
     <Compile Include="CrossCutting\ConfigurationMappings.cs" />
     <Compile Include="CrossCutting\LoggingMappings.cs" />
     <Compile Include="CrossCutting\SFWMappings.cs" />
+    <Compile Include="DAL\EMailMappings.cs" />
     <Compile Include="DAL\WebAccessMappings.cs" />
     <Compile Include="DAL\ExternalCommandsMapping.cs" />
     <Compile Include="DAL\NotificationsMappings.cs" />
@@ -81,6 +82,14 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{785b531a-1d2a-4dc0-8510-d22aa570894c}</Project>
       <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMails.Contracts\EMails.Contracts.csproj">
+      <Project>{f54e6c38-0792-4ffd-98db-db63d846b54a}</Project>
+      <Name>EMails.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EMails\EMails.csproj">
+      <Project>{4c5abf9f-4da8-47dd-9a03-3ee912e2e87a}</Project>
+      <Name>EMails</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
       <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>

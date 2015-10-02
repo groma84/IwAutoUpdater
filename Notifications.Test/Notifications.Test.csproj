@@ -58,6 +58,10 @@
       <Project>{1a58f82c-2d06-4d23-a39f-2e871e69dcff}</Project>
       <Name>Configuration.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EMails.Contracts\EMails.Contracts.csproj">
+      <Project>{f54e6c38-0792-4ffd-98db-db63d846b54a}</Project>
+      <Name>EMails.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mocks\Mocks.csproj">
       <Project>{ea93e01d-2dab-45b6-9096-8f3107e43ddd}</Project>
       <Name>Mocks</Name>

@@ -2,17 +2,18 @@
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using System.Collections.Generic;
+using IwAutoUpdater.DAL.EMails.Contracts;
 
 namespace Mocks
 {
     public class NotificationReceiverFactoryMock : INotificationReceiverFactory
     {
-        public Dictionary<string, INotificationReceiver> CreateMailReceiver = new Dictionary<string, INotificationReceiver>();
+        public INotificationReceiver CreateMailReceiver = null;
         public int CreateMailReceiverCalled = 0;
-        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, AddressUsernamePassword mailSettings)
+        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, string senderAddress, ISendMail sendMail, AddressUsernamePassword mailSettings)
         {
             ++CreateMailReceiverCalled;
-            return CreateMailReceiver[receiverMailAddress];
+            return CreateMailReceiver;
         }
     }
 }

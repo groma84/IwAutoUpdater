@@ -25,6 +25,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         DirectoryMock _directoryMock;
         RunExternalCommandMock _runExternalCommandMock;
         HtmlGetterMock _htmlGetterMock;
+        NowGetterMock _nowGetterMock;
 
         static string _workFolder = @"C:\zork\";
         static string _fileName = "zork.zip";
@@ -50,8 +51,9 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             _directoryMock = new DirectoryMock();
             _runExternalCommandMock = new RunExternalCommandMock();
             _htmlGetterMock = new HtmlGetterMock();
+            _nowGetterMock = new NowGetterMock();
 
-            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock, _htmlGetterMock);
+            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock, _htmlGetterMock, _nowGetterMock);
         }
 
         [TestCleanup]
