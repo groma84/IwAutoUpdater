@@ -1,5 +1,5 @@
 ﻿namespace IwAutoUpdater.DAL.Notifications.Contracts
-{
+{    
     public interface INotificationReceiver
     {
         /// <summary>

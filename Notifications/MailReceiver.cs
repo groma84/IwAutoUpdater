@@ -34,7 +34,14 @@ namespace IwAutoUpdater.DAL.Notifications
                 Subject = subject
             };
 
-            _sendMail.Send(mailData, _mailSettings);
+            try
+            {
+                _sendMail.Send(mailData, _mailSettings);
+            }
+            catch (Exception ex)
+            {
+                throw new NotificationSentException("E-Mail-Notification konnte nicht gesendet werden.", ex);
+            }
 
             return true;
         }

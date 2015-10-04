@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="INotificationReceiver.cs" />
     <Compile Include="INotificationReceiverFactory.cs" />
+    <Compile Include="NotificationSentException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

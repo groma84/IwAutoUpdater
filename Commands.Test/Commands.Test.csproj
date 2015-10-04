@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CheckIfNewerTest.cs" />
+    <Compile Include="SendNotificationsTest.cs" />
     <Compile Include="CheckUrlHttpStatusIs200Test.cs" />
     <Compile Include="CleanupOldUnpackedFilesTest.cs" />
     <Compile Include="GetFileTest.cs" />
@@ -83,6 +84,10 @@
     <ProjectReference Include="..\Mocks\Mocks.csproj">
       <Project>{ea93e01d-2dab-45b6-9096-8f3107e43ddd}</Project>
       <Name>Mocks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notifications.Contracts\Notifications.Contracts.csproj">
+      <Project>{82f0572f-fdec-408f-a69c-b138a84bf44a}</Project>
+      <Name>Notifications.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Updates.Contracts\Updates.Contracts.csproj">
       <Project>{1192ae56-9f3f-4247-87b5-dbccac6ff651}</Project>

@@ -34,9 +34,24 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do(CommandResult resultOfPreviousCommand)
         {
+            List<Exception> exceptions = new List<Exception>();
             foreach (var receiver in _receivers)
             {
-                receiver.SendNotification(_topic, _body);
+                try
+                {
+                    receiver.SendNotification(_topic, _body);
+
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+
+            if (exceptions.Any())
+            {
+                var asErrors = exceptions.Select(ex => new Error() { Exception = ex, Text = "Unerwarteter Ausnahmefehler in SendNotifications" });
+                return new CommandResult(false, asErrors);
             }
 
             return new CommandResult(true);

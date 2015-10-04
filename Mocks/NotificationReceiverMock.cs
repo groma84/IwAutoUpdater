@@ -9,9 +9,19 @@ namespace Mocks
 {
     public class NotificationReceiverMock : INotificationReceiver
     {
+        public bool SendNotification = false;
+        public int SendNotificationCalled = 0;
+        public Exception SendNotificationThrowThisException = null;
         bool INotificationReceiver.SendNotification(string heading, string message)
         {
-            throw new NotImplementedException();
+            ++SendNotificationCalled;
+
+            if (SendNotificationThrowThisException != null)
+            {
+                throw SendNotificationThrowThisException;
+            }
+
+            return SendNotification;
         }
     }
 }
