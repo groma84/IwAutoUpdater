@@ -43,7 +43,7 @@ namespace IwAutoUpdater.DAL.Updates.Test
         public void UpdatePackageAccessFactoryTest_CreateSmbAccess()
         {
             // wir erwarten eine Exception, weil es den Pfad gar nicht gibt
-            var actual = _updatePackageAccessFactory.CreateUncPathAccess(_uncPath);
+            var actual = _updatePackageAccessFactory.CreateUncPathAccess(_uncPath, String.Empty, String.Empty);
             Assert.IsNotNull(actual);
         }
     }

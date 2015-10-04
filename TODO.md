@@ -1,6 +1,6 @@
 # TODO
 ## NEXT
-- UncPath-Zugriff benötigt Benutzername und Passwort (gehen hier auch DefaultCredentials?)
+- Beim Hochfahren sollte direkt 1x die Prüfung auf Updates laufen
 
 ## BUGS
 ###v2
@@ -8,16 +8,17 @@
 
 ## FEATURES (unsortiert)
 ###v2
-- Beim Hochfahren sollte direkt 1x die Prüfung auf Updates laufen
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
+- Unhandled Exceptions sollen zu einem "internen Restart" der Applikation führen, nicht zu einem totalen Crash
 
 ## DONE
 ###v2
 - DI-Mappings für einige Bibliotheken fehlen
+- UncPath-Zugriff benötigt Benutzername und Passwort
 
 ###v1
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette

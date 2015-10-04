@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +16,11 @@ namespace IwAutoUpdater.DAL.Updates
 
         SmbClient _smbClient;
 
-        public SmbFileAccess(FileInfo fileInfo)
+        public SmbFileAccess(FileInfo fileInfo, string username, string password)
         {
             _fileInfo = fileInfo;
-            _smbClient = new SmbClient(System.Net.CredentialCache.DefaultNetworkCredentials, new Uri(fileInfo.FullName));
+            var credentials = new NetworkCredential(username, password);
+            _smbClient = new SmbClient(credentials, new Uri(fileInfo.FullName));
         }
 
       

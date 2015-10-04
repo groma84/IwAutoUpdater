@@ -20,10 +20,10 @@ namespace IwAutoUpdater.DAL.Updates
             throw new NotImplementedException();
         }
 
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath, string username, string password)
         {
             var fi = new FileInfo(uncPath);
-            return new SmbFileAccess(fi);
+            return new SmbFileAccess(fi, username, password);
         }
     }
 }

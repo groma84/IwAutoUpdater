@@ -9,7 +9,7 @@ namespace IwAutoUpdater.DAL.Updates.Contracts
     public interface IUpdatePackageAccessFactory
     {
         IUpdatePackageAccess CreateLocalFileAccess(string filePath);
-        IUpdatePackageAccess CreateUncPathAccess(string uncPath);
+        IUpdatePackageAccess CreateUncPathAccess(string uncPath, string username, string password);
         IUpdatePackageAccess CreateHttpDownloadAccess(string url);
     }
 }
