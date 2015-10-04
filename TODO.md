@@ -1,21 +1,24 @@
 # TODO
 ## NEXT
-- v1 
-    - taggen
-    - deployen
-    - testen
+- UncPath-Zugriff benötigt Benutzername und Passwort (gehen hier auch DefaultCredentials?)
 
 ## BUGS
+###v2
+- E-Mail-Server braucht Option "UseDefaultCredentials"
 
 ## FEATURES (unsortiert)
 ###v2
+- Beim Hochfahren sollte direkt 1x die Prüfung auf Updates laufen
+
+###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
 
-
-
 ## DONE
+###v2
+- DI-Mappings für einige Bibliotheken fehlen
+
 ###v1
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette
 - Command: CleanupOldUnpackedFiles
@@ -37,3 +40,7 @@
     - CommandBuilder um neues Command erweitern
     - CommandBuilder-Test anpassen
     - Test für Command schreiben
+- v1 
+    - taggen
+    - deployen
+    - testen

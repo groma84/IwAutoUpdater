@@ -40,16 +40,19 @@ namespace IwAutoUpdater.DIMappings
 
         private static void InitCrossCutting(SimpleInjector.Container container)
         {
-            (new CrossCutting.LoggingMappings() as IInitializeMapping).Init(container);
             (new CrossCutting.ConfigurationMappings() as IInitializeMapping).Init(container);
+            (new CrossCutting.LoggingMappings() as IInitializeMapping).Init(container);
             (new CrossCutting.SFWMappings() as IInitializeMapping).Init(container);
         }
 
         private static void InitDAL(SimpleInjector.Container container)
         {
+            (new DAL.EMailMappings() as IInitializeMapping).Init(container);
+            (new DAL.ExternalCommandsMapping() as IInitializeMapping).Init(container);
             (new DAL.LocalFilesMapping() as IInitializeMapping).Init(container);
             (new DAL.NotificationsMappings() as IInitializeMapping).Init(container);
             (new DAL.UpdatesMappings() as IInitializeMapping).Init(container);
+            (new DAL.WebAccessMappings() as IInitializeMapping).Init(container);
         }
 
         private static void InitBLL(SimpleInjector.Container container)
