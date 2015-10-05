@@ -24,8 +24,16 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do(CommandResult lastResult)
         {
-            var remoteFile = _package.Access.GetFile();
-            var writeSuccess = _singleFile.Write(_fullPathToLocalFile, remoteFile);
+            bool writeSuccess;
+            try
+            {
+                var remoteFile = _package.Access.GetFile();
+                writeSuccess = _singleFile.Write(_fullPathToLocalFile, remoteFile);
+            }
+            finally
+            {
+                _package.Access.Dispose();
+            }
             return new CommandResult(writeSuccess);
         }
 

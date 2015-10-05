@@ -1,11 +1,17 @@
 # TODO
 ## NEXT
+- Test: Unc-Connection bei nicht existierendem Ordner
+- Test: Unc-Connection bei nicht existierender Datei
 
 ## BUGS
 ###v2
+- Unc-Connection sollte bei "Datei nicht gefunden" nicht mit einer Exception crashen
+- Mail-Versand testen & ggf. fixen
 
 ## FEATURES (unsortiert)
 ###v2
+- config-example.json aktualisieren
+
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
@@ -15,6 +21,7 @@
 
 ## DONE
 ###v2
+- Zahlreiche Bugfix an SMB-Verbindung und Datei-Download
 - DI-Mappings für einige Bibliotheken fehlen
 - UncPath-Zugriff benötigt Benutzername und Passwort
 - E-Mail-Server braucht Option "UseDefaultCredentials"

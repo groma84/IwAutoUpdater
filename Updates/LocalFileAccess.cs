@@ -16,7 +16,12 @@ namespace IwAutoUpdater.DAL.Updates
         {
             _fullFilePath = fullFilePath;
         }
-        
+
+        void IDisposable.Dispose()
+        {
+            // NOOP, weil unsere direkten File-Zugriffe keine längerfristige Blockade auslösen
+        }
+
         byte[] IUpdatePackageAccess.GetFile()
         {
             return File.ReadAllBytes(_fullFilePath);
@@ -37,5 +42,6 @@ namespace IwAutoUpdater.DAL.Updates
             var remoteDate = File.GetLastWriteTime(_fullFilePath);
             return (remoteDate > existingFileDate);
         }
+      
     }
 }

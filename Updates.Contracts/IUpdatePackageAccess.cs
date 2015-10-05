@@ -2,7 +2,7 @@
 
 namespace IwAutoUpdater.DAL.Updates.Contracts
 {
-    public interface IUpdatePackageAccess
+    public interface IUpdatePackageAccess : IDisposable
     {
         bool IsRemoteFileNewer(DateTime existingFileDate);
 

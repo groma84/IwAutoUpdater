@@ -29,6 +29,7 @@ namespace IwAutoUpdater.DAL.LocalFiles
 
         bool ISingleFile.Write(string localFullPath, byte[] remoteFile)
         {
+            System.IO.Directory.CreateDirectory(Path.GetDirectoryName(localFullPath));
             File.WriteAllBytes(localFullPath, remoteFile);
 
             return true;

@@ -19,11 +19,15 @@ namespace IwAutoUpdater.DAL.Updates
         public SmbFileAccess(FileInfo fileInfo, string username, string password)
         {
             _fileInfo = fileInfo;
-            var credentials = new NetworkCredential(username, password);
-            _smbClient = new SmbClient(credentials, new Uri(fileInfo.FullName));
+            NetworkCredential credentials = new NetworkCredential(username, password);         
+            _smbClient = new SmbClient(credentials, new Uri(fileInfo.DirectoryName));
         }
 
-      
+        void IDisposable.Dispose()
+        {
+            ((IDisposable)_smbClient).Dispose();
+        }
+
         byte[] IUpdatePackageAccess.GetFile()
         {
             return _smbClient.GetFileAsByteArray(_fileInfo);

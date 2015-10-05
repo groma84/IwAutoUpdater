@@ -51,6 +51,7 @@ namespace IngSoft.SmbClient
         const int ERROR_BAD_NET_NAME = 67;
         const int ERROR_BAD_PROVIDER = 1204;
         const int ERROR_CANCELLED = 1223;
+        const int ERROR_DIRECTORY_NAME_INVALID = 267;
         const int ERROR_EXTENDED_ERROR = 1208;
         const int ERROR_INVALID_ADDRESS = 487;
         const int ERROR_INVALID_PARAMETER = 87;
@@ -88,6 +89,7 @@ namespace IngSoft.SmbClient
             new ErrorClass(ERROR_BAD_NET_NAME, "Error: Bad Net Name"),
             new ErrorClass(ERROR_BAD_PROVIDER, "Error: Bad Provider"),
             new ErrorClass(ERROR_CANCELLED, "Error: Cancelled"),
+            new ErrorClass(ERROR_DIRECTORY_NAME_INVALID, "Error: Directory name invalid"),
             new ErrorClass(ERROR_EXTENDED_ERROR, "Error: Extended Error"),
             new ErrorClass(ERROR_INVALID_ADDRESS, "Error: Invalid Address"),
             new ErrorClass(ERROR_INVALID_PARAMETER, "Error: Invalid Parameter"),

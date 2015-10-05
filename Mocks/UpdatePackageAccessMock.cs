@@ -33,5 +33,10 @@ namespace Mocks
             ++GetFileCalls;
             return GetFile;
         }
+
+        void IDisposable.Dispose()
+        {
+            
+        }
     }
 }

@@ -25,7 +25,9 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do(CommandResult lastResult)
         {
-            var extractTo = Path.GetFileNameWithoutExtension(_fullPathToLocalFile);
+            // das lokale Verzeichnis reicht, weil in der zip-Datei sowieso immer noch 
+            // der passende Unterordner drin steckt
+            var extractTo = Path.GetDirectoryName(_fullPathToLocalFile); 
             System.IO.Compression.ZipFile.ExtractToDirectory(_fullPathToLocalFile, extractTo);
 
             return new CommandResult(true);
