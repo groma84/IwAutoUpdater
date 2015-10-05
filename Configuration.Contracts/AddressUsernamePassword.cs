@@ -5,6 +5,7 @@
         public string Address;
         public string Username;
         public string Password;
+        public bool UseDefaultCredentials;
 
         public override bool Equals(object obj)
         {
@@ -19,9 +20,10 @@
                 return false;
             }
 
-            return string.Equals(Address, typed.Address) 
+            return string.Equals(Address, typed.Address)
                 && string.Equals(Username, typed.Username)
-                && string.Equals(Password, typed.Password);
+                && string.Equals(Password, typed.Password)
+                && UseDefaultCredentials.Equals(typed.UseDefaultCredentials);
         }
 
         public override int GetHashCode()

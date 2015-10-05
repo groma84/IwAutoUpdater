@@ -31,18 +31,25 @@ namespace IwAutoUpdater.DAL.EMails
                 var port = int.Parse(hostAndPort[1]);
                 smtpClient.Port = port;
             }
-            smtpClient.Credentials = new NetworkCredential(mailSettings.Username, mailSettings.Password);
+            if (mailSettings.UseDefaultCredentials)
+            {
+                smtpClient.Credentials = CredentialCache.DefaultNetworkCredentials;
+            }
+            else
+            {
+                smtpClient.Credentials = new NetworkCredential(mailSettings.Username, mailSettings.Password);
+            }
 
             SendMails(mailData, smtpClient);
         }
 
         private static void SendMails(MailData mailData, SmtpClient smtpClient)
-        {            
+        {
             var message = new MailMessage()
             {
                 From = new MailAddress(mailData.From),
                 Subject = mailData.Subject,
-                Body = mailData.MessageBody                
+                Body = mailData.MessageBody
             };
 
             foreach (var recipient in mailData.Recipients)

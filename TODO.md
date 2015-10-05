@@ -1,10 +1,8 @@
 # TODO
 ## NEXT
-- Beim Hochfahren sollte direkt 1x die Prüfung auf Updates laufen
 
 ## BUGS
 ###v2
-- E-Mail-Server braucht Option "UseDefaultCredentials"
 
 ## FEATURES (unsortiert)
 ###v2
@@ -19,6 +17,7 @@
 ###v2
 - DI-Mappings für einige Bibliotheken fehlen
 - UncPath-Zugriff benötigt Benutzername und Passwort
+- E-Mail-Server braucht Option "UseDefaultCredentials"
 
 ###v1
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette

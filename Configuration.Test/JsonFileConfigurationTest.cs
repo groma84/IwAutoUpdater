@@ -45,7 +45,8 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                             'eMailSettings': {
                                 'address': 'smtp.mailserver.com',
                               'username': 'mailUser',
-                              'password': 'superSecure'
+                              'password': 'superSecure',
+                                'useDefaultCredentials': 'false',
                             },
                             'eMailPickupDirectory': 'C:\\Mails\\Pickup\\',
                             'eMailSenderName': 'iwau@wow.com',
@@ -95,7 +96,8 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                     {
                         Password = "superSecure",
                         Address = "smtp.mailserver.com",
-                        Username = "mailUser"
+                        Username = "mailUser",
+                        UseDefaultCredentials = false
                     },
                     EMailPickupDirectory = "C:\\Mails\\Pickup\\",
                     EMailSenderName = "iwau@wow.com",
@@ -142,6 +144,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
             Assert.AreEqual(expected.Global.EMailSettings.Password, actual.Global.EMailSettings.Password);
             Assert.AreEqual(expected.Global.EMailSettings.Address, actual.Global.EMailSettings.Address);
             Assert.AreEqual(expected.Global.EMailSettings.Username, actual.Global.EMailSettings.Username);
+            Assert.AreEqual(expected.Global.EMailSettings.UseDefaultCredentials, actual.Global.EMailSettings.UseDefaultCredentials);
             Assert.AreEqual(expected.Global.EMailPickupDirectory, actual.Global.EMailPickupDirectory);
             Assert.AreEqual(expected.Global.EMailSenderName, actual.Global.EMailSenderName);
 
