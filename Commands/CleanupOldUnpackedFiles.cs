@@ -25,7 +25,8 @@ namespace IwAutoUpdater.BLL.Commands
             _package = package;
             _directory = directory;
 
-            _fullPathToLocalDirectory = Path.GetFileNameWithoutExtension(Path.Combine(_workFolder, package.Access.GetFilenameOnly()));
+            _fullPathToLocalDirectory = Path.Combine(_workFolder, Path.GetFileNameWithoutExtension(package.Access.GetFilenameOnly()));
+
             _logger = logger;
         }
 

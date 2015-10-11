@@ -8,6 +8,7 @@ using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using Mocks;
 using IwAutoUpdater.CrossCutting.Base;
+using System.IO;
 
 namespace IwAutoUpdater.BLL.Commands.Test
 {
@@ -16,6 +17,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
     {
         private CleanupOldUnpackedFiles _cleanupOldUnpackedFilesTest;
         private string _workFolder = "CleanupOldUnpackedFilesTestDirectory";
+        private string _getFileNameOnly = "cleanFilesTest";
         private UpdatePackageMock _updatePackageMock;
         private UpdatePackageAccessMock _updatePackageAccessMock;
         private DirectoryMock _directoryMock;
@@ -31,7 +33,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _commandResult = new CommandResult();
 
             _updatePackageAccessMock = new UpdatePackageAccessMock();
-            _updatePackageAccessMock.GetFilenameOnly = _workFolder; // wird sowieso nie echt drauf zugegriffen
+            _updatePackageAccessMock.GetFilenameOnly = _getFileNameOnly; // wird sowieso nie echt drauf zugegriffen
             _updatePackageMock = new UpdatePackageMock() { Access = _updatePackageAccessMock };
 
             _directoryMock = new DirectoryMock();
@@ -58,6 +60,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             var actual = _cleanupOldUnpackedFilesTest.Do(_commandResult);
             Assert.AreEqual(1, _directoryMock.DeleteCalled);
+            Assert.AreEqual(Path.Combine(_workFolder, _getFileNameOnly), _directoryMock.LastDeletedPath);
 
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.PreviousErrors.Count());

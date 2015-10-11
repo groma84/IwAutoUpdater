@@ -15,6 +15,9 @@ namespace IwAutoUpdater.CrossCutting.Logging
         public Logger()
         {
             _log = new LoggerConfiguration()
+#if DEBUG
+                .MinimumLevel.Debug()
+#endif
                         .WriteTo.ColoredConsole()
                         .CreateLogger();
         }

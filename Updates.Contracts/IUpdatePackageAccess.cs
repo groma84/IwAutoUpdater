@@ -7,7 +7,7 @@ namespace IwAutoUpdater.DAL.Updates.Contracts
         bool IsRemoteFileNewer(DateTime existingFileDate);
 
         /// <summary>
-        /// Ermittelt aus dem gesamten Pfad nur den Dateinamen
+        /// Ermittelt aus dem gesamten Pfad nur den Dateinamen inklusive Dateiendung
         /// </summary>
         /// <returns></returns>
         string GetFilenameOnly();
