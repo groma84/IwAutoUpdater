@@ -119,11 +119,31 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
         private NotificationText BuildNotificationText(IUpdatePackage package)
         {
+            var shortPackageName = GetShortPackageName(package.PackageName);
+
             return new NotificationText()
             {
-                Subject = $"Server {package.PackageName} wurde am {_nowGetter.Now} aktualisiert",
-                Message = $"Server {package.PackageName} wurde am {_nowGetter.Now} automatisch aktualisiert"
+                Subject = $"Paket '{shortPackageName}' wurde am {_nowGetter.Now} aktualisiert",
+                Message = $"Paket '{package.PackageName}' wurde am {_nowGetter.Now} automatisch aktualisiert"
             };
+        }
+
+        private static string GetShortPackageName(string packageName)
+        {
+            var splitByBackslash = packageName.Split(new[] { '\\' });
+            var splitBySlash = packageName.Split(new[] { '/' });
+
+            if (splitByBackslash.Length > 1)
+            {
+                return splitByBackslash.Last();
+            }
+
+            if (splitBySlash.Length > 1)
+            {
+                return splitBySlash.Last();
+            }
+
+            return packageName;
         }
     }
 }

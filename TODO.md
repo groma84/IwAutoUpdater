@@ -3,12 +3,12 @@
 
 
 ## BUGS
-###v1.1
+###v1.2
 
 
 ## FEATURES (unsortiert)
-###v1.1
-
+###v1.2
+- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
