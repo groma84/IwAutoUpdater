@@ -12,7 +12,7 @@ namespace IwAutoUpdater.DAL.LocalFiles.Test
     [TestClass]
     public class SingleFileTest
     {
-        string _path = "SingleFileTest.zip";
+        string _path = "./SingleFileTest.zip";
         private ISingleFile _singleFile;
 
         [TestInitialize]

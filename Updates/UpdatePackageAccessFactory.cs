@@ -23,7 +23,7 @@ namespace IwAutoUpdater.DAL.Updates
         IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath, string username, string password)
         {
             var fi = new FileInfo(uncPath);
-            return new SmbFileAccess(fi, username, password);
+           return new SmbFileAccess(fi, username, password);
         }
     }
 }

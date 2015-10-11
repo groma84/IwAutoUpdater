@@ -105,7 +105,7 @@
     <None Include="RunInstallerCommandTestBatchFile.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="UnzipFileTest.zip">
+    <None Include="UnzipFileTest\UnzipFileTest.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -18,6 +18,7 @@
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
 - Unhandled Exceptions sollen zu einem "internen Restart" der Applikation führen, nicht zu einem totalen Crash
+- Umstellen der DI Mappings Ausführung auf Reflection
 
 ## DONE
 ###v2

@@ -14,9 +14,8 @@ namespace IwAutoUpdater.BLL.Commands.Test
     [TestClass]
     public class UnzipFileTest
     {
-        static string _workFolder = @".";
+        static string _workFolder = @"./UnzipFileTest/";
         static string _fileName = "UnzipFileTest.zip";
-        string _fullPath = Path.Combine(_workFolder, _fileName);
         UpdatePackageMock _updatePackageMock;
         private UpdatePackageAccessMock _updatePackageAccessMock;
         CommandResult _commandResult = new CommandResult();
@@ -25,10 +24,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
         [TestInitialize]
         public void TestInitialize()
-        {
-            _fullPath = Path.Combine(_workFolder, _fileName);
-            _fullPath = Path.Combine(Path.GetDirectoryName(_fullPath), Path.GetFileNameWithoutExtension(_fullPath));
-
+        {           
             TestCleanup();
 
             _updatePackageAccessMock = new UpdatePackageAccessMock() { GetFilenameOnly = _fileName };
@@ -42,9 +38,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestCleanup]
         public void TestCleanup()
         {
-            if (Directory.Exists(_fullPath))
+            if (Directory.Exists(_workFolder) && Directory.EnumerateFiles(_workFolder).Any(name => !name.EndsWith(".zip")))
             {
-                Directory.Delete(_fullPath, true);
+                Directory.Delete(_workFolder, true);
             }
 
             _unzipFile = null;
@@ -61,8 +57,8 @@ namespace IwAutoUpdater.BLL.Commands.Test
             Assert.AreEqual(0, actual.PreviousErrors.Count());
 
             Assert.AreEqual(1, _updatePackageAccessMock.GetFilenameOnlyCalls);
-            Assert.IsTrue(Directory.Exists(_fullPath));
-            Assert.IsTrue(File.Exists(Path.Combine(_fullPath, "Wetterstationen.xml")));
+            Assert.IsTrue(Directory.Exists(_workFolder));
+            Assert.IsTrue(File.Exists(Path.Combine(_workFolder, "Wetterstationen.xml")));
         }
     }
 }

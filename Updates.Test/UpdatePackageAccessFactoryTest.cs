@@ -14,7 +14,7 @@ namespace IwAutoUpdater.DAL.Updates.Test
         private IUpdatePackageAccessFactory _updatePackageAccessFactory;
 
         string _filePath = @"C:\banane\gelb.zip";
-        string _uncPath = @"//banane/gelb.zip";
+        string _uncPath = @"\\banane\gelb.zip";
 
 
         [TestInitialize]
