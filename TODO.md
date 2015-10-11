@@ -1,16 +1,13 @@
 # TODO
 ## NEXT
-- Test: Unc-Connection bei nicht existierendem Ordner
-- Test: Unc-Connection bei nicht existierender Datei
+
 
 ## BUGS
-###v2
-- Unc-Connection sollte bei "Datei nicht gefunden" nicht mit einer Exception crashen
-- Mail-Versand testen & ggf. fixen
+###v1.1
+
 
 ## FEATURES (unsortiert)
-###v2
-- config-example.json aktualisieren
+###v1.1
 
 
 ###später
@@ -21,11 +18,13 @@
 - Umstellen der DI Mappings Ausführung auf Reflection
 
 ## DONE
-###v2
+###v1.1
 - Zahlreiche Bugfix an SMB-Verbindung und Datei-Download
 - DI-Mappings für einige Bibliotheken fehlen
 - UncPath-Zugriff benötigt Benutzername und Passwort
 - E-Mail-Server braucht Option "UseDefaultCredentials"
+- Unc-Connection sollte bei "Datei nicht gefunden" nicht mit einer Exception crashen
+- config-example.json aktualisieren
 
 ###v1
 - Rückgaben von Commands umstellen auf neues CommandResult: bool Succesful, Error[] Errors; das dann auch immer mit durchgeben in der Kette

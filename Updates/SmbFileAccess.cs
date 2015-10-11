@@ -1,12 +1,6 @@
-﻿using IngSoft.SmbClient;
-using IwAutoUpdater.DAL.Updates.Contracts;
+﻿using IwAutoUpdater.DAL.Updates.Contracts;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.DAL.Updates
 {
@@ -14,23 +8,18 @@ namespace IwAutoUpdater.DAL.Updates
     {
         FileInfo _fileInfo;
 
-        SmbClient _smbClient;
-
-        public SmbFileAccess(FileInfo fileInfo, string username, string password)
+        public SmbFileAccess(FileInfo fileInfo)
         {
             _fileInfo = fileInfo;
-            NetworkCredential credentials = new NetworkCredential(username, password);         
-            _smbClient = new SmbClient(credentials, new Uri(fileInfo.DirectoryName));
         }
 
         void IDisposable.Dispose()
         {
-            ((IDisposable)_smbClient).Dispose();
         }
 
         byte[] IUpdatePackageAccess.GetFile()
         {
-            return _smbClient.GetFileAsByteArray(_fileInfo);
+            return File.ReadAllBytes(_fileInfo.FullName);
         }
 
         string IUpdatePackageAccess.GetFilenameOnly()
@@ -42,7 +31,13 @@ namespace IwAutoUpdater.DAL.Updates
         {
             // GetLastModified gibt DateTime.MinValue zurück, falls die Datei gar nicht existiert 
             // -> dann kommt korrekterweise hier immer false raus
-            var remoteDate = _smbClient.GetLastModified(_fileInfo);
+            _fileInfo.Refresh();
+            if (!_fileInfo.Exists)
+            {
+                return false;
+            }
+
+            var remoteDate = _fileInfo.LastWriteTime;
             return (remoteDate > existingFileDate);
         }
     }

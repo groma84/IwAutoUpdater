@@ -62,9 +62,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                           'servers': [
                             {
                               'type': 'localFile',
-                              'path': '//otherSystem/buildDir/Server1_Packaged.zip',
-                                'getDataUsername': 'gdu',
-                                'getDataPassword': 'gdp',
+                              'path': '//otherSystem/buildDir/Server1_Packaged.zip',                              
                               'downloadOnly': 'false',
                               'skipDatabaseUpdate': 'false',
                               'installerCommand': 'install-stuff.bat',
@@ -117,8 +115,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                     {
                         DownloadOnly = false,
                         Path = @"//otherSystem/buildDir/Server1_Packaged.zip",
-                        GetDataPassword = "gdp",
-                        GetDataUsername = "gdu",
                         SkipDatabaseUpdate = false,
                         Type = Base.GetDataMethod.LocalFile,
                         InstallerCommand = "install-stuff.bat",
@@ -155,8 +151,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
 
             Assert.AreEqual(expected.Servers.ElementAt(0).Path, actual.Servers.ElementAt(0).Path);
             Assert.AreEqual(expected.Servers.ElementAt(0).Type, actual.Servers.ElementAt(0).Type);
-            Assert.AreEqual(expected.Servers.ElementAt(0).GetDataUsername, actual.Servers.ElementAt(0).GetDataUsername);
-            Assert.AreEqual(expected.Servers.ElementAt(0).GetDataPassword, actual.Servers.ElementAt(0).GetDataPassword);
             Assert.AreEqual(expected.Servers.ElementAt(0).DownloadOnly, actual.Servers.ElementAt(0).DownloadOnly);
             Assert.AreEqual(expected.Servers.ElementAt(0).SkipDatabaseUpdate, actual.Servers.ElementAt(0).SkipDatabaseUpdate);
 

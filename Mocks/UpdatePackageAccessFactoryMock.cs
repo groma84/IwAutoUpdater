@@ -25,7 +25,7 @@ namespace Mocks
 
         public Dictionary<string, IUpdatePackageAccess> CreateUncPathAccess = new Dictionary<string, IUpdatePackageAccess>();
         public int CreateUncPathAccessCalled = 0;
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath, string username, string password)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath)
         {
             ++CreateUncPathAccessCalled;
             return CreateUncPathAccess[uncPath];

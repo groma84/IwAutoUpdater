@@ -56,10 +56,6 @@
       <Project>{1a58f82c-2d06-4d23-a39f-2e871e69dcff}</Project>
       <Name>Configuration.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SmbClient\SmbClient.csproj">
-      <Project>{0066214d-367a-4dbe-ae35-d3ab0fa3ecc2}</Project>
-      <Name>SmbClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Updates.Contracts\Updates.Contracts.csproj">
       <Project>{1192ae56-9f3f-4247-87b5-dbccac6ff651}</Project>
       <Name>Updates.Contracts</Name>

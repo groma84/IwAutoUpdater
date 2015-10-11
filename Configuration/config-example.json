@@ -1,35 +1,39 @@
 ﻿{
-  "eMailSettings": {
-    "Server": "smtp.mailserver.com",
-    "Username": "mailUser",
-    "Password": "superSecure"
+  "global": {
+    "eMailSenderName": "abc@abc.de",
+    "eMailSettings": {
+      "address": "smtp.abc.de",
+      "useDefaultCredentials": "true",
+      "Username": "",
+      "Password": ""
+    },
+    "workFolder": "C:\\TEMP\\IwAutoUpdater\\work",
+    "checkIntervalMinutes": 15,
+    "resultMessageReceivers": [
+      {
+        "type": "eMail",
+        "receiver": "admin@abc.de"
+      }
+    ]
   },
-  "workFolder": "C:\\Temp\\IwAutoUpdater\\",
-  "checkIntervalMinutes": 15,
-  "resultMessageReceivers": [
-    {
-      "type": "eMail",
-      "receiver": "admin@mymail.com"
-    }
-  ],
   "servers": [
     {
-      "type": "unc",
-      "path": "//otherSystem/buildDir/Server1_Packaged.zip",
+      "type": "uncPath",
+      "path": "\\\\buildtool\\c$\\DEPLOYDIR\\server1\\server1.zip",
       "downloadOnly": "false",
       "skipDatabaseUpdate": "false",
-      "installerCommand": "install-stuff.bat",
-      "installerCommandArguments": "fromA toB",
-      "databaseUpdaterCommand": "update-db.exe",
+      "installerCommand": "InstallProgram.bat",
+      "installerCommandArguments": "-supersilent",
+      "databaseUpdaterCommand": ".\\Programme\\Tools\\DBUpdater\\DBUpdater.exe",
       "databaseUpdaterCommandArguments": "--cs='<<connectionString>>'",
-      "connectionString": "Server=myServerAddress;Database=myDataBase;Integrated Security=true;",
+      "connectionString": "Data Source=someServer;Initial Catalog=someDatabase;Integrated Security=True;",
       "checkUrlsAfterInstallation": [
-        "http://www.firsturl.de",
-        "https://localnetwork:7000/"
+        "http://abc.de/Service/Service.svc",
+        "http://abc.de/"
       ],
       "checkUrlProxyAddress": "http://proxy:8080/",
-      "checkUrlProxyUsername":  "user",
-      "checkUrlProxyPassword":  "pw"
+      "checkUrlProxyUsername": "user",
+      "checkUrlProxyPassword": "pw"
     }
   ]
-}       
+}

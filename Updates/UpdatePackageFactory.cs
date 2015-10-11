@@ -29,7 +29,7 @@ namespace IwAutoUpdater.DAL.Updates
                     break;
 
                 case GetDataMethod.UncPath:
-                    updatePackageAccess = _updatePackageAccessFactory.CreateUncPathAccess(serverSettings.Path, serverSettings.GetDataUsername, serverSettings.GetDataPassword);
+                    updatePackageAccess = _updatePackageAccessFactory.CreateUncPathAccess(serverSettings.Path);
                     break;
 
                 case GetDataMethod.HttpDownload:
