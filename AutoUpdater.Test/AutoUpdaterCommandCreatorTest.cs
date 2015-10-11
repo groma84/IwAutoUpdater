@@ -21,7 +21,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
         ConfigurationConverterMock _configurationConverterMock;
         CommandBuilderMock _commandBuilderMock;
         Settings _settings;
-
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -38,14 +38,18 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
             _checkTimerMock = new CheckTimerMock();
             _configurationConverterMock = new ConfigurationConverterMock();
             _commandBuilderMock = new CommandBuilderMock();
+            _loggerMock = new LoggerMock();
 
-            _autoUpdaterCommandCreator = new AutoUpdaterCommandCreator(_checkTimerMock, _configurationConverterMock, _commandBuilderMock, _nowGetterMock);
+            _autoUpdaterCommandCreator = new AutoUpdaterCommandCreator(_checkTimerMock, _configurationConverterMock, _commandBuilderMock, _nowGetterMock, _loggerMock);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
             _autoUpdaterCommandCreator = null;
+
+            _loggerMock = null;
+
         }
 
         [TestMethod]

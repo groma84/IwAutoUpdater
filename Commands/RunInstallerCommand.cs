@@ -24,7 +24,7 @@ namespace IwAutoUpdater.BLL.Commands
             _logger = logger;
             _runExternalCommand = runExternalCommand;
 
-            _fullPathToLocalDirectory = Path.GetFileNameWithoutExtension(Path.Combine(_workFolder, package.Access.GetFilenameOnly()));
+            _fullPathToLocalDirectory = Path.Combine(_workFolder, Path.GetFileNameWithoutExtension(package.Access.GetFilenameOnly()));
 
             _installerCommand = installerCommand;
             _installerCommandArguments = installerCommandArguments;
@@ -40,6 +40,8 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do(CommandResult resultOfPreviousCommand)
         {
+            _logger.Debug($"Running installer command '{_installerCommand}' with arguments '{_installerCommandArguments}' in folder '{_fullPathToLocalDirectory}'");
+
             var externalCommandResult = _runExternalCommand.Run(_installerCommand, _installerCommandArguments, _fullPathToLocalDirectory);
 
             _logger.Info(externalCommandResult.RecordedStandardOutput);

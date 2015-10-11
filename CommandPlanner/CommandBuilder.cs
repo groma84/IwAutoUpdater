@@ -41,7 +41,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
             foreach (var package in updatePackages)
             {
-                _logger.Info("Queueing commands for {PackageName}", package.PackageName);
+                _logger.Debug("Building commands for {PackageName}", package.PackageName);
 
                 var checkIfNewer = new CheckIfNewer(workFolder, package, _singleFile);
                 var getFile = new GetFile(workFolder, package, _singleFile);

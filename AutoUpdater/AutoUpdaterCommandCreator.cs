@@ -12,22 +12,26 @@ using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using System.Threading;
 using IwAutoUpdater.CrossCutting.Base;
 using System.Collections.Concurrent;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
 
 namespace IwAutoUpdater.BLL.AutoUpdater
 {
     public class AutoUpdaterCommandCreator : IAutoUpdaterCommandCreator
     {
+        private readonly ILogger _logger;
         private readonly INowGetter _nowGetter;
         private readonly ICommandBuilder _commandBuilder;
         private readonly IConfigurationConverter _configurationConverter;
         private readonly ICheckTimer _checkTimer;
 
-        public AutoUpdaterCommandCreator(ICheckTimer checkTimer, IConfigurationConverter configurationConverter, ICommandBuilder commandBuilder, INowGetter nowGetter)
+        public AutoUpdaterCommandCreator(ICheckTimer checkTimer, IConfigurationConverter configurationConverter, ICommandBuilder commandBuilder,
+            INowGetter nowGetter, ILogger logger)
         {
             _checkTimer = checkTimer;
             _configurationConverter = configurationConverter;
             _commandBuilder = commandBuilder;
             _nowGetter = nowGetter;
+            _logger = logger;
         }
 
         Task IAutoUpdaterCommandCreator.NeverendingCreationLoop(Settings settings)
@@ -81,6 +85,8 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                     // erst nach und nach in die Warteschlange kommt. 
                     if (!UpdatePackageInCommandAlreadyQueued(command, CommandsProducerConsumer.Queues))
                     {
+                        _logger.Info("Queueing commands for {PackageName}", command.PackageName);
+
                         CommandsProducerConsumer.Queues.TryAdd(command.PackageName, new BlockingCollection<Command>());
                         CommandsProducerConsumer.Queues[command.PackageName].Add(command);
                     }
