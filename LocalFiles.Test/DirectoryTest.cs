@@ -1,5 +1,6 @@
 ﻿using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Mocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,13 +15,16 @@ namespace IwAutoUpdater.DAL.LocalFiles.Test
     {
         string _path = "DirectoryTestDirectory";
         private IDirectory _directory;
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
         {
             TestCleanup();
 
-            _directory = new Directory();
+            _loggerMock = new LoggerMock();
+
+            _directory = new Directory(_loggerMock);
         }
 
         [TestCleanup]
@@ -32,6 +36,8 @@ namespace IwAutoUpdater.DAL.LocalFiles.Test
             }
 
             _directory = null;
+            _loggerMock = null;
+
         }
 
         [TestMethod]

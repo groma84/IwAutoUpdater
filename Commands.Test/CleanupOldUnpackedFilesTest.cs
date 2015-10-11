@@ -21,6 +21,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         private DirectoryMock _directoryMock;
 
         CommandResult _commandResult;
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -35,7 +36,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _directoryMock = new DirectoryMock();
 
-            _cleanupOldUnpackedFilesTest = new CleanupOldUnpackedFiles(_workFolder, _updatePackageMock, _directoryMock);
+            _loggerMock = new LoggerMock();
+
+            _cleanupOldUnpackedFilesTest = new CleanupOldUnpackedFiles(_workFolder, _updatePackageMock, _directoryMock, _loggerMock);
         }
 
         [TestCleanup]
@@ -46,6 +49,8 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _commandResult = null;
             _updatePackageMock = null;
             _directoryMock = null;
+            _loggerMock = null;
+
         }
 
         [TestMethod]

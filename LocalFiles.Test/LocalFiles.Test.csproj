@@ -63,6 +63,14 @@
       <Project>{1bd42b33-a93a-49ca-a997-609322d513d9}</Project>
       <Name>LocalFiles</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging.Contracts\Logging.Contracts.csproj">
+      <Project>{e3b09a03-4f96-4f3d-98de-ab73131b5f8e}</Project>
+      <Name>Logging.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mocks\Mocks.csproj">
+      <Project>{ea93e01d-2dab-45b6-9096-8f3107e43ddd}</Project>
+      <Name>Mocks</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

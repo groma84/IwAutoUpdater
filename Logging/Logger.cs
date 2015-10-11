@@ -28,5 +28,15 @@ namespace IwAutoUpdater.CrossCutting.Logging
         {
             _log.Information(messageTemplate, data);
         }
+
+        void Contracts.ILogger.Debug(string message)
+        {
+            _log.Debug(message);
+        }
+
+        void Contracts.ILogger.Debug(string messageTemplate, params object[] data)
+        {
+            _log.Debug(messageTemplate, data);
+        }
     }
 }
