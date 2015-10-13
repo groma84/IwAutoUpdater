@@ -1,6 +1,6 @@
 # TODO
 ## NEXT
-
+- DBUpdater testen und so anpassen, dass das Übergeben eines ConnectionStrings auch funktioniert...
 
 ## BUGS
 ###v0.1.2
@@ -8,9 +8,9 @@
 
 ## FEATURES (unsortiert)
 ###v0.1.2
-- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
 
 ###später
+- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten

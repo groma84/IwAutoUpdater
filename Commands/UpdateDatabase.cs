@@ -22,7 +22,7 @@ namespace IwAutoUpdater.BLL.Commands
             _workFolder = workFolder;
             _package = package;
 
-            _fullPathToLocalDirectory = Path.GetFileNameWithoutExtension(Path.Combine(_workFolder, package.Access.GetFilenameOnly()));
+            _fullPathToLocalDirectory = Path.Combine(_workFolder, Path.GetFileNameWithoutExtension(package.Access.GetFilenameOnly()));
 
             _connectionString = connectionString;
             _datebaseUpdaterCommand = datebaseUpdaterCommand;
