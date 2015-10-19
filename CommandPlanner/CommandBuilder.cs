@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
@@ -49,8 +47,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
                 checkIfNewer.RunAfterCompletedWithResultTrue = getFile;
+                checkIfNewer.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkIfNewer);
+
                 getFile.RunAfterCompletedWithResultTrue = cleanupOldUnpackedFiles;
+                getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile);
+
                 cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = unzipFile;
+                cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles);
 
                 Command finalCommand = unzipFile;
 
@@ -60,6 +63,8 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         package, _runExternalCommand, _logger);
 
                     unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
+                    unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile);
+
                     finalCommand = runInstallerCommand;
 
                     if (!package.Settings.SkipDatabaseUpdate)
@@ -70,6 +75,8 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                             package, _runExternalCommand, _logger);
 
                         runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
+                        runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand);
+
                         finalCommand = updateDatabase;
                     }
 
@@ -92,6 +99,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         {
                             var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, proxySettings);
                             finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
+                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkUrlHttpStatusIs200);
                             finalCommand = checkUrlHttpStatusIs200;
                         }
                     }
@@ -101,9 +109,8 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var notificationText = BuildNotificationText(package);
                 var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, sendNotifications);
                 finalCommand = sendNotifications;
-
-                // TODO: Command Kette über DoOnTrue (fortschreiten) DoOnFalse (fehlernachricht schicken) bauen
 
                 commands.Enqueue(checkIfNewer); // mit checkIfNewer beginnt die Abarbeitungskette
             }

@@ -1,13 +1,12 @@
 # TODO
 ## NEXT
 
-
 ## BUGS
 ###v0.1.2
 
 ## FEATURES (unsortiert)
 ###v0.1.2
-- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
+
 - DBUpdater Konsolenoutput verbessern
 
 ###später
@@ -25,6 +24,7 @@
 ###v0.1.2
 - [bug] warum wird am Ende der Queue-Bearbeitung der CommandName statt Server-URL ausgegeben?
 - CleanupFiles funktioniert nicht
+- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
 
 ###v0.1.1
 - Zahlreiche Bugfix an SMB-Verbindung und Datei-Download
