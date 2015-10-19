@@ -1,24 +1,29 @@
 # TODO
 ## NEXT
-- DBUpdater testen und so anpassen, dass das Übergeben eines ConnectionStrings auch funktioniert...
+
 
 ## BUGS
 ###v0.1.2
 
-
 ## FEATURES (unsortiert)
 ###v0.1.2
+- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
+- DBUpdater Konsolenoutput verbessern
 
 ###später
-- Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
 - Unhandled Exceptions sollen zu einem "internen Restart" der Applikation führen, nicht zu einem totalen Crash
 - Umstellen der DI Mappings Ausführung auf Reflection
+- Hinterlegbarkeit einer "Versionsinfo-Datei" -> diese wird am Ende für die Notification ausgelesen und 1:1 in den Body kopiert
+- Protokollierung, welche Dateien wann erfolgreich installiert wurden -> "resume"-Funktion (ev. mit Textdatei oder SQLite DB?)
+- Protokolldatei, statt Logging nur in Console
+- man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 
 ## DONE
 ###v0.1.2
+- [bug] warum wird am Ende der Queue-Bearbeitung der CommandName statt Server-URL ausgegeben?
 - CleanupFiles funktioniert nicht
 
 ###v0.1.1

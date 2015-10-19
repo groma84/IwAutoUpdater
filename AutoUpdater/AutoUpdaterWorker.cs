@@ -99,7 +99,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
 
             if (queue.Value.Count == 0)
             {
-                _logger.Info("Finished Working Queue for Command {Command}", command);
+                _logger.Info("Finished Working Queue for Package {PackageName}", command.PackageName);
                 queue.Value.CompleteAdding();
             }
 
