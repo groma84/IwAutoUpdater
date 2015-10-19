@@ -47,7 +47,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageAccessMock.IsRemoteFileNewer = true;
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
-            _singleFileMock.DoesExist.Add(_fullPath, false);
+            _singleFileMock.DoesExist = false;
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);
             var actual = cin.Do(_commandResult);
@@ -66,7 +66,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageAccessMock.IsRemoteFileNewer = false;
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
-            _singleFileMock.DoesExist.Add(_fullPath, true);
+            _singleFileMock.DoesExist = true;
             _singleFileMock.GetLastModified.Add(_fullPath, new DateTime(2015, 5, 15));
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);
@@ -86,7 +86,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageAccessMock.IsRemoteFileNewer = true;
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
-            _singleFileMock.DoesExist.Add(_fullPath, true);
+            _singleFileMock.DoesExist = true;
             _singleFileMock.GetLastModified.Add(_fullPath, new DateTime(1995, 5, 15));
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);

@@ -54,7 +54,7 @@
     <Compile Include="SendNotificationsTest.cs" />
     <Compile Include="CheckUrlHttpStatusIs200Test.cs" />
     <Compile Include="CleanupOldUnpackedFilesTest.cs" />
-    <Compile Include="GetFileTest.cs" />
+    <Compile Include="DeleteOldAndGetNewFileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateDatabaseTest.cs" />
     <Compile Include="RunInstallerCommandTest.cs" />

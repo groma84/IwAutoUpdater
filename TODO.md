@@ -1,11 +1,15 @@
 # TODO
 ## NEXT
+- [bug] UpdateDatabase schickt das falsche Command in der Error-Notification
+    -> Copy() für alle Commands implementieren
+    -> finalCommand.Copy() an den entsprechenden Stellen einsetzen, damit wir nicht via Pointer immer nur das letzte Command ansteuern
 
 ## BUGS
-###v0.2.0
+###v0.2.1
+- [bug] DBUpdater meldet "Error" zurück, obwohl er eigentlich einfach gar nichts machen müsste
 
 ## FEATURES (unsortiert)
-###v0.2.0
+###v0.2.1
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
@@ -19,6 +23,9 @@
 - man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 
 ## DONE
+###v0.2.1
+
+
 ###v0.2.0
 - [bug] warum wird am Ende der Queue-Bearbeitung der CommandName statt Server-URL ausgegeben?
 - CleanupFiles funktioniert nicht

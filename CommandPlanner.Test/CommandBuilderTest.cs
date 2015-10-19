@@ -71,7 +71,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckIfNewer), actual[0].GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(GetFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(DeleteOldAndGetNewFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(CleanupOldUnpackedFiles), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
@@ -109,7 +109,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckIfNewer), actual[0].GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(GetFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(DeleteOldAndGetNewFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(CleanupOldUnpackedFiles), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
@@ -134,7 +134,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckIfNewer), actual[0].GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(GetFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(DeleteOldAndGetNewFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(CleanupOldUnpackedFiles), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
@@ -169,7 +169,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckIfNewer), actual[0].GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(GetFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(DeleteOldAndGetNewFile), actual[0].RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
             Assert.AreEqual(typeof(CleanupOldUnpackedFiles), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());

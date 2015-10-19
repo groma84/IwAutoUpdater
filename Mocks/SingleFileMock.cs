@@ -6,20 +6,20 @@ namespace Mocks
 {
     public class SingleFileMock : ISingleFile
     {
-        public Dictionary<string, bool> Delete = new Dictionary<string, bool>();
+        public bool Delete = false;
         public int DeleteCalls = 0;
         bool ISingleFile.Delete(string fullPath)
         {
             ++DeleteCalls;
-            return Delete[fullPath];
+            return Delete;
         }
 
-        public Dictionary<string, bool> DoesExist = new Dictionary<string, bool>();
+        public bool DoesExist = false;
         public int DoesExistCalls = 0;
         bool ISingleFile.DoesExist(string fullPath)
         {
             ++DoesExistCalls;
-            return DoesExist[fullPath];
+            return DoesExist;
         }
 
         public Dictionary<string, DateTime> GetLastModified = new Dictionary<string, DateTime>();

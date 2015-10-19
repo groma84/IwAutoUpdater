@@ -1,17 +1,13 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.Commands.Test
 {
     [TestClass]
-    public class GetFileTest
+    public class DeleteOldAndGetNewFileTest
     {
         static string _workFolder = @"C:\zork\";
         static string _fileName = "zork.zip";
@@ -43,18 +39,23 @@ namespace IwAutoUpdater.BLL.Commands.Test
         }
 
         [TestMethod]
-        public void GetFileTest_Successful()
+        public void DeleteOldAndGetNewFileTest_Successful()
         {
             _singleFileMock.Write.Add(_fullPath, true);
+            _singleFileMock.DoesExist = true;
+            _singleFileMock.Delete = true;
+
             _updatePackageAccessMock.GetFile = new byte[] { byte.Parse("123") };
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
-            var gf = new GetFile(_workFolder, _updatePackageMock, _singleFileMock);
+            var gf = new DeleteOldAndGetNewFile(_workFolder, _updatePackageMock, _singleFileMock);
             var actual = gf.Do(_commandResult);
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
             Assert.AreEqual(0, actual.PreviousErrors.Count());
 
+            Assert.AreEqual(1, _singleFileMock.DeleteCalls);
+            Assert.AreEqual(1, _singleFileMock.DoesExistCalls);
             Assert.AreEqual(1, _singleFileMock.WriteCalls);
             Assert.AreEqual(1, _updatePackageAccessMock.GetFileCalls);
         }

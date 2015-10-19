@@ -10,6 +10,7 @@ namespace IwAutoUpdater.CrossCutting.Base
     {
         public abstract CommandResult Do(CommandResult resultOfPreviousCommand);
         public abstract string PackageName { get; }
+        public abstract Command Copy();
 
         public Command RunAfterCompletedWithResultTrue;
         public Command RunAfterCompletedWithResultFalse;

@@ -6,14 +6,14 @@ using System.IO;
 
 namespace IwAutoUpdater.BLL.Commands
 {
-    public class GetFile : Command
+    public class DeleteOldAndGetNewFile : Command
     {
         private readonly IUpdatePackage _package;
         private readonly ISingleFile _singleFile;
         private readonly string _workFolder;
         private readonly string _fullPathToLocalFile;
 
-        public GetFile(string workFolder, IUpdatePackage package, ISingleFile singleFile)
+        public DeleteOldAndGetNewFile(string workFolder, IUpdatePackage package, ISingleFile singleFile)
         {
             _workFolder = workFolder;
             _package = package;
@@ -28,6 +28,10 @@ namespace IwAutoUpdater.BLL.Commands
             try
             {
                 var remoteFile = _package.Access.GetFile();
+                if (_singleFile.DoesExist(_fullPathToLocalFile))
+                {
+                    _singleFile.Delete(_fullPathToLocalFile);
+                }
                 writeSuccess = _singleFile.Write(_fullPathToLocalFile, remoteFile);
             }
             finally

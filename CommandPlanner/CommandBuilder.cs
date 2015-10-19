@@ -42,7 +42,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 _logger.Debug("Building commands for {PackageName}", package.PackageName);
 
                 var checkIfNewer = new CheckIfNewer(workFolder, package, _singleFile);
-                var getFile = new GetFile(workFolder, package, _singleFile);
+                var getFile = new DeleteOldAndGetNewFile(workFolder, package, _singleFile);
                 var unzipFile = new UnzipFile(workFolder, package);
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
@@ -66,9 +66,10 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                     finalCommand = runInstallerCommand;
 
+                    Command updateDatabase = null;
                     if (!package.Settings.SkipDatabaseUpdate)
                     {
-                        var updateDatabase = new UpdateDatabase(
+                        updateDatabase = new UpdateDatabase(
                             package.Settings.DatabaseUpdaterCommand, package.Settings.DatabaseUpdaterCommandArguments, package.Settings.ConnectionString,
                             workFolder,
                             package, _runExternalCommand, _logger);
@@ -98,7 +99,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         {
                             var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, proxySettings);
                             finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
-                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkUrlHttpStatusIs200);
+                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
                             finalCommand = checkUrlHttpStatusIs200;
                         }
                     }
@@ -108,7 +109,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var notificationText = BuildNotificationText(package);
                 var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, sendNotifications);
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkUrlHttpStatusIs200);
                 finalCommand = sendNotifications;
 
                 commands.Enqueue(checkIfNewer); // mit checkIfNewer beginnt die Abarbeitungskette
