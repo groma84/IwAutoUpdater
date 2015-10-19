@@ -39,7 +39,6 @@ namespace IwAutoUpdater.BLL.Commands
                 try
                 {
                     receiver.SendNotification(topic, body);
-
                 }
                 catch (Exception ex)
                 {

@@ -2,12 +2,10 @@
 ## NEXT
 
 ## BUGS
-###v0.1.2
+###v0.2.0
 
 ## FEATURES (unsortiert)
-###v0.1.2
-
-- DBUpdater Konsolenoutput verbessern
+###v0.2.0
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
@@ -21,7 +19,7 @@
 - man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 
 ## DONE
-###v0.1.2
+###v0.2.0
 - [bug] warum wird am Ende der Queue-Bearbeitung der CommandName statt Server-URL ausgegeben?
 - CleanupFiles funktioniert nicht
 - Fehlernachrichten versenden, wenn in einem Command ein Fehler auftritt
