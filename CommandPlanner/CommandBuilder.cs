@@ -47,7 +47,6 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
                 checkIfNewer.RunAfterCompletedWithResultTrue = getFile;
-                checkIfNewer.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkIfNewer);
 
                 getFile.RunAfterCompletedWithResultTrue = cleanupOldUnpackedFiles;
                 getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile);
