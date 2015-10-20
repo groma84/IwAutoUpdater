@@ -109,7 +109,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var notificationText = BuildNotificationText(package);
                 var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkUrlHttpStatusIs200);
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
                 finalCommand = sendNotifications;
 
                 commands.Enqueue(checkIfNewer); // mit checkIfNewer beginnt die Abarbeitungskette

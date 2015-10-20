@@ -2,12 +2,8 @@
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -38,12 +34,22 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override CommandResult Do()
         {
             _logger.Debug("Cleaning up folder {Foldername}", _fullPathToLocalDirectory);
             _directory.Delete(_fullPathToLocalDirectory);
 
             return new CommandResult(true);
+        }
+
+        public override Command Copy()
+        {
+            var x = new CleanupOldUnpackedFiles(_workFolder, _package, _directory, _logger);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
     }
 }

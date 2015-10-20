@@ -1,11 +1,9 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Notifications.Contracts;
-using IwAutoUpdater.DAL.Updates.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -28,10 +26,20 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override Command Copy()
+        {
+            var x = new SendErrorNotifications(_receivers, _failedCommand);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
+        }
+
+        public override CommandResult Do()
         {
             var topic = BuildTopic(_failedCommand);
-            var body = BuildBody(_failedCommand, resultOfPreviousCommand);
+            var body = BuildBody(_failedCommand, ResultsOfPreviousCommands);
 
             List<Exception> exceptions = new List<Exception>();
             foreach (var receiver in _receivers)
@@ -55,16 +63,19 @@ namespace IwAutoUpdater.BLL.Commands
             return new CommandResult(true);
         }
 
-        private string BuildBody(Command failedCommand, CommandResult resultOfPreviousCommand)
-        {
+        private string BuildBody(Command failedCommand, IEnumerable<CommandResult> resultsOfPreviousCommands)
+        {          
             var sb = new StringBuilder();
 
             sb.AppendLine($"IWAutoUpdater: Command {failedCommand.GetType().Name} for Package {failedCommand.PackageName} failed with error: ");
-            foreach (var error in resultOfPreviousCommand.PreviousErrors.Concat(resultOfPreviousCommand.ErrorsInThisCommand))
+            foreach (var result in resultsOfPreviousCommands)
             {
-                sb.AppendLine(error.Exception + " -- " + error.Text);
+                foreach (var error in result.Errors)
+                {
+                    sb.AppendLine(error.Exception + " -- " + error.Text);
+                }
             }
-
+           
             return sb.ToString();
         }
 

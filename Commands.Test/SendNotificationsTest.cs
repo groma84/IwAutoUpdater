@@ -43,9 +43,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _topic, _body, _updatePackageMock);
 
-            var actual = _sendNotifications.Do(null);
+            var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.ErrorsInThisCommand.Count() == 0);
+            Assert.IsTrue(actual.Errors.Count() == 0);
             Assert.AreEqual(1, _notificationReceiverMock.SendNotificationCalled);
             Assert.IsTrue(actual.Successful);
         }
@@ -59,10 +59,10 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _topic, _body, _updatePackageMock);
 
-            var actual = _sendNotifications.Do(null);
+            var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);
-            Assert.AreEqual(1, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(actual.ErrorsInThisCommand.First().Exception, exceptionToThrow);
+            Assert.AreEqual(1, actual.Errors.Count());
+            Assert.AreEqual(actual.Errors.First().Exception, exceptionToThrow);
             Assert.AreEqual(1, _notificationReceiverMock.SendNotificationCalled);
             Assert.IsFalse(actual.Successful);
         }

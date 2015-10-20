@@ -1,4 +1,5 @@
-﻿using IwAutoUpdater.CrossCutting.Base;
+﻿using System;
+using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 
@@ -28,7 +29,7 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override CommandResult Do()
         {
             var htmlResult = _htmlGetter.DownloadHtml(_url, _proxySettings);
 
@@ -40,6 +41,16 @@ namespace IwAutoUpdater.BLL.Commands
             {
                 return new CommandResult(true);
             }
+        }
+
+        public override Command Copy()
+        {            
+            var x = new CheckUrlHttpStatusIs200(_url, _package, _htmlGetter, _proxySettings);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
     }
 }

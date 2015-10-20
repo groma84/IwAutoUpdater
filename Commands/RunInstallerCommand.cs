@@ -38,7 +38,7 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override CommandResult Do()
         {
             _logger.Debug($"Running installer command '{_installerCommand}' with arguments '{_installerCommandArguments}' in folder '{_fullPathToLocalDirectory}'");
 
@@ -54,6 +54,16 @@ namespace IwAutoUpdater.BLL.Commands
             {
                 return new CommandResult(true);
             }
+        }
+
+        public override Command Copy()
+        {           
+            var x = new RunInstallerCommand(_installerCommand, _installerCommandArguments, _workFolder, _package, _runExternalCommand, _logger);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
     }
 }

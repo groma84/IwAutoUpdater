@@ -83,20 +83,18 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                     // Update-Paket vorhanden ist.
                     // Das klappt hier nur so einfach, weil wir ja genau genommen immer nur das CheckIfNewer-Command bekommen, und alles weitere 
                     // erst nach und nach in die Warteschlange kommt. 
-                    if (!UpdatePackageInCommandAlreadyQueued(command, CommandsProducerConsumer.Queues))
+                    if (!UpdatePackageInCommandAlreadyQueued(command, CommandsProducerConsumer.Queue))
                     {
-                        _logger.Info("Queueing commands for {PackageName}", command.PackageName);
-
-                        CommandsProducerConsumer.Queues.TryAdd(command.PackageName, new BlockingCollection<Command>());
-                        CommandsProducerConsumer.Queues[command.PackageName].Add(command);
+                        _logger.Info("Queueing first command for {PackageName}", command.PackageName);
+                        CommandsProducerConsumer.Queue.TryAdd(command);                        
                     }
                 }
             }
         }
 
-        private bool UpdatePackageInCommandAlreadyQueued(Command command, ConcurrentDictionary<string, BlockingCollection<Command>> commandQueues)
+        private bool UpdatePackageInCommandAlreadyQueued(Command command, BlockingCollection<Command> commandQueue)
         {
-            return commandQueues.ContainsKey(command.PackageName);
+            return commandQueue.Any(a => a.PackageName == command.PackageName);
         }
     }
 }

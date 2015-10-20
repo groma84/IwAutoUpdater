@@ -1,8 +1,8 @@
-﻿using System;
-using IwAutoUpdater.CrossCutting.Base;
+﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
+using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -22,7 +22,7 @@ namespace IwAutoUpdater.BLL.Commands
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
         }
 
-        public override CommandResult Do(CommandResult lastResult)
+        public override CommandResult Do()
         {
             bool writeSuccess;
             try
@@ -39,6 +39,16 @@ namespace IwAutoUpdater.BLL.Commands
                 _package.Access.Dispose();
             }
             return new CommandResult(writeSuccess);
+        }
+
+        public override Command Copy()
+        {
+            var x = new DeleteOldAndGetNewFile(_workFolder, _package, _singleFile);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
 
         public override string PackageName

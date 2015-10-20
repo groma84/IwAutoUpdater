@@ -22,11 +22,21 @@ namespace IwAutoUpdater.BLL.Commands
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
         }
 
-        public override CommandResult Do(CommandResult lastResult)
+        public override CommandResult Do()
         {
             var localFileDate = (_singleFile.DoesExist(_fullPathToLocalFile) ? _singleFile.GetLastModified(_fullPathToLocalFile) : DateTime.MinValue);
             var remoteIsNewer = _package.Access.IsRemoteFileNewer(localFileDate);
             return new CommandResult(remoteIsNewer);
+        }
+
+        public override Command Copy()
+        {
+            var x = new CheckIfNewer(_workFolder, _package, _singleFile);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
 
         public override string PackageName

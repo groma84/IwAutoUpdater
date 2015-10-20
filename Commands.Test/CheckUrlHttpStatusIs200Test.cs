@@ -46,9 +46,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
                 HttpStatusCode = 200
             };
 
-            var actual = _checkUrlHttpStatusIs200.Do(null);
+            var actual = _checkUrlHttpStatusIs200.Do();
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.ErrorsInThisCommand.Count() == 0);
+            Assert.IsTrue(actual.Errors.Count() == 0);
             Assert.AreEqual(1, _htmlGetterMock.DownloadHtmlCalledWithProxy);
             Assert.IsTrue(actual.Successful);
         }
@@ -64,10 +64,10 @@ namespace IwAutoUpdater.BLL.Commands.Test
                 HttpStatusCode = 500
             };
 
-            var actual = _checkUrlHttpStatusIs200.Do(null);
+            var actual = _checkUrlHttpStatusIs200.Do();
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual.ErrorsInThisCommand.Count() == 1);
-            Assert.AreEqual(failedContent, actual.ErrorsInThisCommand.First().Text);
+            Assert.IsTrue(actual.Errors.Count() == 1);
+            Assert.AreEqual(failedContent, actual.Errors.First().Text);
             Assert.AreEqual(1, _htmlGetterMock.DownloadHtmlCalledWithProxy);
             Assert.IsFalse(actual.Successful);
         }

@@ -4,8 +4,6 @@ using IwAutoUpdater.DAL.Updates.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -32,7 +30,7 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override CommandResult Do()
         {
             List<Exception> exceptions = new List<Exception>();
             foreach (var receiver in _receivers)
@@ -55,6 +53,16 @@ namespace IwAutoUpdater.BLL.Commands
             }
 
             return new CommandResult(true);
+        }
+
+        public override Command Copy()
+        {
+            var x = new SendNotifications(_receivers, _topic, _body, _package);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
     }
 }

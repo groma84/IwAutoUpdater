@@ -3,6 +3,7 @@ using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
+using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -39,9 +40,11 @@ namespace IwAutoUpdater.BLL.Commands
             }
         }
 
-        public override CommandResult Do(CommandResult resultOfPreviousCommand)
+        public override CommandResult Do()
         {
             var argumentsWithConnectionString = InsertConnectionString(_databaseUpdaterArguments, _connectionString);
+
+            _logger.Debug($"Running database update command '{_datebaseUpdaterCommand}' with arguments '{argumentsWithConnectionString}' in folder '{_fullPathToLocalDirectory}'");
 
             var externalCommandResult = _runExternalCommand.Run(_datebaseUpdaterCommand, argumentsWithConnectionString, _fullPathToLocalDirectory);
 
@@ -55,6 +58,16 @@ namespace IwAutoUpdater.BLL.Commands
             {
                 return new CommandResult(true);
             }
+        }
+
+        public override Command Copy()
+        {
+            var x = new UpdateDatabase(_datebaseUpdaterCommand, _databaseUpdaterArguments, _connectionString, _workFolder, _package, _runExternalCommand, _logger);
+            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+
+            return x;
         }
 
         private string InsertConnectionString(string databaseUpdaterArguments, string connectionString)

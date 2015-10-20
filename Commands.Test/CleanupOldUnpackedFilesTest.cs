@@ -58,13 +58,12 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestMethod]
         public void CleanupOldUnpackedFilesTest_Do_DeleteExistingDirectoryCalledAndReturnTrue()
         {
-            var actual = _cleanupOldUnpackedFilesTest.Do(_commandResult);
+            var actual = _cleanupOldUnpackedFilesTest.Do();
             Assert.AreEqual(1, _directoryMock.DeleteCalled);
             Assert.AreEqual(Path.Combine(_workFolder, _getFileNameOnly), _directoryMock.LastDeletedPath);
 
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
         }
     }
 

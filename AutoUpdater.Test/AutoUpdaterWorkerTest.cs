@@ -1,12 +1,8 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.AutoUpdater.Test
 {
@@ -17,7 +13,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
         CommandMock _commandMock;
         CommandMock _commandMockCalledLaterOnTrue;
         CommandMock _commandMockCalledLaterOnFalse;
-        ConcurrentDictionary<string, BlockingCollection<Command>> _queues;
+        BlockingCollection<Command> _queue;
         LoggerMock _loggerMock;
         CommandResult _commandResult;
 
@@ -32,19 +28,16 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
 
             _loggerMock = new LoggerMock();
 
-            _queues = new ConcurrentDictionary<string, BlockingCollection<Command>>();
+            _queue = new BlockingCollection<Command>();
 
             _autoUpdaterWorker = new AutoUpdaterWorker(_loggerMock);
-            _queues.TryAdd(_commandMock.PackageName, new BlockingCollection<Command>());
-
+           
             _commandResult = new CommandResult();
         }
 
         [TestCleanup]
         public void TestCleanup()
-        {
-            _queues?.Clear();
-
+        {           
             _commandMock = null;
             _commandMockCalledLaterOnTrue = null;
             _commandMockCalledLaterOnFalse = null;
@@ -53,18 +46,18 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
 
             _autoUpdaterWorker = null;
 
-            CommandsProducerConsumer.Queues.Clear();
+            _queue = null;
+
+            CommandsProducerConsumer.Queue = null;
         }
 
         [TestMethod]
         public void AutoUpdaterWorkerTest_ExecuteOneCommand_CommandReturnsTrue_NoSecondCommandRegistered()
         {
-            var myQueue = _queues.First();
-            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _commandResult, myQueue, _queues);
+            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _queue);
 
             Assert.AreEqual(1, _commandMock.DoCalled);
-            Assert.AreEqual(0, myQueue.Value.Count);
-            Assert.IsTrue(myQueue.Value.IsCompleted);
+            Assert.AreEqual(0, _queue.Count);
         }
 
 
@@ -75,13 +68,12 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
             _commandMock.RunAfterCompletedWithResultFalse = _commandMockCalledLaterOnFalse;
             _commandMock.DoResult = new CommandResult(true);
 
-            var myQueue = _queues.First();
-            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _commandResult, myQueue, _queues);
+            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _queue);
 
             Assert.AreEqual(1, _commandMock.DoCalled);
-            Assert.AreEqual(1, myQueue.Value.Count);
-            Assert.AreEqual(_commandMockCalledLaterOnTrue, myQueue.Value.First());
-            Assert.IsFalse(myQueue.Value.IsCompleted);
+            Assert.AreEqual(1, _queue.Count);
+            Assert.AreEqual(_commandMockCalledLaterOnTrue, _queue.First());
+            Assert.IsFalse(_queue.IsCompleted);
         }
 
         [TestMethod]
@@ -91,31 +83,12 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
             _commandMock.RunAfterCompletedWithResultFalse = _commandMockCalledLaterOnFalse;
             _commandMock.DoResult = new CommandResult(false);
 
-            var myQueue = _queues.First();
-            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _commandResult, myQueue, _queues);
+            _autoUpdaterWorker.ExecuteOneCommand(_commandMock, _queue);
 
             Assert.AreEqual(1, _commandMock.DoCalled);
-            Assert.AreEqual(1, myQueue.Value.Count);
-            Assert.AreEqual(_commandMockCalledLaterOnFalse, myQueue.Value.First());
-            Assert.IsFalse(myQueue.Value.IsCompleted);
-        }
-
-        [TestMethod]
-        public void AutoUpdaterWorkerTest_OneWorkLoop_SmokeTest()
-        {
-            var secondCommandMock = new CommandMock() { PackageNameResult = "secondCommandMock" };
-
-            CommandsProducerConsumer.Queues.TryAdd(_commandMock.PackageName, new BlockingCollection<Command>());
-            CommandsProducerConsumer.Queues.TryAdd(secondCommandMock.PackageName, new BlockingCollection<Command>());
-
-            var firstQueue = CommandsProducerConsumer.Queues[_commandMock.PackageName];
-            var secondQueue = CommandsProducerConsumer.Queues[secondCommandMock.PackageName];
-            firstQueue.Add(_commandMock);
-            secondQueue.Add(secondCommandMock);
-
-            _autoUpdaterWorker.OneWorkLoop();
-
-            Assert.AreEqual(0, CommandsProducerConsumer.Queues.Count);
-        }
+            Assert.AreEqual(1, _queue.Count);
+            Assert.AreEqual(_commandMockCalledLaterOnFalse, _queue.First());
+            Assert.IsFalse(_queue.IsCompleted);
+        }       
     }
 }

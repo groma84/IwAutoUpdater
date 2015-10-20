@@ -83,10 +83,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
                 RecordedStandardOutput = "abc testtest\r\n"
             };
 
-            var actual = _updateDatabase.Do(_commandResult);
+            var actual = _updateDatabase.Do();
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _updatePackageAccessMock.GetFilenameOnlyCalls);
             Assert.AreEqual(1, _loggerMock.InfoMessageCalled);

@@ -11,10 +11,15 @@ namespace Mocks
     {
         public CommandResult DoResult = new CommandResult();
         public int DoCalled = 0;
-        public override CommandResult Do(CommandResult lastResult)
+        public override CommandResult Do()
         {
             ++DoCalled;
             return DoResult;
+        }
+
+        public override Command Copy()
+        {
+            return this;
         }
 
         public string PackageNameResult = "";

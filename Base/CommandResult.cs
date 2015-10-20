@@ -9,13 +9,11 @@ namespace IwAutoUpdater.CrossCutting.Base
     public class CommandResult
     {
         public bool Successful;
-        public IEnumerable<Error> PreviousErrors;
-        public IEnumerable<Error> ErrorsInThisCommand;
+        public IEnumerable<Error> Errors;
 
         public CommandResult()
         {
-            PreviousErrors = new Error[0];
-            ErrorsInThisCommand = new Error[0];
+            Errors = new Error[0];
         }
 
         public CommandResult(bool successful)
@@ -27,7 +25,7 @@ namespace IwAutoUpdater.CrossCutting.Base
         public CommandResult(bool successful, IEnumerable<Error> errorsInThisCommand)
             : this(successful)
         {
-            ErrorsInThisCommand = errorsInThisCommand;
+            Errors = errorsInThisCommand;
         }
     }
 }

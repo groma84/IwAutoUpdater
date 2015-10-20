@@ -50,10 +50,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _singleFileMock.DoesExist = false;
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);
-            var actual = cin.Do(_commandResult);
+            var actual = cin.Do();
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _singleFileMock.DoesExistCalls);
             Assert.AreEqual(0, _singleFileMock.GetLastModifiedCalls);
@@ -70,10 +69,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _singleFileMock.GetLastModified.Add(_fullPath, new DateTime(2015, 5, 15));
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);
-            var actual = cin.Do(_commandResult);
+            var actual = cin.Do();
             Assert.IsFalse(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _singleFileMock.DoesExistCalls);
             Assert.AreEqual(1, _singleFileMock.GetLastModifiedCalls);
@@ -90,10 +88,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _singleFileMock.GetLastModified.Add(_fullPath, new DateTime(1995, 5, 15));
 
             var cin = new CheckIfNewer(_workFolder, _updatePackageMock, _singleFileMock);
-            var actual = cin.Do(_commandResult);
+            var actual = cin.Do();
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _singleFileMock.DoesExistCalls);
             Assert.AreEqual(1, _singleFileMock.GetLastModifiedCalls);

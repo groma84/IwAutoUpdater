@@ -49,10 +49,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
             var gf = new DeleteOldAndGetNewFile(_workFolder, _updatePackageMock, _singleFileMock);
-            var actual = gf.Do(_commandResult);
+            var actual = gf.Do();
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _singleFileMock.DeleteCalls);
             Assert.AreEqual(1, _singleFileMock.DoesExistCalls);

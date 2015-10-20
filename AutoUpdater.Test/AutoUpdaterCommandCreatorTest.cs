@@ -106,13 +106,13 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Test
             _autoUpdaterCommandCreator.CheckIfUpdateIsNecessaryAndEnqueueCommands(_settings, new[] { mockPackage }, new INotificationReceiver[0]);
             Assert.AreEqual(1, _checkTimerMock.IsCheckForUpdatesNecessaryCalled);
             Assert.AreEqual(1, _commandBuilderMock.GetCommandsCalled);
-            Assert.AreEqual(1, CommandsProducerConsumer.Queues.Count);
+            Assert.AreEqual(1, CommandsProducerConsumer.Queue.Count);
 
             //  Beim zweiten Mal darf das Command nicht nochmal eingereiht werden
             _autoUpdaterCommandCreator.CheckIfUpdateIsNecessaryAndEnqueueCommands(_settings, new[] { mockPackage }, new INotificationReceiver[0]);
             Assert.AreEqual(2, _checkTimerMock.IsCheckForUpdatesNecessaryCalled);
             Assert.AreEqual(2, _commandBuilderMock.GetCommandsCalled);
-            Assert.AreEqual(1, CommandsProducerConsumer.Queues.Count);
+            Assert.AreEqual(1, CommandsProducerConsumer.Queue.Count);
         }
     }
 }

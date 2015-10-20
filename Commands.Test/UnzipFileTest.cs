@@ -51,10 +51,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestMethod]
         public void UnzipFileTest_Do()
         {
-            var actual = _unzipFile.Do(_commandResult);
+            var actual = _unzipFile.Do();
             Assert.IsTrue(actual.Successful);
-            Assert.AreEqual(0, actual.ErrorsInThisCommand.Count());
-            Assert.AreEqual(0, actual.PreviousErrors.Count());
+            Assert.AreEqual(0, actual.Errors.Count());
 
             Assert.AreEqual(1, _updatePackageAccessMock.GetFilenameOnlyCalls);
             Assert.IsTrue(Directory.Exists(_workFolder));
