@@ -1,17 +1,19 @@
 # TODO
 ## NEXT
-- [bug] UpdateDatabase schickt das falsche Command in der Error-Notification
-    -> Copy() für alle Commands implementieren
-    -> finalCommand.Copy() an den entsprechenden Stellen einsetzen, damit wir nicht via Pointer immer nur das letzte Command ansteuern
 
 ## BUGS
 ###v0.2.1
+- [bug] Nachdem ein zip-File entpackt wurde, kann es nicht mehr gelöscht/überschrieben werden
 - [bug] DBUpdater meldet "Error" zurück, obwohl er eigentlich einfach gar nichts machen müsste
+- [bug] CheckHttpStatus hängt endlos
 
 ## FEATURES (unsortiert)
 ###v0.2.1
 
+
+
 ###später
+- Queues so umstellen, dass erst alle heruntergeladen werden, danach aber jeder Server komplett durchgezogen wird
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
     - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
@@ -20,10 +22,13 @@
 - Hinterlegbarkeit einer "Versionsinfo-Datei" -> diese wird am Ende für die Notification ausgelesen und 1:1 in den Body kopiert
 - Protokollierung, welche Dateien wann erfolgreich installiert wurden -> "resume"-Funktion (ev. mit Textdatei oder SQLite DB?)
 - Protokolldatei, statt Logging nur in Console
-- man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 
 ## DONE
 ###v0.2.1
+- [bug] UpdateDatabase schickt das falsche Command in der Error-Notification
+    -> Copy() für alle Commands implementieren
+    -> finalCommand.Copy() an den entsprechenden Stellen einsetzen, damit wir nicht via Pointer immer nur das letzte Command ansteuern
+- man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 
 
 ###v0.2.0

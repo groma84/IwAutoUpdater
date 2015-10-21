@@ -27,5 +27,10 @@ namespace IwAutoUpdater.CrossCutting.Base
         {
             Errors = errorsInThisCommand;
         }
+
+        public override string ToString()
+        {
+            return $"CommandResult: Successful: {Successful} - Errors: {Errors.Select(a => a.Text + "-- " + a.Exception + "; ")}"; 
+        }
     }
 }

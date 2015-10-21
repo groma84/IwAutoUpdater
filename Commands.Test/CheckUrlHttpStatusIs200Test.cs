@@ -13,6 +13,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         string _url = "http://www.somethingsomethingTest.net/";
         private UpdatePackageMock _updatePackageMock;
         private HtmlGetterMock _htmlGetterMock;
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -24,7 +25,9 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _htmlGetterMock = new HtmlGetterMock();
 
-            _checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(_url, _updatePackageMock, _htmlGetterMock);
+            _loggerMock = new LoggerMock();
+
+            _checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(_url, _updatePackageMock, _htmlGetterMock, _loggerMock);
 
         }
 

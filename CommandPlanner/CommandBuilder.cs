@@ -42,7 +42,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 _logger.Debug("Building commands for {PackageName}", package.PackageName);
 
                 var checkIfNewer = new CheckIfNewer(workFolder, package, _singleFile);
-                var getFile = new DeleteOldAndGetNewFile(workFolder, package, _singleFile);
+                var getFile = new DeleteOldAndGetNewFile(workFolder, package, _singleFile, _logger);
                 var unzipFile = new UnzipFile(workFolder, package);
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
@@ -97,7 +97,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                         foreach (var url in package.Settings.CheckUrlsAfterInstallation)
                         {
-                            var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, proxySettings);
+                            var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, _logger, proxySettings);
                             finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
                             finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
                             finalCommand = checkUrlHttpStatusIs200;

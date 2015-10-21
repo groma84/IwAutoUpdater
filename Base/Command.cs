@@ -16,7 +16,7 @@ namespace IwAutoUpdater.CrossCutting.Base
         public Command RunAfterCompletedWithResultFalse;
 
         private List<CommandResult> _resultsOfPreviousCommands = new List<CommandResult>();
-        public IEnumerable<CommandResult> ResultsOfPreviousCommands { get { return _resultsOfPreviousCommands; } }
+        public IEnumerable<CommandResult> ResultsOfPreviousCommands { get { return _resultsOfPreviousCommands; } }        
 
         public void AddResultOfPreviousCommand(CommandResult resultOfPreviousCommand)
         {

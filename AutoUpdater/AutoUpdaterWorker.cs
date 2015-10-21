@@ -40,8 +40,19 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 }
             });
 
+
+            t.ContinueWith((tResult) =>
+            {
+                if (tResult.Exception != null)
+                {
+                    var flattened = tResult.Exception.Flatten();
+                    _logger.Debug("Exception in task: {Exception}", flattened);
+                    throw flattened;
+                }
+            }, TaskContinuationOptions.OnlyOnFaulted);
+
             return t;
-        }       
+        }
 
         /// <summary>
         /// 
@@ -53,7 +64,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
         {
             _logger.Info("Starting Command {Command} for package {Package}", command, command.PackageName);
             var result = command.Do();
-            _logger.Debug("Finished Command {Command}", command);
+            _logger.Debug("Finished Command {Command} with result: {Result}", command, result);
 
             if (result.Successful && command.RunAfterCompletedWithResultTrue != null)
             {
@@ -65,7 +76,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 command.RunAfterCompletedWithResultFalse.AddResultsOfPreviousCommands(command.ResultsOfPreviousCommands.Concat(new[] { result }));
                 queue.Add(command.RunAfterCompletedWithResultFalse);
             }
-           
+
             return result;
         }
     }

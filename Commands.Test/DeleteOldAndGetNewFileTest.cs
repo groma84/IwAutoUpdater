@@ -16,6 +16,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         UpdatePackageMock _updatePackageMock;
         SingleFileMock _singleFileMock;
         CommandResult _commandResult = new CommandResult();
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -27,6 +28,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageMock = new UpdatePackageMock();
             _updatePackageMock.Access = _updatePackageAccessMock;
 
+            _loggerMock = new LoggerMock();
             _singleFileMock = new SingleFileMock();
         }
 
@@ -48,7 +50,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageAccessMock.GetFile = new byte[] { byte.Parse("123") };
             _updatePackageAccessMock.GetFilenameOnly = _fileName;
 
-            var gf = new DeleteOldAndGetNewFile(_workFolder, _updatePackageMock, _singleFileMock);
+            var gf = new DeleteOldAndGetNewFile(_workFolder, _updatePackageMock, _singleFileMock, _loggerMock);
             var actual = gf.Do();
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.Errors.Count());

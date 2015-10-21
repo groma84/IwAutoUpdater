@@ -1,4 +1,4 @@
-Degu & Chinchilla (2)
+﻿Degu & Chinchilla (2)
 Chinchilla
 Degu
 
@@ -32,4 +32,3 @@ Angorameerschweinchen
 Glatthaarmeerschweinchen
 Holländermeerschweinchen
 Kurzhaarmeerschweinchen
-Rosettenmeerschweinchen
