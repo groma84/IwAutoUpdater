@@ -32,7 +32,7 @@ namespace IwAutoUpdater.DAL.Updates.Test
         public void LocalFileAccessTest_SmokeTest()
         {
             Assert.AreEqual(_filePath, _localFileAccess.GetFilenameOnly());
-            Assert.IsTrue(_localFileAccess.IsRemoteFileNewer(DateTime.Now.AddMonths(-1)));
+            Assert.IsTrue(_localFileAccess.IsRemoteFileNewer(new DateTime(2015, 05, 15)));
             Assert.AreEqual(new byte[] { byte.Parse("239") }.First(), _localFileAccess.GetFile().First());
         }
     }

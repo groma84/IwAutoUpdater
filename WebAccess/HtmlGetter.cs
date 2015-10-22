@@ -39,7 +39,7 @@ namespace IwAutoUpdater.DAL.WebAccess
         {
             var result = new HtmlDownload();
 
-            var webClient = new WebClient();
+            var webClient = new WebClientWithTimeout(new TimeSpan(0, 7, 0));
 
             if (proxySettingsSetter != null)
             {
