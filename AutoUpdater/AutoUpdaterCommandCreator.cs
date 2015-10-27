@@ -34,12 +34,12 @@ namespace IwAutoUpdater.BLL.AutoUpdater
             _logger = logger;
         }
 
-        Task IAutoUpdaterCommandCreator.NeverendingCreationLoop(Settings settings)
+        async Task IAutoUpdaterCommandCreator.NeverendingCreationLoop(Settings settings)
         {
             var servers = _configurationConverter.ConvertServers(settings.Servers);
             var messageReceivers = _configurationConverter.ConvertMessageReceivers(settings.Global.ResultMessageReceivers, settings.Global.EMailSettings, settings.Global.EMailSenderName);
 
-            var t = new Task(() =>
+            await Task.Run(async () =>
             {
                 TimeSpan waitTime;
 
@@ -47,11 +47,9 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 {
                     CheckIfUpdateIsNecessaryAndEnqueueCommands(settings, servers, messageReceivers);
                     waitTime = CalculateWaitTimeToNextMinute(_nowGetter);
-                    Thread.Sleep(waitTime);
+                    await Task.Delay(waitTime);
                 }
-            }, TaskCreationOptions.LongRunning | TaskCreationOptions.AttachedToParent);
-
-            return t;
+            });
         }
 
         /// <summary>

@@ -5,6 +5,6 @@ namespace IwAutoUpdater.BLL.AutoUpdater.Contracts
 {
     public interface IAutoUpdaterThreadFactory
     {
-        void CreateAndRunEndlessLoops(Settings settings);
+        Task CreateAndRunEndlessLoops(Settings settings);
     }
 }

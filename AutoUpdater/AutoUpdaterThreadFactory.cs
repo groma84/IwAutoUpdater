@@ -8,6 +8,8 @@ using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using System.Threading;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
 
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
 namespace IwAutoUpdater.BLL.AutoUpdater
 {
     public class AutoUpdaterThreadFactory : IAutoUpdaterThreadFactory
@@ -23,11 +25,12 @@ namespace IwAutoUpdater.BLL.AutoUpdater
             _autoUpdaterCommandCreator = autoUpdaterCommandCreator;
         }
 
-        void IAutoUpdaterThreadFactory.CreateAndRunEndlessLoops(Settings settings)
+        async Task IAutoUpdaterThreadFactory.CreateAndRunEndlessLoops(Settings settings)
         {
             var t1 = CommandCreatorRun(_autoUpdaterCommandCreator, settings, _logger);
             var t2 = CommandWorkerRun(_autoUpdaterWorker, _logger);
-            Task.WaitAll(new[] { t1, t2 });
+            
+            Task.WaitAll(t1, t2);
         }
 
         private async Task CommandCreatorRun(IAutoUpdaterCommandCreator commandCreator, Settings settings, ILogger logger)

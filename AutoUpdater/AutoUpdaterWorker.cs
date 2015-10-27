@@ -50,6 +50,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 }
             }, TaskContinuationOptions.OnlyOnFaulted);
 
+            t.Start();
             return t;
         }
 

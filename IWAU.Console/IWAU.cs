@@ -28,9 +28,12 @@ namespace IWAU.Console
             logger.Info("IWAU started");
 
             var settings = configuration.Get(args[0]);
-            autoUpdater.CreateAndRunEndlessLoops(settings); // blockiert
-            
+            var autoUpdaterRunner = autoUpdater.CreateAndRunEndlessLoops(settings);
+
+            Task.WaitAll(autoUpdaterRunner);
+
+
             logger.Info("IWAU ended");
-        }
+        }        
     }
 }

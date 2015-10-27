@@ -107,7 +107,6 @@ namespace IwAutoUpdater.CrossCutting.Base
         {
             lock (_lockObject)
             {
-
                 _bag.Add(item);
                 return true;
             }
