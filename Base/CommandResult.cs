@@ -30,7 +30,14 @@ namespace IwAutoUpdater.CrossCutting.Base
 
         public override string ToString()
         {
-            return $"CommandResult: Successful: {Successful} - Errors: {Errors.Select(a => a.Text + "-- " + a.Exception + "; ")}"; 
+            var errorTexts = new StringBuilder();
+
+            foreach (var err in Errors.Select(a => a.Text + "-- " + a.Exception + "; "))
+            {
+                errorTexts.AppendLine(err);
+            }
+            
+            return $"CommandResult: Successful: {Successful} - Errors: {errorTexts.ToString()}"; 
         }
     }
 }

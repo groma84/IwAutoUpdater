@@ -20,6 +20,8 @@ namespace IwAutoUpdater.BLL.Commands
             _singleFile = singleFile;
 
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
+
+            _vordraengelFaktor = int.MaxValue; // CheckIfNewer aller Pakete soll immer mit maximaler Priorität ausgeführt werden
         }
 
         public override CommandResult Do()

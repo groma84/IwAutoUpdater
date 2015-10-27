@@ -23,6 +23,10 @@ namespace IwAutoUpdater.BLL.Commands
             _logger = logger;
 
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
+
+            // DeleteOldAndGetNewFile aller Pakete soll immer zuerst ausgeführt werden,
+            // damit immer erst alle Pakete heruntergeladen werden
+            _vordraengelFaktor = int.MaxValue; 
         }
 
         public override CommandResult Do()

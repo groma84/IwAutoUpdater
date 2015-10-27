@@ -40,13 +40,12 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 }
             });
 
-
             t.ContinueWith((tResult) =>
             {
                 if (tResult.Exception != null)
                 {
                     var flattened = tResult.Exception.Flatten();
-                    _logger.Debug("Exception in task: {Exception}", flattened);
+                    _logger.Debug("Exception in AutoUpdaterWorker: {Exception}", flattened);
                     throw flattened;
                 }
             }, TaskContinuationOptions.OnlyOnFaulted);

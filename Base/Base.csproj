@@ -45,7 +45,9 @@
     <Compile Include="Error.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GetDataMethod.cs" />
+    <Compile Include="IHasVordraengelFaktor.cs" />
     <Compile Include="MessageReceiverType.cs" />
+    <Compile Include="ProducerConsumerQueueWithPriority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

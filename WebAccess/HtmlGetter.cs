@@ -39,7 +39,9 @@ namespace IwAutoUpdater.DAL.WebAccess
         {
             var result = new HtmlDownload();
 
-            var webClient = new WebClientWithTimeout(new TimeSpan(0, 7, 0));
+            var timeout = new TimeSpan(0, 5, 0);
+
+            var webClient = new WebClientWithTimeout(timeout);
 
             if (proxySettingsSetter != null)
             {
@@ -64,6 +66,10 @@ namespace IwAutoUpdater.DAL.WebAccess
                     }
 
                     webResponse.Dispose();
+                }
+                else if (ex.Status == WebExceptionStatus.Timeout)
+                {
+                    return new HtmlDownload { Content = $"WebException caught: Timeout after {timeout}", HttpStatusCode = 503 };
                 }
                 else
                 {
