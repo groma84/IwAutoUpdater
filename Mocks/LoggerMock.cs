@@ -57,5 +57,15 @@ namespace Mocks
 
             Debug.WriteLine(sb.ToString(), data);
         }
+
+        void ILogger.Error(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ILogger.Error(string messageTemplate, params object[] data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

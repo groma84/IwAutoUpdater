@@ -22,23 +22,14 @@ namespace IWAU.Console
             var container = IwAutoUpdater.DIMappings.Container.Init();
 
             var logger = container.GetInstance<ILogger>();
-
             var configuration = container.GetInstance<IConfiguration>();
-
-            var autoUpdaterProducer = container.GetInstance<IAutoUpdaterCommandCreator>();
-            var autoUpdaterConsumer = container.GetInstance<IAutoUpdaterWorker>();
+            var autoUpdater = container.GetInstance<IAutoUpdaterThreadFactory>();            
 
             logger.Info("IWAU started");
 
             var settings = configuration.Get(args[0]);
-
-            var tProduce = autoUpdaterProducer.NeverendingCreationLoop(settings);
-            var tConsume = autoUpdaterConsumer.NeverendingWorkLoop();
-
-            tProduce.Start();
-            tConsume.Start();
-
-            Task.WaitAll(new[] { tProduce, tConsume });
+            autoUpdater.CreateAndRunEndlessLoops(settings); // blockiert
+            
             logger.Info("IWAU ended");
         }
     }

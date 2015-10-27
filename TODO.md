@@ -11,7 +11,6 @@
 
 
 ###später
-- Unhandled Exceptions sollen zu einem "internen Restart" der Applikation führen, nicht zu einem totalen Crash
 - Umstellen der DI Mappings Ausführung auf Reflection
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
     - Achtung, Parser und Test auch erweitern!
@@ -27,6 +26,7 @@
     -> finalCommand.Copy() an den entsprechenden Stellen einsetzen, damit wir nicht via Pointer immer nur das letzte Command ansteuern
 - man müsste jedem Command, bevor es in die Queue gelegt wird, alle bisherigen Nachrichten mitgeben - so könnte man dann doch wieder "kreuz und quer" Commands von versch. Servern ausführen
 - Queues so umstellen, dass erst alle heruntergeladen werden, danach aber jeder Server komplett durchgezogen wird
+- Unhandled Exceptions sollen zu einem "internen Restart" der Applikation führen, nicht zu einem totalen Crash
 
 
 ###v0.2.0

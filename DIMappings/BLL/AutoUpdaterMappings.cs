@@ -15,6 +15,7 @@ namespace IwAutoUpdater.DIMappings.BLL
     {
         void IInitializeMapping.Init(SimpleInjector.Container container)
         {
+            container.RegisterSingle<IAutoUpdaterThreadFactory, AutoUpdaterThreadFactory>();
             container.RegisterSingle<IAutoUpdaterWorker, AutoUpdaterWorker>();
             container.RegisterSingle<IAutoUpdaterCommandCreator, AutoUpdaterCommandCreator>();
         }

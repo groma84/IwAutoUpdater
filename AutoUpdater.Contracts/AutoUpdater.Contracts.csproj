@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAutoUpdaterCommandCreator.cs" />
+    <Compile Include="IAutoUpdaterThreadFactory.cs" />
     <Compile Include="IAutoUpdaterWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
