@@ -19,6 +19,7 @@ namespace IwAutoUpdater.CrossCutting.Logging
                 .MinimumLevel.Debug()
 #endif
                         .WriteTo.ColoredConsole()
+                        .WriteTo.RollingFile(@"Logs\IWAU.Console-{Date}.txt", Serilog.Events.LogEventLevel.Information)
                         .CreateLogger();
         }
 

@@ -8,7 +8,17 @@
 ## FEATURES (unsortiert)
 ###v0.2.2
 - Umstellen der DI Mappings Ausführung auf Reflection
-- Protokolldatei, statt Logging nur in Console
+	var repositoryAssembly = typeof(SqlUserRepository).Assembly;
+
+	var registrations =
+		from type in repositoryAssembly.GetExportedTypes()
+		where type.Namespace == "MyComp.MyProd.BL.SqlRepositories"
+		where type.GetInterfaces().Any()
+		select new { Service = type.GetInterfaces().Single(), Implementation = type };
+
+	foreach (var reg in registrations) {
+		container.Register(reg.Service, reg.Implementation, Lifestyle.Transient);
+	}	
 
 
 ###später
@@ -20,6 +30,7 @@
 
 ## DONE
 ###v0.2.2
+- Protokolldatei, statt Logging nur in Console
 
 
 ###v0.2.1

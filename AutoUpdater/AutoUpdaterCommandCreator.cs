@@ -83,7 +83,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                     // erst nach und nach in die Warteschlange kommt. 
                     if (!UpdatePackageInCommandAlreadyQueued(command, CommandsProducerConsumer.Queue))
                     {
-                        _logger.Info("Queueing first command for {PackageName}", command.PackageName);
+                        _logger.Debug("Queueing first command for {PackageName}", command.PackageName);
                         CommandsProducerConsumer.Queue.TryAdd(command);                        
                     }
                 }
