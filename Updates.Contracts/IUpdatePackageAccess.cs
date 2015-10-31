@@ -1,7 +1,9 @@
-﻿using System;
+﻿using IwAutoUpdater.CrossCutting.Base;
+using System;
 
 namespace IwAutoUpdater.DAL.Updates.Contracts
 {
+    [DIIgnore]
     public interface IUpdatePackageAccess : IDisposable
     {
         bool IsRemoteFileNewer(DateTime existingFileDate);

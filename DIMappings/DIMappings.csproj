@@ -43,19 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\AutoUpdaterMappings.cs" />
-    <Compile Include="BLL\CommandPlannerMappings.cs" />
     <Compile Include="Container.cs" />
-    <Compile Include="CrossCutting\ConfigurationMappings.cs" />
-    <Compile Include="CrossCutting\LoggingMappings.cs" />
-    <Compile Include="CrossCutting\SFWMappings.cs" />
-    <Compile Include="DAL\EMailMappings.cs" />
-    <Compile Include="DAL\WebAccessMappings.cs" />
-    <Compile Include="DAL\ExternalCommandsMapping.cs" />
-    <Compile Include="DAL\NotificationsMappings.cs" />
-    <Compile Include="DAL\LocalFilesMapping.cs" />
-    <Compile Include="DAL\UpdatesMappings.cs" />
-    <Compile Include="IInitializeMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +54,10 @@
     <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
       <Project>{1b3a6cf7-94be-4463-8418-00e77e792b37}</Project>
       <Name>AutoUpdater</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{b256ab11-1017-4002-adb7-85b0a1831f80}</Project>
+      <Name>Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommandPlanner.Contracts\CommandPlanner.Contracts.csproj">
       <Project>{c05afeba-7684-4afa-a274-5c74077f8d97}</Project>

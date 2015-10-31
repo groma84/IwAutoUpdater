@@ -7,19 +7,6 @@
 
 ## FEATURES (unsortiert)
 ###v0.2.2
-- Umstellen der DI Mappings Ausführung auf Reflection
-	var repositoryAssembly = typeof(SqlUserRepository).Assembly;
-
-	var registrations =
-		from type in repositoryAssembly.GetExportedTypes()
-		where type.Namespace == "MyComp.MyProd.BL.SqlRepositories"
-		where type.GetInterfaces().Any()
-		select new { Service = type.GetInterfaces().Single(), Implementation = type };
-
-	foreach (var reg in registrations) {
-		container.Register(reg.Service, reg.Implementation, Lifestyle.Transient);
-	}	
-
 
 ###später
 - E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
@@ -31,6 +18,7 @@
 ## DONE
 ###v0.2.2
 - Protokolldatei, statt Logging nur in Console
+- Umstellen der DI Mappings Ausführung auf Reflection
 
 
 ###v0.2.1

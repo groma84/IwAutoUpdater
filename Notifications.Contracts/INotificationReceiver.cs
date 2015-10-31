@@ -1,5 +1,8 @@
-﻿namespace IwAutoUpdater.DAL.Notifications.Contracts
+﻿using IwAutoUpdater.CrossCutting.Base;
+
+namespace IwAutoUpdater.DAL.Notifications.Contracts
 {    
+    [DIIgnore]
     public interface INotificationReceiver
     {
         /// <summary>

@@ -1,12 +1,9 @@
-﻿using IwAutoUpdater.CrossCutting.Configuration.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 
 namespace IwAutoUpdater.DAL.Updates.Contracts
 {
+    [DIIgnore]
     public interface IUpdatePackage
     {
         IUpdatePackageAccess Access { get; }
