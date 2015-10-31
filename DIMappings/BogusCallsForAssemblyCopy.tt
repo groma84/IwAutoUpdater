@@ -13,6 +13,8 @@ using System.Diagnostics;
 
 namespace IwAutoUpdater.DIMappings
 {
+	// MSBuild schmeisst DLLs raus, die nirgends im Code aufgerufen werden, auch wenn sie auf CopyLocal stehen und
+	// explizit als Projekt-Referenz eingetragen sind. Daher faken wir hier Aufrufe (die nie ausgeführt werden) *seufz*.
     public static class BogusCallsForAssemblyCopy
     {
         public static void DoBogusCalls()
@@ -23,7 +25,8 @@ namespace IwAutoUpdater.DIMappings
 
             string path = Path.GetDirectoryName( Host.ResolvePath(".") );
 			
-            var assemblies = new Queue<Assembly>();
+            var contractAssemblies = new Queue<Assembly>();
+            var implementationAssemblies = new Queue<Assembly>();
             foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
             {
                 if (dllFilePath.ToLowerInvariant().EndsWith(".test.dll") || dllFilePath.ToLowerInvariant().Contains("mock"))
@@ -32,27 +35,49 @@ namespace IwAutoUpdater.DIMappings
                 }
                 else if (dllFilePath.ToLowerInvariant().Contains("contracts"))
                 {
-                    assemblies.Enqueue(Assembly.Load(File.ReadAllBytes(dllFilePath)));
+                    contractAssemblies.Enqueue(Assembly.Load(File.ReadAllBytes(dllFilePath)));
                 }
                 else if (Path.GetFileName(dllFilePath.ToLowerInvariant()).StartsWith("iwautoupdater"))
                 {
-                    assemblies.Enqueue(Assembly.Load(File.ReadAllBytes(dllFilePath)));
+                    implementationAssemblies.Enqueue(Assembly.Load(File.ReadAllBytes(dllFilePath)));
                 }
             }
 
-			var types = assemblies.SelectMany(a => a.GetExportedTypes());
+			var types = contractAssemblies.SelectMany(a => a.GetExportedTypes());
 
 			var knownAssemblies = new HashSet<string>();
+			var interfaceNames = new HashSet<string>();
 			foreach(Type t in types)
 			{
-				if (!knownAssemblies.Contains(t.AssemblyQualifiedName) && !t.IsGenericType) {
-					knownAssemblies.Add(t.AssemblyQualifiedName);
+				interfaceNames.Add(t.Name);
+				if (!knownAssemblies.Contains(t.Assembly.FullName) && !t.IsGenericType) {
+					knownAssemblies.Add(t.Assembly.FullName);
 			#>
+			// <#= t.Assembly.FullName #>
 				var <#= t.Name #> = typeof(<#= t.FullName #>).ToString();
 					Debug.WriteLine(<#= t.Name #>);
 
 			<#	}
 			}
+
+
+			 foreach (var impl in implementationAssemblies)
+            {
+                var exportedTypesWithInterfaces = impl.GetExportedTypes().Where(a => a.GetInterfaces().Any());
+                foreach (var t in exportedTypesWithInterfaces)
+                {
+                    foreach (var iface in t.GetInterfaces().Where(i => interfaceNames.Contains(i.Name)))
+                    {
+						if (!knownAssemblies.Contains(t.Assembly.FullName) && !t.IsGenericType) {
+							knownAssemblies.Add(t.Assembly.FullName);
+							#>
+						// <#= t.Assembly.FullName #>
+							var <#= t.Name #> = typeof(<#= t.FullName #>).ToString();
+								Debug.WriteLine(<#= t.Name #>);
+						<#	}
+                    }
+                }
+            }
 #>
         }
     }

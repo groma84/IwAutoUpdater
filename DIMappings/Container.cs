@@ -112,9 +112,12 @@ namespace IwAutoUpdater.DIMappings
             Uri assemblyUri = new Uri(Assembly.GetExecutingAssembly().CodeBase);
             string path = Path.GetDirectoryName(assemblyUri.LocalPath);
 
+            Console.WriteLine($"LadeDlls, Pfad: {path}");
+
+
             contractAssemblies = new Queue<Assembly>();
             implementationAssemblies = new Queue<Assembly>();
-            foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
+            foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
             {
                 if (dllFilePath.ToLowerInvariant().EndsWith(".test.dll") || dllFilePath.ToLowerInvariant().Contains("mock"))
                 {

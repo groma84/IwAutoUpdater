@@ -1,7 +1,6 @@
 # TODO
 ## NEXT
-- T4 Template, das automatisch alle DLLs durchsucht und aus jeder DLL von irgendeinem Type ToString() aufruft,
-damit die DLLs auch kopiert werden
+
 
 ## BUGS
 ###v0.2.2
@@ -21,7 +20,8 @@ damit die DLLs auch kopiert werden
 ###v0.2.2
 - Protokolldatei, statt Logging nur in Console
 - Umstellen der DI Mappings Ausführung auf Reflection
-
+- T4 Template, das automatisch alle DLLs durchsucht und aus jeder DLL von irgendeinem Type ToString() aufruft,
+damit die DLLs auch kopiert werden
 
 ###v0.2.1
 - [bug] UpdateDatabase schickt das falsche Command in der Error-Notification
