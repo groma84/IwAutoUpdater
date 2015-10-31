@@ -114,7 +114,7 @@ namespace IwAutoUpdater.DIMappings
 
             contractAssemblies = new Queue<Assembly>();
             implementationAssemblies = new Queue<Assembly>();
-            foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
+            foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories))
             {
                 if (dllFilePath.ToLowerInvariant().EndsWith(".test.dll") || dllFilePath.ToLowerInvariant().Contains("mock"))
                 {

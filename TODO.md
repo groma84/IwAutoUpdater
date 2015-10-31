@@ -1,5 +1,7 @@
 # TODO
 ## NEXT
+- T4 Template, das automatisch alle DLLs durchsucht und aus jeder DLL von irgendeinem Type ToString() aufruft,
+damit die DLLs auch kopiert werden
 
 ## BUGS
 ###v0.2.2

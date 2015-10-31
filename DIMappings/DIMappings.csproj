@@ -32,17 +32,25 @@
   <ItemGroup>
     <Reference Include="SimpleInjector">
       <HintPath>..\3rdParty\SimpleInjector\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BogusCallsForAssemblyCopy.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BogusCallsForAssemblyCopy.tt</DependentUpon>
+    </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,97 +58,151 @@
     <ProjectReference Include="..\AutoUpdater.Contracts\AutoUpdater.Contracts.csproj">
       <Project>{79f48f84-b036-482f-ba1e-041558e3d9bf}</Project>
       <Name>AutoUpdater.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\AutoUpdater\AutoUpdater.csproj">
       <Project>{1b3a6cf7-94be-4463-8418-00e77e792b37}</Project>
       <Name>AutoUpdater</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Base\Base.csproj">
       <Project>{b256ab11-1017-4002-adb7-85b0a1831f80}</Project>
       <Name>Base</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\CommandPlanner.Contracts\CommandPlanner.Contracts.csproj">
       <Project>{c05afeba-7684-4afa-a274-5c74077f8d97}</Project>
       <Name>CommandPlanner.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\CommandPlanner\CommandPlanner.csproj">
       <Project>{315d852e-18a6-428f-b921-38403a45420a}</Project>
       <Name>CommandPlanner</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Configuration.Contracts\Configuration.Contracts.csproj">
       <Project>{8fb4b46a-c655-4f09-a6d2-68d7faf86b50}</Project>
       <Name>Configuration.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{785b531a-1d2a-4dc0-8510-d22aa570894c}</Project>
       <Name>Configuration</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\EMails.Contracts\EMails.Contracts.csproj">
       <Project>{f54e6c38-0792-4ffd-98db-db63d846b54a}</Project>
       <Name>EMails.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\EMails\EMails.csproj">
       <Project>{4c5abf9f-4da8-47dd-9a03-3ee912e2e87a}</Project>
       <Name>EMails</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\ExternalCommands.Contracts\ExternalCommands.Contracts.csproj">
       <Project>{d39cf5d6-26d3-4851-8e11-d560b7a517b4}</Project>
       <Name>ExternalCommands.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\ExternalCommands\ExternalCommands.csproj">
       <Project>{2b4d64bf-792c-457b-9bb9-c77b0b2e430f}</Project>
       <Name>ExternalCommands</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\LocalFiles.Contracts\LocalFiles.Contracts.csproj">
       <Project>{b35169c2-c480-494c-adc9-bea1b193d84e}</Project>
       <Name>LocalFiles.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\LocalFiles\LocalFiles.csproj">
       <Project>{1bd42b33-a93a-49ca-a997-609322d513d9}</Project>
       <Name>LocalFiles</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Logging.Contracts\Logging.Contracts.csproj">
       <Project>{e3b09a03-4f96-4f3d-98de-ab73131b5f8e}</Project>
       <Name>Logging.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{5d7fa44b-8ca9-4482-a859-f4f9344c51bd}</Project>
       <Name>Logging</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Notifications.Contracts\Notifications.Contracts.csproj">
       <Project>{82f0572f-fdec-408f-a69c-b138a84bf44a}</Project>
       <Name>Notifications.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Notifications\Notifications.csproj">
       <Project>{fa5b27cb-ecac-46d6-9c0c-1a45a381f2d2}</Project>
       <Name>Notifications</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\SFW.Contracts\SFW.Contracts.csproj">
       <Project>{0ee4e17f-069f-497a-8b9d-b9a6516e4ae4}</Project>
       <Name>SFW.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\SFW\SFW.csproj">
       <Project>{199e8f32-2a7e-457a-91d2-c4149ed03f4e}</Project>
       <Name>SFW</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Updates.Contracts\Updates.Contracts.csproj">
       <Project>{1192ae56-9f3f-4247-87b5-dbccac6ff651}</Project>
       <Name>Updates.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Updates\Updates.csproj">
       <Project>{b42fc4fb-f16c-4ef8-8259-493ebf09d73c}</Project>
       <Name>Updates</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\WebAccess.Contracts\WebAccess.Contracts.csproj">
       <Project>{6a31f43e-1857-44a5-871e-088571424b50}</Project>
       <Name>WebAccess.Contracts</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\WebAccess\WebAccess.csproj">
       <Project>{6d67e93a-f654-41f0-b405-be053613f266}</Project>
       <Name>WebAccess</Name>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="BogusCallsForAssemblyCopy.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BogusCallsForAssemblyCopy.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
