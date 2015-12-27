@@ -10,7 +10,6 @@
 
 
 ###später
-- Protokollierung, welche Dateien wann erfolgreich installiert wurden -> "resume"-Funktion (ev. mit Textdatei oder SQLite DB?)
 
 
 ## DONE
