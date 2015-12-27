@@ -94,10 +94,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(GetVersionInfo), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
         [TestMethod]
@@ -120,10 +123,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(UnzipFile), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(GetVersionInfo), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue ändern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
         [TestMethod]
@@ -154,10 +160,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(CheckUrlHttpStatusIs200), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(GetVersionInfo), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue ändern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
         [TestMethod]
@@ -186,10 +195,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(UpdateDatabase), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(GetVersionInfo), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+
+            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue erweitern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
     }
 }

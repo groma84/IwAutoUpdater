@@ -12,6 +12,7 @@ using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using SFW.Contracts;
+using System.Text;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
@@ -25,7 +26,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
         private readonly IHtmlGetter _htmlGetter;
         readonly IBlackboard _blackboard;
 
-        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, 
+        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger,
             IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter, INowGetter nowGetter,
             IBlackboard blackboard)
         {
@@ -54,10 +55,10 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 checkIfNewer.RunAfterCompletedWithResultTrue = getFile;
 
                 getFile.RunAfterCompletedWithResultTrue = cleanupOldUnpackedFiles;
-                getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile);
+                getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile, _blackboard);
 
                 cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = unzipFile;
-                cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles);
+                cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles, _blackboard);
 
                 Command finalCommand = unzipFile;
 
@@ -67,7 +68,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         package, _runExternalCommand, _logger);
 
                     unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
-                    unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile);
+                    unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile, _blackboard);
 
                     finalCommand = runInstallerCommand;
 
@@ -80,7 +81,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                             package, _runExternalCommand, _logger);
 
                         runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
-                        runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand);
+                        runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand, _blackboard);
 
                         finalCommand = updateDatabase;
                     }
@@ -104,23 +105,23 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         {
                             var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, _logger, proxySettings);
                             finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
-                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
+                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                             finalCommand = checkUrlHttpStatusIs200;
                         }
                     }
                 }
 
                 // Versionsinfo Datei auslesen
-                var getVersionInfo = new GetVersionInfo(workFolder, package, _singleFile, _logger, _blackboard);
+                var getVersionInfo = new GetVersionInfo(workFolder, package, _singleFile, _blackboard);
                 finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                 finalCommand = getVersionInfo;
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
                 var notificationText = BuildNotificationText(package);
                 var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                 finalCommand = sendNotifications;
 
                 commands.Enqueue(checkIfNewer); // mit checkIfNewer beginnt die Abarbeitungskette
@@ -139,11 +140,31 @@ namespace IwAutoUpdater.BLL.CommandPlanner
         {
             var shortPackageName = GetShortPackageName(package.PackageName);
 
+            var message = BuildMessage(package.PackageName);
+
             return new NotificationText()
             {
-                Subject = $"Paket '{shortPackageName}' wurde am {_nowGetter.Now} aktualisiert",
-                Message = $"Paket '{package.PackageName}' wurde am {_nowGetter.Now} automatisch aktualisiert"
+                Subject = $"Paket '{shortPackageName}' wurde ab {_nowGetter.Now} aktualisiert",
+                Message = message
             };
+        }
+
+        private string BuildMessage(string packageName)
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch aktualisiert");
+
+            var blackboardEntries = _blackboard.Get(packageName);
+            if (blackboardEntries.Count() > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Blackboard entries: ");
+                foreach (var blackboardEntry in blackboardEntries)
+                {
+                    sb.AppendLine(blackboardEntry.Content.ToString());
+                }
+            }
+            return sb.ToString();
         }
 
         private static string GetShortPackageName(string packageName)
