@@ -111,11 +111,14 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                     }
                 }
 
-                // Versionsinfo Datei auslesen
-                var getVersionInfo = new GetVersionInfo(workFolder, package, _singleFile, _blackboard);
-                finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
-                finalCommand = getVersionInfo;
+                // ggf. Versionsinfo Datei auslesen
+                if (!string.IsNullOrEmpty(package.Settings.ReadVersionInfoFrom))
+                {
+                    var getVersionInfo = new GetVersionInfo(workFolder, package, package.Settings.ReadVersionInfoFrom, _singleFile, _blackboard);
+                    finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
+                    finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
+                    finalCommand = getVersionInfo;
+                }
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
                 var notificationText = BuildNotificationText(package);

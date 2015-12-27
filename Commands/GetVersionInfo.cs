@@ -9,20 +9,22 @@ namespace IwAutoUpdater.BLL.Commands
 {
     public class GetVersionInfo : Command
     {
+        private readonly string _versionInfoFile;
         private readonly IBlackboard _blackboard;
         private readonly ISingleFile _singleFile;
         private readonly IUpdatePackage _package;
         private readonly string _workFolder;
         private readonly string _fullPathToLocalFile;
 
-        public GetVersionInfo(string workFolder, IUpdatePackage package, ISingleFile singleFile, IBlackboard blackboard)
+        public GetVersionInfo(string workFolder, IUpdatePackage package, string versionInfoFile, ISingleFile singleFile, IBlackboard blackboard)
         {
             _workFolder = workFolder;
             _package = package;
             _singleFile = singleFile;
             _blackboard = blackboard;
+            _versionInfoFile = versionInfoFile;
 
-            _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
+            _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly(), versionInfoFile);
         }
 
         public override CommandResult Do()
@@ -41,7 +43,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new GetVersionInfo(_workFolder, _package, _singleFile, _blackboard);
+            var x = new GetVersionInfo(_workFolder, _package, _versionInfoFile, _singleFile, _blackboard);
             x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);

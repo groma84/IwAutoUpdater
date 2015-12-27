@@ -16,6 +16,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         private SingleFileMock _singleFileMock;
         static string _workFolder = @"C:\zork\";
         static string _packageName = @"GetVersionInfoTest";
+        static string _fileName = @"version.xml";
         private LoggerMock _loggerMock;
         private BlackboardMock _blackboardMock;
         private GetVersionInfo _getVersionInfo;
@@ -43,13 +44,13 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestMethod]
         public void GetVersionInfoTest_FileDoesNotExist_ResultFailAndErrorMessageAndBlackboardEmpty() 
 		{
-            _getVersionInfo = new GetVersionInfo(_workFolder, _updatePackageMock, _singleFileMock, _blackboardMock);
+            _getVersionInfo = new GetVersionInfo(_workFolder, _updatePackageMock, _fileName, _singleFileMock, _blackboardMock);
 
             var actual = _getVersionInfo.Do();
             Assert.IsNotNull(actual);
             Assert.IsFalse(actual.Successful);
             Assert.IsNull(actual.Errors.Single().Exception);
-            Assert.AreEqual(@"C:\zork\ does not exist", actual.Errors.Single().Text);
+            Assert.AreEqual(@"C:\zork\version.xml does not exist", actual.Errors.Single().Text);
 
             Assert.AreEqual(1, _singleFileMock.DoesExistCalls);
             Assert.AreEqual(0, _blackboardMock.AddCalls);
@@ -61,7 +62,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             _singleFileMock.DoesExist = true;
             _singleFileMock.ReadAsString = "1.2.3";
-            _getVersionInfo = new GetVersionInfo(_workFolder, _updatePackageMock, _singleFileMock, _blackboardMock);
+            _getVersionInfo = new GetVersionInfo(_workFolder, _updatePackageMock, _fileName, _singleFileMock, _blackboardMock);
 
             var actual = _getVersionInfo.Do();
             Assert.IsNotNull(actual);

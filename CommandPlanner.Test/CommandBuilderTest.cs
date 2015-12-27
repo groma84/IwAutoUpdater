@@ -67,6 +67,8 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         [TestMethod]
         public void CommandBuilderTest_GetCommands_OneServerAndOneReceiver_FullCommandQueue()
         {
+            _updatePackageMock.Settings.ReadVersionInfoFrom = _fileName;
+
             var actual = _commandBuilder.GetCommands(_workFolder, new[] { _updatePackageMock }, new[] { _mockMailReceiver }).ToArray();
             Assert.IsNotNull(actual);
             Assert.AreEqual(1, actual.Length);
@@ -107,6 +109,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         public void CommandBuilderTest_GetCommands_OneServerAndOneReceiver_DownloadOnly()
         {
             _updatePackageMock.Settings.DownloadOnly = true;
+            _updatePackageMock.Settings.ReadVersionInfoFrom = _fileName;
 
             var actual = _commandBuilder.GetCommands(_workFolder, new[] { _updatePackageMock }, new[] { _mockMailReceiver }).ToArray();
             Assert.IsNotNull(actual);
@@ -136,6 +139,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         public void CommandBuilderTest_GetCommands_OneServerAndOneReceiver_SkipDatabaseUpdate()
         {
             _updatePackageMock.Settings.SkipDatabaseUpdate = true;
+            _updatePackageMock.Settings.ReadVersionInfoFrom = _fileName;
 
             var actual = _commandBuilder.GetCommands(_workFolder, new[] { _updatePackageMock }, new[] { _mockMailReceiver }).ToArray();
             Assert.AreEqual(1, actual.Length);
@@ -173,6 +177,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         public void CommandBuilderTest_GetCommands_OneServerAndOneReceiver_KeineZuPruefendenUrls()
         {
             _updatePackageMock.Settings.CheckUrlsAfterInstallation = new string[0];
+            _updatePackageMock.Settings.ReadVersionInfoFrom = _fileName;
 
             var actual = _commandBuilder.GetCommands(_workFolder, new[] { _updatePackageMock }, new[] { _mockMailReceiver }).ToArray();
             Assert.IsNotNull(actual);
