@@ -45,7 +45,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 catch (Exception ex)
                 {
                     logger.Error("Error in {Methodname}: {Exception}", "CommandCreatorRun", ex);
-                    Thread.Sleep(30000);
+                    Thread.Sleep(60000);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 catch (Exception ex)
                 {
                     logger.Error("Error in {Methodname}: {Exception}", "CommandCreatorRun", ex);
-                    Thread.Sleep(30000);
+                    Thread.Sleep(60000);
                 }
             }
         }

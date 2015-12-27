@@ -34,5 +34,10 @@ namespace IwAutoUpdater.DAL.LocalFiles
 
             return true;
         }
+
+        string ISingleFile.ReadAsString(string fullPath)
+        {
+            return File.ReadAllText(fullPath);
+        }
     }
 }

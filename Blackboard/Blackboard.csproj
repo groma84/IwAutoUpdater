@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{199E8F32-2A7E-457A-91D2-C4149ED03F4E}</ProjectGuid>
+    <ProjectGuid>{184200D8-6E67-41EF-994C-50EB2953D078}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IwAutoUpdater.CrossCutting.SFW</RootNamespace>
-    <AssemblyName>IwAutoUpdater.CrossCutting.SFW</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>Blackboard</RootNamespace>
+    <AssemblyName>Blackboard</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,9 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blackboard.cs" />
-    <Compile Include="EqualityComparerDefault.cs" />
-    <Compile Include="NowGetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,9 +47,9 @@
       <Project>{b256ab11-1017-4002-adb7-85b0a1831f80}</Project>
       <Name>Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFW.Contracts\SFW.Contracts.csproj">
-      <Project>{0ee4e17f-069f-497a-8b9d-b9a6516e4ae4}</Project>
-      <Name>SFW.Contracts</Name>
+    <ProjectReference Include="..\Blackboard.Contracts\Blackboard.Contracts.csproj">
+      <Project>{7d1b71b6-35b5-4845-b0e7-291dfe84c401}</Project>
+      <Name>Blackboard.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

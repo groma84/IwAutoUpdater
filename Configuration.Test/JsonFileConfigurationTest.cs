@@ -77,7 +77,8 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                                     'address': 'http://proxy:8080/',
                                     'username':  'user',
                                     'password':  'pw'
-                                }
+                                },
+      'readVersionInfoFrom': '.\\Webmenue\\versioninfo.xml'
                             }
                           ]
                         }";
@@ -129,6 +130,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                             Password = "pw",
                             Username = "user"
                         },
+                        ReadVersionInfoFrom = @".\Webmenue\versioninfo.xml"
                     }
                 }
             };
@@ -163,6 +165,9 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
 
             Assert.IsTrue(expected.Servers.ElementAt(0).CheckUrlsAfterInstallation.SequenceEqual(actual.Servers.ElementAt(0).CheckUrlsAfterInstallation));
             Assert.AreEqual(expected.Servers.ElementAt(0).CheckUrlProxySettings, actual.Servers.ElementAt(0).CheckUrlProxySettings);
+
+            Assert.AreEqual(expected.Servers.ElementAt(0).ReadVersionInfoFrom, actual.Servers.ElementAt(0).ReadVersionInfoFrom);
+
         }
     }
 }

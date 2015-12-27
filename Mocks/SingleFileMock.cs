@@ -38,5 +38,10 @@ namespace Mocks
             ++WriteCalls;
             return Write[localFullPath];
         }
+
+        string ISingleFile.ReadAsString(string fullPath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

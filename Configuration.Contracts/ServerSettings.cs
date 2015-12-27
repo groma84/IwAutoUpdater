@@ -21,5 +21,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public IEnumerable<string> CheckUrlsAfterInstallation;
         public AddressUsernamePassword CheckUrlProxySettings;
 
+        public string ReadVersionInfoFrom;
     }
 }

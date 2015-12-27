@@ -15,5 +15,7 @@ namespace IwAutoUpdater.DAL.LocalFiles.Contracts
 
         bool DoesExist(string fullPath);
         bool Write(string localFullPath, byte[] remoteFile);
+
+        string ReadAsString(string fullPath);
     }
 }

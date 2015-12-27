@@ -1,20 +1,23 @@
 # TODO
 ## NEXT
-
+- Hinterlegbarkeit einer "Versionsinfo-Datei"-Pfad via Konfig -> diese wird am Ende für die Notification ausgelesen und 1:1 in den Body kopiert
+    1. Test fuer Command
+    1. Blackboard fuer PackageName in SendNotification und SendErrorNotification anbinden
+    1. Tests fuer Notifications anpassen
+    1. Restliche Tests fixen
 
 ## BUGS
-###v0.2.2
+###v0.3.0
 
 
 ## FEATURES (unsortiert)
-###v0.2.2
+###v0.3.0
+
 
 ###später
-- E-Mail-Empfänger auch bei Server: "additionalMessageReceivers[]"
-    - Achtung, Parser und Test auch erweitern!
-    - Es sollen am Ende immer die globalen Empfänger benachrichtigt werden, und pro Server zusätzlich die beim Server hinterlegten
-- Hinterlegbarkeit einer "Versionsinfo-Datei" -> diese wird am Ende für die Notification ausgelesen und 1:1 in den Body kopiert
+- "Blackboard"-Funktionalität für formlose Weitergabe von Informationen über Komponenten hinweg und informationsreichere Benachrichtigung am Ende
 - Protokollierung, welche Dateien wann erfolgreich installiert wurden -> "resume"-Funktion (ev. mit Textdatei oder SQLite DB?)
+
 
 ## DONE
 ###v0.2.2

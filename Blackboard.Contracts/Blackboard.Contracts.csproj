@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{199E8F32-2A7E-457A-91D2-C4149ED03F4E}</ProjectGuid>
+    <ProjectGuid>{7D1B71B6-35B5-4845-B0E7-291DFE84C401}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IwAutoUpdater.CrossCutting.SFW</RootNamespace>
-    <AssemblyName>IwAutoUpdater.CrossCutting.SFW</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>Blackboard.Contracts</RootNamespace>
+    <AssemblyName>Blackboard.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,20 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blackboard.cs" />
-    <Compile Include="EqualityComparerDefault.cs" />
-    <Compile Include="NowGetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Base\Base.csproj">
-      <Project>{b256ab11-1017-4002-adb7-85b0a1831f80}</Project>
-      <Name>Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFW.Contracts\SFW.Contracts.csproj">
-      <Project>{0ee4e17f-069f-497a-8b9d-b9a6516e4ae4}</Project>
-      <Name>SFW.Contracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

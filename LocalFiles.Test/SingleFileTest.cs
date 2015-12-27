@@ -45,6 +45,8 @@ namespace IwAutoUpdater.DAL.LocalFiles.Test
             Assert.IsTrue(_singleFile.Write(_path, content));
             Assert.AreEqual(content[0], File.ReadAllBytes(_path)[0]);
 
+            Assert.AreEqual("{", _singleFile.ReadAsString(_path));
+
             Assert.IsTrue(_singleFile.Delete(_path));
             Assert.IsFalse(_singleFile.DoesExist(_path));
             Assert.IsFalse(File.Exists(_path));

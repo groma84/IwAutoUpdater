@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IWAU.Console", "IWAU.Console\IWAU.Console.csproj", "{30A295AA-A6FA-447E-8438-CE4E0A2C975A}"
 EndProject
@@ -105,6 +105,35 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMails.Contracts", "EMails.Contracts\EMails.Contracts.csproj", "{F54E6C38-0792-4FFD-98DB-DB63D846B54A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMails", "EMails\EMails.csproj", "{4C5ABF9F-4DA8-47DD-9A03-3EE912E2E87A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{AAE865A6-9873-408C-994D-B7F762C659FB}"
+	ProjectSection(SolutionItems) = preProject
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.ExecutionContextScoping.dll = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.ExecutionContextScoping.dll
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.ExecutionContextScoping.xml = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.ExecutionContextScoping.xml
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.LifetimeScoping.dll = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.LifetimeScoping.dll
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.LifetimeScoping.xml = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Extensions.LifetimeScoping.xml
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Packaging.dll = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Packaging.dll
+		3rdParty\SimpleInjector\Extensions\SimpleInjector.Packaging.xml = 3rdParty\SimpleInjector\Extensions\SimpleInjector.Packaging.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{1C8F94F7-5187-44B7-9D5E-5507FB262395}"
+	ProjectSection(SolutionItems) = preProject
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Wcf.dll = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Wcf.dll
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Wcf.xml = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Wcf.xml
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.dll = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.dll
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.Mvc.dll = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.Mvc.dll
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.Mvc.xml = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.Mvc.xml
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.xml = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.Web.xml
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.WebApi.dll = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.WebApi.dll
+		3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.WebApi.xml = 3rdParty\SimpleInjector\Integration\SimpleInjector.Integration.WebApi.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandLineParser", "CommandLineParser", "{C2D62D14-6D8B-401B-915D-4EA2DC98E12D}"
+	ProjectSection(SolutionItems) = preProject
+		3rdParty\CommandLineParser\CommandLine.dll = 3rdParty\CommandLineParser\CommandLine.dll
+		3rdParty\CommandLineParser\CommandLine.pdb = 3rdParty\CommandLineParser\CommandLine.pdb
+		3rdParty\CommandLineParser\CommandLine.XML = 3rdParty\CommandLineParser\CommandLine.XML
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -311,5 +340,8 @@ Global
 		{8C51D333-0EB3-4A46-AC37-E84E83634575} = {2B255E99-9D60-4BE0-B7DD-115F73FFAD50}
 		{F54E6C38-0792-4FFD-98DB-DB63D846B54A} = {2B255E99-9D60-4BE0-B7DD-115F73FFAD50}
 		{4C5ABF9F-4DA8-47DD-9A03-3EE912E2E87A} = {2B255E99-9D60-4BE0-B7DD-115F73FFAD50}
+		{AAE865A6-9873-408C-994D-B7F762C659FB} = {0AA0EC06-776E-4834-80E1-5279C1B9D3F7}
+		{1C8F94F7-5187-44B7-9D5E-5507FB262395} = {0AA0EC06-776E-4834-80E1-5279C1B9D3F7}
+		{C2D62D14-6D8B-401B-915D-4EA2DC98E12D} = {8B868E75-0979-4DB2-8EED-AA2F77C526AB}
 	EndGlobalSection
 EndGlobal

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetVersionInfo.cs" />
     <Compile Include="CheckIfNewer.cs" />
     <Compile Include="CheckUrlHttpStatusIs200.cs" />
     <Compile Include="CleanupOldUnpackedFiles.cs" />
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\Notifications.Contracts\Notifications.Contracts.csproj">
       <Project>{82f0572f-fdec-408f-a69c-b138a84bf44a}</Project>
       <Name>Notifications.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFW.Contracts\SFW.Contracts.csproj">
+      <Project>{0ee4e17f-069f-497a-8b9d-b9a6516e4ae4}</Project>
+      <Name>SFW.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Updates.Contracts\Updates.Contracts.csproj">
       <Project>{1192ae56-9f3f-4247-87b5-dbccac6ff651}</Project>

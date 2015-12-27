@@ -11,6 +11,7 @@ using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using IwAutoUpdater.CrossCutting.SFW.Contracts;
+using SFW.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
@@ -22,9 +23,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner
         private readonly ILogger _logger;
         private readonly ISingleFile _singleFile;
         private readonly IHtmlGetter _htmlGetter;
+        readonly IBlackboard _blackboard;
 
-        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter, INowGetter nowGetter)
+        public CommandBuilder(ISingleFile singleFile, IDirectory directory, ILogger logger, 
+            IRunExternalCommand runExternalCommand, IHtmlGetter htmlGetter, INowGetter nowGetter,
+            IBlackboard blackboard)
         {
+            _blackboard = blackboard;
             _singleFile = singleFile;
             _logger = logger;
             _directory = directory;
@@ -104,6 +109,12 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                         }
                     }
                 }
+
+                // Versionsinfo Datei auslesen
+                var getVersionInfo = new GetVersionInfo(workFolder, package, _singleFile, _logger, _blackboard);
+                finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy());
+                finalCommand = getVersionInfo;
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
                 var notificationText = BuildNotificationText(package);
