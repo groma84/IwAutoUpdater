@@ -3,7 +3,7 @@
 
 ## BUGS
 ###v0.3.1
-- GetVersionInfo greift auf's falsche Verzeichnis zu
+
 
 ## FEATURES (unsortiert)
 ###v0.3.0
@@ -18,6 +18,9 @@
         - Wenn existierende ZIP gleich oder aelter oder gar nicht da -> Ende
 
 ## DONE
+###v0.3.1
+- GetVersionInfo greift auf's falsche Verzeichnis zu
+
 ###v0.3.0
 - Hinterlegbarkeit einer "Versionsinfo-Datei"-Pfad via Konfig -> diese wird am Ende für die Notification ausgelesen und 1:1 in den Body kopiert
 - "Blackboard"-Funktionalität für formlose Weitergabe von Informationen über Komponenten hinweg und informationsreichere Benachrichtigung am Ende
