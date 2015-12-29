@@ -2,15 +2,20 @@
 ## NEXT
 
 ## BUGS
-###v0.3.0
-
+###v0.3.1
+- GetVersionInfo greift auf's falsche Verzeichnis zu
 
 ## FEATURES (unsortiert)
 ###v0.3.0
 
 
 ###später
-
+- Resume-Funktionalitaet:
+    - Idee: Wir merken uns in einer Datei pro PackageName das letzte erfolgreiche Installationsdatum in UTC
+    - Wenn CheckIfNewer == true -> ganz normale Installation ausfuehren
+    - Wenn CheckIfNewer == false -> neues Command: vergleiche Datum existierende .zip-Datei mit Letzte Erfolgreiche Installation
+        - Wenn existierende ZIP neuer -> nach Download einsteigen, dann normal weiter
+        - Wenn existierende ZIP gleich oder aelter oder gar nicht da -> Ende
 
 ## DONE
 ###v0.3.0

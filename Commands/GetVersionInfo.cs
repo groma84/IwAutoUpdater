@@ -24,7 +24,7 @@ namespace IwAutoUpdater.BLL.Commands
             _blackboard = blackboard;
             _versionInfoFile = versionInfoFile;
 
-            _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly(), versionInfoFile);
+            _fullPathToLocalFile = Path.Combine(_workFolder, Path.GetFileNameWithoutExtension(package.Access.GetFilenameOnly()), versionInfoFile);
         }
 
         public override CommandResult Do()
