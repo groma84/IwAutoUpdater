@@ -36,10 +36,17 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do()
         {
-            _logger.Debug("Cleaning up folder {Foldername}", _fullPathToLocalDirectory);
-            _directory.Delete(_fullPathToLocalDirectory);
+            try
+            {
+                _logger.Debug("Cleaning up folder {Foldername}", _fullPathToLocalDirectory);
+                _directory.Delete(_fullPathToLocalDirectory);
 
-            return new CommandResult(true);
+                return new CommandResult(true);
+            }
+            catch (Exception ex)
+            {
+                return new CommandResult(false, new[] { new Error { Exception = ex } });
+            }
         }
 
         public override Command Copy()
