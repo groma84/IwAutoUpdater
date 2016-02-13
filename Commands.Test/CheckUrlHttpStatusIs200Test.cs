@@ -1,6 +1,7 @@
 ﻿using IwAutoUpdater.DAL.WebAccess.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
+using Moq;
 using System.Linq;
 
 namespace IwAutoUpdater.BLL.Commands.Test
@@ -12,7 +13,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
         string _url = "http://www.somethingsomethingTest.net/";
         private UpdatePackageMock _updatePackageMock;
-        private HtmlGetterMock _htmlGetterMock;
+        private Mock<IHtmlGetter> _htmlGetterMock;
         private LoggerMock _loggerMock;
 
         [TestInitialize]
@@ -23,11 +24,11 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageMock = new UpdatePackageMock();
             _updatePackageMock.PackageName = "CheckUrlHttpStatusIs200Test";
 
-            _htmlGetterMock = new HtmlGetterMock();
+            _htmlGetterMock = new Mock<IHtmlGetter>();
 
             _loggerMock = new LoggerMock();
 
-            _checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(_url, _updatePackageMock, _htmlGetterMock, _loggerMock);
+            _checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(_url, _updatePackageMock, _htmlGetterMock.Object, _loggerMock);
 
         }
 
@@ -37,22 +38,21 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _checkUrlHttpStatusIs200 = null;
 
             _updatePackageMock = null;
-            _htmlGetterMock = null;
         }
 
         [TestMethod]
         public void CheckUrlHttpStatusIs200Test_HtmlDownloadOkay_ResultIsTrue()
         {
-            _htmlGetterMock.DownloadHtmlWithProxy = new HtmlDownload()
+            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
             {
                 Content = "content",
                 HttpStatusCode = 200
-            };
+            });
 
             var actual = _checkUrlHttpStatusIs200.Do();
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Errors.Count() == 0);
-            Assert.AreEqual(1, _htmlGetterMock.DownloadHtmlCalledWithProxy);
+            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>()), Times.Once);
             Assert.IsTrue(actual.Successful);
         }
 
@@ -61,17 +61,17 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             var failedContent = "failedContent";
 
-            _htmlGetterMock.DownloadHtmlWithProxy = new HtmlDownload()
+            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
             {
                 Content = failedContent,
                 HttpStatusCode = 500
-            };
+            });
 
             var actual = _checkUrlHttpStatusIs200.Do();
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Errors.Count() == 1);
             Assert.AreEqual(failedContent, actual.Errors.First().Text);
-            Assert.AreEqual(1, _htmlGetterMock.DownloadHtmlCalledWithProxy);
+            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>()), Times.Once);
             Assert.IsFalse(actual.Successful);
         }
     }

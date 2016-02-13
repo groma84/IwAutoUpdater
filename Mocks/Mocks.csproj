@@ -46,7 +46,6 @@
     <Compile Include="ConfigurationConverterMock.cs" />
     <Compile Include="ConfigurationFileAccessMock.cs" />
     <Compile Include="DirectoryMock.cs" />
-    <Compile Include="HtmlGetterMock.cs" />
     <Compile Include="RunExternalCommandMock.cs" />
     <Compile Include="LoggerMock.cs" />
     <Compile Include="NotificationReceiverFactoryMock.cs" />

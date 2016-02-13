@@ -1,4 +1,6 @@
-﻿namespace IwAutoUpdater.DAL.Updates.Contracts
+﻿using IwAutoUpdater.DAL.WebAccess.Contracts;
+
+namespace IwAutoUpdater.DAL.Updates.Contracts
 {
     public interface IUpdatePackageAccessFactory
     {
@@ -11,7 +13,13 @@
         /// <returns></returns>
         IUpdatePackageAccess CreateUncPathAccess(string uncPath);
 
-
-        IUpdatePackageAccess CreateHttpDownloadAccess(string url);
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="htmlGetter"></param>
+        /// <param name="proxySettings">Kann auch null sein, wenn kein Proxy genutzt werden soll</param>
+        /// <returns></returns>
+        IUpdatePackageAccess CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ProxySettings proxySettings);
     }
 }

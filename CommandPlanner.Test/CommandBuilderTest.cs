@@ -7,6 +7,7 @@ using System.Linq;
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using SFW.Contracts;
 using Moq;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner.Test
 {
@@ -21,7 +22,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         LoggerMock _loggerMock;
         DirectoryMock _directoryMock;
         RunExternalCommandMock _runExternalCommandMock;
-        HtmlGetterMock _htmlGetterMock;
+        Mock<IHtmlGetter> _htmlGetterMock;
         NowGetterMock _nowGetterMock;
         Mock<IBlackboard> _blackboardMock;
 
@@ -48,11 +49,11 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             _loggerMock = new LoggerMock();
             _directoryMock = new DirectoryMock();
             _runExternalCommandMock = new RunExternalCommandMock();
-            _htmlGetterMock = new HtmlGetterMock();
+            _htmlGetterMock = new Mock<IHtmlGetter>();
             _nowGetterMock = new NowGetterMock();
             _blackboardMock = new Mock<IBlackboard>();
 
-            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock, _htmlGetterMock, _nowGetterMock, _blackboardMock.Object);
+            _commandBuilder = new CommandBuilder(_singleFileMock, _directoryMock, _loggerMock, _runExternalCommandMock, _htmlGetterMock.Object, _nowGetterMock, _blackboardMock.Object);
         }
 
         [TestCleanup]

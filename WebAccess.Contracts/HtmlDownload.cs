@@ -4,5 +4,6 @@
     {
         public int HttpStatusCode;
         public string Content;
+        public byte[] FileContent;
     }
 }

@@ -39,5 +39,12 @@ namespace IwAutoUpdater.DAL.Updates.Test
             var actual = _updatePackageAccessFactory.CreateUncPathAccess(_uncPath);
             Assert.IsNotNull(actual);
         }
+
+        [TestMethod]
+        public void UpdatePackageAccessFactoryTest_CreateHttpDownloadAccess()
+        {
+            var actual = _updatePackageAccessFactory.CreateHttpDownloadAccess(_uncPath, null, null);
+            Assert.IsNotNull(actual);
+        }
     }
 }

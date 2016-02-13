@@ -1,15 +1,14 @@
 # TODO
 ## NEXT
-- Das Blackboard wird beim Erzeugen des SendNotification Commands ausgelesen, da ist es aber natürlich immer leer bzw. hängt hinterher
-- Das Blackboard wird nach Abschluss einer Command-Kette für ein Paket nicht aufgeräumt
+- Bug: GetVersionInfo-Command wird auch ausgeführt, wenn DownloadOnly == true ist
 
 ## BUGS
-###v0.3.2
+###in v0.3.2
 
 
 ## FEATURES (unsortiert)
-###v0.3.4
-- Http-Getter implementieren als UpdatePackageAccess
+###für v0.3.3
+
 
 ###später
 - Resume-Funktionalitaet:
@@ -20,6 +19,11 @@
         - Wenn existierende ZIP gleich oder aelter oder gar nicht da -> Ende
 
 ## DONE
+###v0.3.3
+- Http-Getter implementieren als UpdatePackageAccess
+- Das Blackboard wird jetzt erst beim Versand der Nachrichten in SendNotification ausgelesen
+- Das Blackboard wird jetzt nach Abschluss einer Command-Kette für ein Paket aufgeräumt
+
 ###v0.3.2
 - Exceptions in CleanupOldUnpackedFiles werden jetzt auch als Error-Notification verschickt
 
