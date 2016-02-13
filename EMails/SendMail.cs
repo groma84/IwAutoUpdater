@@ -1,12 +1,7 @@
 ﻿using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.EMails.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.DAL.EMails
 {

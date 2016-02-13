@@ -1,7 +1,6 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
-using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {

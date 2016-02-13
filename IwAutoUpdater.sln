@@ -135,6 +135,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommandLineParser", "Comman
 		3rdParty\CommandLineParser\CommandLine.XML = 3rdParty\CommandLineParser\CommandLine.XML
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{19FF7265-8503-41DF-9565-0CB37D94799B}"
+	ProjectSection(SolutionItems) = preProject
+		3rdParty\Moq\Moq-version.txt = 3rdParty\Moq\Moq-version.txt
+		3rdParty\Moq\Moq.dll = 3rdParty\Moq\Moq.dll
+		3rdParty\Moq\Moq.xml = 3rdParty\Moq\Moq.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -343,5 +350,6 @@ Global
 		{AAE865A6-9873-408C-994D-B7F762C659FB} = {0AA0EC06-776E-4834-80E1-5279C1B9D3F7}
 		{1C8F94F7-5187-44B7-9D5E-5507FB262395} = {0AA0EC06-776E-4834-80E1-5279C1B9D3F7}
 		{C2D62D14-6D8B-401B-915D-4EA2DC98E12D} = {8B868E75-0979-4DB2-8EED-AA2F77C526AB}
+		{19FF7265-8503-41DF-9565-0CB37D94799B} = {8B868E75-0979-4DB2-8EED-AA2F77C526AB}
 	EndGlobalSection
 EndGlobal

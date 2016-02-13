@@ -1,7 +1,6 @@
 ﻿using IwAutoUpdater.BLL.CommandPlanner.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
@@ -12,7 +11,6 @@ using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using SFW.Contracts;
-using System.Text;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
@@ -121,11 +119,16 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 }
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
-                var notificationText = BuildNotificationText(package);
-                var sendNotifications = new SendNotifications(notificationReceivers, notificationText.Subject, notificationText.Message, package);
+                var sendNotifications = new SendNotifications(notificationReceivers, package, _nowGetter, _blackboard);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
                 finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                 finalCommand = sendNotifications;
+
+                // Blackboard aufräumen für unser package
+                var cleanupBlackboard = new CleanupBlackboard(package, _blackboard);
+                finalCommand.RunAfterCompletedWithResultTrue = cleanupBlackboard;
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
+                finalCommand = cleanupBlackboard;
 
                 commands.Enqueue(checkIfNewer); // mit checkIfNewer beginnt die Abarbeitungskette
             }
@@ -133,59 +136,6 @@ namespace IwAutoUpdater.BLL.CommandPlanner
             return commands;
         }
 
-        private class NotificationText
-        {
-            public string Subject;
-            public string Message;
-        }
-
-        private NotificationText BuildNotificationText(IUpdatePackage package)
-        {
-            var shortPackageName = GetShortPackageName(package.PackageName);
-
-            var message = BuildMessage(package.PackageName);
-
-            return new NotificationText()
-            {
-                Subject = $"Paket '{shortPackageName}' wurde ab {_nowGetter.Now} aktualisiert",
-                Message = message
-            };
-        }
-
-        private string BuildMessage(string packageName)
-        {
-            var sb = new StringBuilder();
-            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch aktualisiert");
-
-            var blackboardEntries = _blackboard.Get(packageName);
-            if (blackboardEntries.Count() > 0)
-            {
-                sb.AppendLine();
-                sb.AppendLine("Blackboard entries: ");
-                foreach (var blackboardEntry in blackboardEntries)
-                {
-                    sb.AppendLine(blackboardEntry.Content.ToString());
-                }
-            }
-            return sb.ToString();
-        }
-
-        private static string GetShortPackageName(string packageName)
-        {
-            var splitByBackslash = packageName.Split(new[] { '\\' });
-            var splitBySlash = packageName.Split(new[] { '/' });
-
-            if (splitByBackslash.Length > 1)
-            {
-                return splitByBackslash.Last();
-            }
-
-            if (splitBySlash.Length > 1)
-            {
-                return splitBySlash.Last();
-            }
-
-            return packageName;
-        }
+     
     }
 }

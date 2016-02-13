@@ -1,5 +1,4 @@
-﻿using System;
-using IwAutoUpdater.DAL.WebAccess.Contracts;
+﻿using IwAutoUpdater.DAL.WebAccess.Contracts;
 
 namespace Mocks
 {

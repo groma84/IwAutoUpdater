@@ -1,5 +1,4 @@
-﻿using System;
-using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 
 namespace Mocks

@@ -1,10 +1,6 @@
 ﻿using IwAutoUpdater.BLL.CommandPlanner.Contracts;
 using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {

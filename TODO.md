@@ -1,13 +1,15 @@
 # TODO
 ## NEXT
+- Das Blackboard wird beim Erzeugen des SendNotification Commands ausgelesen, da ist es aber natürlich immer leer bzw. hängt hinterher
+- Das Blackboard wird nach Abschluss einer Command-Kette für ein Paket nicht aufgeräumt
 
 ## BUGS
-###v0.3.1
+###v0.3.2
 
 
 ## FEATURES (unsortiert)
-###v0.3.0
-
+###v0.3.4
+- Http-Getter implementieren als UpdatePackageAccess
 
 ###später
 - Resume-Funktionalitaet:

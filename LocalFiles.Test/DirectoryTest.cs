@@ -1,12 +1,8 @@
 ﻿using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.DAL.LocalFiles.Test
 {

@@ -3,7 +3,6 @@ using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
-using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {

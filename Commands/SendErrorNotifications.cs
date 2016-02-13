@@ -14,6 +14,12 @@ namespace IwAutoUpdater.BLL.Commands
         private readonly Command _failedCommand;
         private readonly IEnumerable<INotificationReceiver> _receivers;
 
+        /// <summary>
+        /// Verschickt aufgetretene Fehler und räumt am Ende auch das Blackboard des fehlgeschlagenen Packages auf
+        /// </summary>
+        /// <param name="receivers"></param>
+        /// <param name="failedCommand"></param>
+        /// <param name="blackboard"></param>
         public SendErrorNotifications(IEnumerable<INotificationReceiver> receivers, Command failedCommand, IBlackboard blackboard)
         {
             _receivers = receivers;
@@ -56,6 +62,9 @@ namespace IwAutoUpdater.BLL.Commands
                     exceptions.Add(ex);
                 }
             }
+
+            // wir müssen immer auch unser Blackboard aufräumen
+            _blackboard.Clear(_failedCommand.PackageName);
 
             if (exceptions.Any())
             {

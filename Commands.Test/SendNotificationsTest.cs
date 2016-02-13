@@ -1,6 +1,8 @@
 ﻿using IwAutoUpdater.DAL.Notifications.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
+using Moq;
+using SFW.Contracts;
 using System.Linq;
 
 namespace IwAutoUpdater.BLL.Commands.Test
@@ -13,8 +15,8 @@ namespace IwAutoUpdater.BLL.Commands.Test
         private UpdatePackageMock _updatePackageMock;
         private NotificationReceiverMock _notificationReceiverMock;
 
-        string _topic = "Subject";
-        string _body = "Body";
+        private NowGetterMock _nowGetterMock;
+        private Mock<IBlackboard> _blackboardMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -25,6 +27,11 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageMock.PackageName = "CheckUrlHttpStatusIs200Test";
 
             _notificationReceiverMock = new NotificationReceiverMock();
+
+            _nowGetterMock = new NowGetterMock();
+            _nowGetterMock.Now = new System.DateTime(2015, 5, 15, 11, 0, 0);
+
+            _blackboardMock = new Mock<IBlackboard>();
         }
 
         [TestCleanup]
@@ -41,7 +48,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             _notificationReceiverMock.SendNotification = true;
 
-            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _topic, _body, _updatePackageMock);
+            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
 
             var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);
@@ -57,7 +64,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             var exceptionToThrow = new NotificationSentException("Fehler");
             _notificationReceiverMock.SendNotificationThrowThisException = exceptionToThrow;
 
-            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _topic, _body, _updatePackageMock);
+            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
 
             var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);

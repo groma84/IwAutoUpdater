@@ -1,10 +1,6 @@
 ﻿using IwAutoUpdater.BLL.AutoUpdater.Contracts;
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IWAU.Console

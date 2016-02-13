@@ -1,13 +1,8 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
-using IwAutoUpdater.DAL.Updates.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.Commands.Test
 {

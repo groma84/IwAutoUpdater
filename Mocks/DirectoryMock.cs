@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 
 namespace Mocks

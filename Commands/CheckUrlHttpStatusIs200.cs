@@ -1,5 +1,4 @@
-﻿using System;
-using IwAutoUpdater.CrossCutting.Base;
+﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;

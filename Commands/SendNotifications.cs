@@ -1,25 +1,28 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
+using SFW.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace IwAutoUpdater.BLL.Commands
 {
     public class SendNotifications : Command
     {
-        private readonly string _body;
-        private readonly string _topic;
+        private readonly INowGetter _nowGetter;
+        private readonly IBlackboard _blackboard;
         private readonly IEnumerable<INotificationReceiver> _receivers;
         private readonly IUpdatePackage _package;
 
-        public SendNotifications(IEnumerable<INotificationReceiver> receivers, string topic, string body, IUpdatePackage package)
+        public SendNotifications(IEnumerable<INotificationReceiver> receivers, IUpdatePackage package, INowGetter nowGetter, IBlackboard blackboard)
         {
             _package = package;
             _receivers = receivers;
-            _topic = topic;
-            _body = body;
+            _blackboard = blackboard;
+            _nowGetter = nowGetter;
         }
 
         public override string PackageName
@@ -32,12 +35,14 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do()
         {
+            var text = BuildNotificationText(_package);
+
             List<Exception> exceptions = new List<Exception>();
             foreach (var receiver in _receivers)
             {
                 try
                 {
-                    receiver.SendNotification(_topic, _body);
+                    receiver.SendNotification(text.Subject, text.Message);
 
                 }
                 catch (Exception ex)
@@ -57,12 +62,67 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new SendNotifications(_receivers, _topic, _body, _package);
-            x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
-            x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
-            x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);
+            var x = new SendNotifications(_receivers, _package, _nowGetter, _blackboard);
+            x.RunAfterCompletedWithResultFalse = RunAfterCompletedWithResultFalse;
+            x.RunAfterCompletedWithResultTrue = RunAfterCompletedWithResultTrue;
+            x.AddResultsOfPreviousCommands(ResultsOfPreviousCommands);
 
             return x;
+        }
+
+        private class NotificationText
+        {
+            public string Subject;
+            public string Message;
+        }
+
+        private NotificationText BuildNotificationText(IUpdatePackage package)
+        {
+            var shortPackageName = GetShortPackageName(package.PackageName);
+
+            var message = BuildMessage(package.PackageName);
+
+            return new NotificationText()
+            {
+                Subject = $"Paket '{shortPackageName}' wurde um {_nowGetter.Now} aktualisiert",
+                Message = message
+            };
+        }
+
+        private string BuildMessage(string packageName)
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch aktualisiert");
+
+            var blackboardEntries = _blackboard.Get(packageName);
+            if (blackboardEntries.Count() > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Blackboard entries: ");
+                foreach (var blackboardEntry in blackboardEntries)
+                {
+                    sb.AppendLine(blackboardEntry.Content.ToString());
+                }
+            }
+            return sb.ToString();
+        }
+
+        private static string GetShortPackageName(string packageName)
+        {
+            var splitByBackslash = packageName.Split(new[] { '\\' });
+            var splitBySlash = packageName.Split(new[] { '/' });
+
+            if (splitByBackslash.Length > 1)
+            {
+                return splitByBackslash.Last();
+            }
+
+            if (splitBySlash.Length > 1)
+            {
+                return splitBySlash.Last();
+            }
+
+            return packageName;
         }
     }
 }

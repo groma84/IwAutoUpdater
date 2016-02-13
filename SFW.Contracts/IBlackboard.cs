@@ -6,5 +6,6 @@ namespace SFW.Contracts
     {
         void Add(string key, BlackboardEntry entry);
         IEnumerable<BlackboardEntry> Get(string key);
+        void Clear(string key);
     }
 }

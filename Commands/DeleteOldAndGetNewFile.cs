@@ -2,7 +2,6 @@
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
-using System;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
 
 namespace IwAutoUpdater.BLL.Commands

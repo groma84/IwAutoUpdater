@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackboardMock.cs" />
     <Compile Include="CheckTimerMock.cs" />
     <Compile Include="CommandBuilderMock.cs" />
     <Compile Include="CommandMock.cs" />

@@ -1,7 +1,5 @@
-﻿using System;
-using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.Notifications.Contracts;
-using System.Collections.Generic;
 using IwAutoUpdater.DAL.EMails.Contracts;
 
 namespace Mocks

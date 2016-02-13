@@ -4,11 +4,7 @@ using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IwAutoUpdater.BLL.CommandPlanner.Test
 {

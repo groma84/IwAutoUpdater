@@ -26,6 +26,14 @@ namespace SFW
             return _blackboard[key];
         }
 
+        void IBlackboard.Clear(string key)
+        {
+            if (_blackboard.ContainsKey(key))
+            {
+                _blackboard[key].Clear();
+            }
+        }
+
         void CreateKeyIfNotExists(string key)
         {
             if (!_blackboard.ContainsKey(key))
