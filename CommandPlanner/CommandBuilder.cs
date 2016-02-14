@@ -107,19 +107,19 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                             finalCommand = checkUrlHttpStatusIs200;
                         }
                     }
-                }
 
-                // ggf. Versionsinfo Datei auslesen
-                if (!string.IsNullOrEmpty(package.Settings.ReadVersionInfoFrom))
-                {
-                    var getVersionInfo = new GetVersionInfo(workFolder, package, package.Settings.ReadVersionInfoFrom, _singleFile, _blackboard);
-                    finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
-                    finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
-                    finalCommand = getVersionInfo;
+                    // ggf. Versionsinfo Datei auslesen
+                    if (!string.IsNullOrEmpty(package.Settings.ReadVersionInfoFrom))
+                    {
+                        var getVersionInfo = new GetVersionInfo(workFolder, package, package.Settings.ReadVersionInfoFrom, _singleFile, _blackboard);
+                        finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
+                        finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
+                        finalCommand = getVersionInfo;
+                    }
                 }
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
-                var sendNotifications = new SendNotifications(notificationReceivers, package, _nowGetter, _blackboard);
+                var sendNotifications = new SendNotifications(notificationReceivers, package.Settings.DownloadOnly, package.Settings.SkipDatabaseUpdate, package, _nowGetter, _blackboard);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
                 finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                 finalCommand = sendNotifications;
@@ -136,6 +136,6 @@ namespace IwAutoUpdater.BLL.CommandPlanner
             return commands;
         }
 
-     
+
     }
 }

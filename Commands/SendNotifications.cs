@@ -12,17 +12,21 @@ namespace IwAutoUpdater.BLL.Commands
 {
     public class SendNotifications : Command
     {
+        private readonly bool _withSkipDatabaseUpdate;
+        private readonly bool _isDownloadOnly;
         private readonly INowGetter _nowGetter;
         private readonly IBlackboard _blackboard;
         private readonly IEnumerable<INotificationReceiver> _receivers;
         private readonly IUpdatePackage _package;
 
-        public SendNotifications(IEnumerable<INotificationReceiver> receivers, IUpdatePackage package, INowGetter nowGetter, IBlackboard blackboard)
+        public SendNotifications(IEnumerable<INotificationReceiver> receivers, bool isDownloadOnly, bool withSkipDatabaseUpdate, IUpdatePackage package, INowGetter nowGetter, IBlackboard blackboard)
         {
             _package = package;
             _receivers = receivers;
             _blackboard = blackboard;
             _nowGetter = nowGetter;
+            _isDownloadOnly = isDownloadOnly;
+            _withSkipDatabaseUpdate = withSkipDatabaseUpdate;
         }
 
         public override string PackageName
@@ -62,7 +66,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new SendNotifications(_receivers, _package, _nowGetter, _blackboard);
+            var x = new SendNotifications(_receivers, _isDownloadOnly, _withSkipDatabaseUpdate, _package, _nowGetter, _blackboard);
             x.RunAfterCompletedWithResultFalse = RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(ResultsOfPreviousCommands);
@@ -84,7 +88,7 @@ namespace IwAutoUpdater.BLL.Commands
 
             return new NotificationText()
             {
-                Subject = $"Paket '{shortPackageName}' wurde um {_nowGetter.Now} aktualisiert",
+                Subject = string.Format($"Paket '{shortPackageName}' wurde um {_nowGetter.Now} {0}", _isDownloadOnly ? "heruntergeladen" : "aktualisiert"),
                 Message = message
             };
         }
@@ -92,13 +96,19 @@ namespace IwAutoUpdater.BLL.Commands
         private string BuildMessage(string packageName)
         {
             var sb = new StringBuilder();
-            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch aktualisiert");
+            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch {0}", _isDownloadOnly ? "heruntergeladen" : "aktualisiert");
+            sb.AppendLine();
+            if (_withSkipDatabaseUpdate)
+            {
+                sb.AppendFormat($"Das Datenbankupdate wurde planmäßig übersprungen");
+            }
+            sb.AppendLine();
 
             var blackboardEntries = _blackboard.Get(packageName);
             if (blackboardEntries.Count() > 0)
             {
                 sb.AppendLine();
-                sb.AppendLine("Blackboard entries: ");
+                sb.AppendLine("Weitere Hinweise: ");
                 foreach (var blackboardEntry in blackboardEntries)
                 {
                     sb.AppendLine(blackboardEntry.Content.ToString());

@@ -1,13 +1,13 @@
 # TODO
 ## NEXT
-- Bug: GetVersionInfo-Command wird auch ausgeführt, wenn DownloadOnly == true ist
+
 
 ## BUGS
-###in v0.3.2
+###in v0.3.3
 
 
 ## FEATURES (unsortiert)
-###für v0.3.3
+###für v0.3.4
 
 
 ###später
@@ -23,6 +23,7 @@
 - Http-Getter implementieren als UpdatePackageAccess
 - Das Blackboard wird jetzt erst beim Versand der Nachrichten in SendNotification ausgelesen
 - Das Blackboard wird jetzt nach Abschluss einer Command-Kette für ein Paket aufgeräumt
+- GetVersionInfo-Command wird jetzt nicht mehr ausgeführt, wenn DownloadOnly == true ist
 
 ###v0.3.2
 - Exceptions in CleanupOldUnpackedFiles werden jetzt auch als Error-Notification verschickt

@@ -1,13 +1,13 @@
 ﻿using IwAutoUpdater.BLL.CommandPlanner.Contracts;
 using IwAutoUpdater.BLL.Commands;
+using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
+using Moq;
+using SFW.Contracts;
 using System.IO;
 using System.Linq;
-using IwAutoUpdater.CrossCutting.Configuration.Contracts;
-using SFW.Contracts;
-using Moq;
-using IwAutoUpdater.DAL.WebAccess.Contracts;
 
 namespace IwAutoUpdater.BLL.CommandPlanner.Test
 {
@@ -132,16 +132,13 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             Assert.AreEqual(typeof(UnzipFile), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(GetVersionInfo), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(SendNotifications), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
-
-            Assert.IsNotNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
-            Assert.AreEqual(typeof(CleanupBlackboard), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
+            Assert.AreEqual(typeof(CleanupBlackboard), actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.GetType());
 
             // "immer wenn wir die Default-Queue ändern, muss der Test angepasst werden"
-            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
+            Assert.IsNull(actual[0].RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue.RunAfterCompletedWithResultTrue);
         }
 
         [TestMethod]
