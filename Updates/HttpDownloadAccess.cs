@@ -37,14 +37,16 @@ namespace IwAutoUpdater.DAL.Updates
         bool IUpdatePackageAccess.IsRemoteFileNewer(DateTime existingFileDate)
         {
             var serverLastModified = _htmlGetter.GetLastModifiedViaHead(_url, _proxySettings).Result;
-            
+
             if (!serverLastModified.HasValue)
             {
                 return false;
             }
             else
             {
-                return existingFileDate < serverLastModified.Value;
+                // zumindest der IIS schickt als Last Modified immer UTC, wir erwarten hier aber Maschinen-Lokalzeit
+                var machineTimezone = TimeZone.CurrentTimeZone;
+                return existingFileDate < machineTimezone.ToLocalTime(serverLastModified.Value);
             }
         }
     }
