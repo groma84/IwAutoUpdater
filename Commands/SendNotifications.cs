@@ -86,23 +86,27 @@ namespace IwAutoUpdater.BLL.Commands
 
             var message = BuildMessage(package.PackageName);
 
+            var verb = _isDownloadOnly ? "heruntergeladen" : "aktualisiert";
+
             return new NotificationText()
             {
-                Subject = string.Format($"Paket '{shortPackageName}' wurde um {_nowGetter.Now} {0}", _isDownloadOnly ? "heruntergeladen" : "aktualisiert"),
+                Subject = $"Paket '{shortPackageName}' wurde um {_nowGetter.Now} {verb}",
                 Message = message
             };
         }
 
         private string BuildMessage(string packageName)
         {
+            var verb = _isDownloadOnly ? "heruntergeladen" : "aktualisiert";
+
             var sb = new StringBuilder();
-            sb.AppendFormat($"Paket '{packageName}' wurde ab {_nowGetter.Now} automatisch {0}", _isDownloadOnly ? "heruntergeladen" : "aktualisiert");
+            sb.AppendLine($"Paket '{packageName}' wurde um {_nowGetter.Now} automatisch {verb}.");
             sb.AppendLine();
             if (_withSkipDatabaseUpdate)
             {
-                sb.AppendFormat($"Das Datenbankupdate wurde planmäßig übersprungen");
+                sb.AppendLine($"Das Datenbankupdate wurde planmäßig übersprungen.");
+                sb.AppendLine();
             }
-            sb.AppendLine();
 
             var blackboardEntries = _blackboard.Get(packageName);
             if (blackboardEntries.Count() > 0)
