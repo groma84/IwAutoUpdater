@@ -3,11 +3,11 @@
 
 
 ## BUGS
-###in v0.3.3
+###in v0.3.4
 
 
 ## FEATURES (unsortiert)
-###für v0.3.4
+###für v0.3.5
 
 
 ###später
@@ -17,6 +17,7 @@
     - Wenn CheckIfNewer == false -> neues Command: vergleiche Datum existierende .zip-Datei mit Letzte Erfolgreiche Installation
         - Wenn existierende ZIP neuer -> nach Download einsteigen, dann normal weiter
         - Wenn existierende ZIP gleich oder aelter oder gar nicht da -> Ende
+- Windows Service
 
 ## DONE
 ###v0.3.3
