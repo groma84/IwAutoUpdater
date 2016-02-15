@@ -11,6 +11,7 @@ namespace IwAutoUpdater.DAL.EMails
         {
             var smtpClient = new SmtpClient();
             smtpClient.PickupDirectoryLocation = pickupDirectory;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
 
             SendMails(mailData, smtpClient);
         }
@@ -20,6 +21,7 @@ namespace IwAutoUpdater.DAL.EMails
             var hostAndPort = mailSettings.Address.Split(new[] { ':' });
 
             var smtpClient = new SmtpClient();
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.Host = hostAndPort[0];
             if (hostAndPort.Length > 1)
             {

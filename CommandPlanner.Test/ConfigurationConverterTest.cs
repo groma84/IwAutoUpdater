@@ -76,7 +76,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         [TestMethod]
         public void ConfigurationConverterTest_ConvertMessageReceivers_Empty()
         {
-            var actual = _configurationConverter.ConvertMessageReceivers(new MessageReceiver[0], _mailSettings, _sender);
+            var actual = _configurationConverter.ConvertMessageReceivers(new MessageReceiver[0], _mailSettings, null, _sender);
             Assert.IsNotNull(actual);
             Assert.AreEqual(0, actual.Count());
         }
@@ -84,7 +84,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
         [TestMethod]
         public void ConfigurationConverterTest_ConvertMessageReceivers_EMail()
         {
-            _notificationReceiverFactoryMock.CreateMailReceiver= _mockMailReceiver;
+            _notificationReceiverFactoryMock.CreateMailReceiver = _mockMailReceiver;
 
             var mailReceiver = new MessageReceiver[]
             {
@@ -95,7 +95,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
                 }
             };
 
-            var actual = _configurationConverter.ConvertMessageReceivers(mailReceiver, _mailSettings, _sender).ToArray();
+            var actual = _configurationConverter.ConvertMessageReceivers(mailReceiver, _mailSettings, null, _sender).ToArray();
             Assert.IsNotNull(actual);
             Assert.AreEqual(1, actual.Length);
             Assert.AreEqual(_mockMailReceiver, actual[0]);

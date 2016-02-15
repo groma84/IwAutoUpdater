@@ -23,14 +23,21 @@ namespace IwAutoUpdater.BLL.CommandPlanner
             _sendMail = sendMail;
         }
 
-        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, AddressUsernamePassword mailSettings, string fromEMailAddress)
+        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, AddressUsernamePassword mailSettings, string pickupDirectory, string fromEMailAddress)
         {
             return receivers.Select(receiver =>
             {
                 switch (receiver.Type)
                 {
                     case MessageReceiverType.EMail:
-                        return _notificationReceiverFactory.CreateMailReceiver(receiver.Receiver, fromEMailAddress, _sendMail, mailSettings);
+                        if (string.IsNullOrEmpty(pickupDirectory))
+                        {
+                            return _notificationReceiverFactory.CreateMailReceiver(receiver.Receiver, fromEMailAddress, _sendMail, mailSettings);
+                        }
+                        else
+                        {
+                            return _notificationReceiverFactory.CreateMailReceiver(receiver.Receiver, fromEMailAddress, _sendMail, pickupDirectory);
+                        }
 
                     default:
                         throw new NotImplementedException($"Der Empfänger-Typ {receiver.Type} ist bisher nicht implementiert!");

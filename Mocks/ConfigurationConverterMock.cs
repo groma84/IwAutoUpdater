@@ -9,7 +9,7 @@ namespace Mocks
 {
     public class ConfigurationConverterMock : IConfigurationConverter
     {
-        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, AddressUsernamePassword mailSettings, string fromEMailAddress)
+        IEnumerable<INotificationReceiver> IConfigurationConverter.ConvertMessageReceivers(IEnumerable<MessageReceiver> receivers, AddressUsernamePassword mailSettings, string pickupDirectory, string fromEMailAddress)
         {
             throw new NotImplementedException();
         }

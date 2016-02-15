@@ -10,5 +10,10 @@ namespace IwAutoUpdater.DAL.Notifications
         {
             return new MailReceiver(receiverMailAddress, senderAddress, mailSettings, sendMail);
         }
+
+        INotificationReceiver INotificationReceiverFactory.CreateMailReceiver(string receiverMailAddress, string senderAddress, ISendMail sendMail, string pickupDirectory)
+        {
+            return new MailReceiver(receiverMailAddress, senderAddress, pickupDirectory, sendMail);
+        }
     }
 }

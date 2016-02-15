@@ -35,7 +35,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
         async Task IAutoUpdaterCommandCreator.NeverendingCreationLoop(Settings settings)
         {
             var servers = _configurationConverter.ConvertServers(settings.Servers);
-            var messageReceivers = _configurationConverter.ConvertMessageReceivers(settings.Global.ResultMessageReceivers, settings.Global.EMailSettings, settings.Global.EMailSenderName);
+            var messageReceivers = _configurationConverter.ConvertMessageReceivers(settings.Global.ResultMessageReceivers, settings.Global.EMailSettings, settings.Global.EMailPickupDirectory, settings.Global.EMailSenderName);
 
             await Task.Run(async () =>
             {
