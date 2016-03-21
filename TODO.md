@@ -8,7 +8,7 @@
 
 ## FEATURES (unsortiert)
 ###für v0.3.5
-
+- working-Directory (also ausgepacktes Zeugs) soll nach erfolgreicher Installation wieder gelöscht werden
 
 ###später
 - Resume-Funktionalitaet:
