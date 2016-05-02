@@ -14,6 +14,9 @@ namespace IwAutoUpdater.CrossCutting.Logging
 #endif
                         .WriteTo.ColoredConsole()
                         .WriteTo.RollingFile(@"Logs\IWAU.Console-{Date}.txt", Serilog.Events.LogEventLevel.Information)
+#if RELEASE
+                        .WriteTo.EventLog("IwAutoUpdaterService", "IwAutoUpdaterService", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+#endif
                         .CreateLogger();
         }
 

@@ -5,15 +5,12 @@
 
 ## BUGS
 ###in v0.3.4
-- Fehler in den einzelnen Commands halten die Verarbeitung komplett an
-- verschluckt Probleme beim Install-Skript -> genauer: Fehler im Install-Skript führen nicht zum Abbruch der Auto-Installation!
 
 ## FEATURES (unsortiert)
 ###für v0.3.5
 
-
 ###später
-- Logging auch ins EventLog
+
 - Resume-Funktionalitaet:
     - Idee: Wir merken uns in einer Datei pro PackageName das letzte erfolgreiche Installationsdatum in UTC
     - Wenn CheckIfNewer == true -> ganz normale Installation ausfuehren
@@ -26,6 +23,9 @@
 ###v0.3.5
 - Umstellen auf paket als Paketmanager
 - working-Directory (also ausgepacktes Zeugs) soll nach erfolgreicher Installation wieder gelöscht werden
+- Fehler in den einzelnen Commands halten die Verarbeitung komplett an
+- verschluckt Probleme beim Install-Skript -> genauer: Fehler im Install-Skript führen nicht zum Abbruch der Auto-Installation!
+- Logging auch ins EventLog
 
 ###v0.3.3
 - Http-Getter implementieren als UpdatePackageAccess
