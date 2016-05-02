@@ -118,6 +118,12 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                     }
                 }
 
+                // Entpacktes Verzeichnis löschen (anhängen immer an finalCommand)
+                var cleanupOldAfterDeployment = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
+                finalCommand.RunAfterCompletedWithResultTrue = cleanupOldAfterDeployment;
+                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
+                finalCommand = cleanupOldAfterDeployment;
+
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
                 var sendNotifications = new SendNotifications(notificationReceivers, package.Settings.DownloadOnly, package.Settings.SkipDatabaseUpdate, package, _nowGetter, _blackboard);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
@@ -135,7 +141,5 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
             return commands;
         }
-
-
     }
 }
