@@ -1,25 +1,25 @@
 # TODO
 ## NEXT
 
-
-
 ## BUGS
-###in v0.3.4
+###in v0.3.5
 
 ## FEATURES (unsortiert)
-###für v0.3.5
-
-###später
-
+###für v0.3.6
 - Resume-Funktionalitaet:
     - Idee: Wir merken uns in einer Datei pro PackageName das letzte erfolgreiche Installationsdatum in UTC
     - Wenn CheckIfNewer == true -> ganz normale Installation ausfuehren
     - Wenn CheckIfNewer == false -> neues Command: vergleiche Datum existierende .zip-Datei mit Letzte Erfolgreiche Installation
         - Wenn existierende ZIP neuer -> nach Download einsteigen, dann normal weiter
         - Wenn existierende ZIP gleich oder aelter oder gar nicht da -> Ende
-- Windows Service
+
+###später
+
 
 ## DONE
+###v0.3.6
+- Windows Service
+
 ###v0.3.5
 - Umstellen auf paket als Paketmanager
 - working-Directory (also ausgepacktes Zeugs) soll nach erfolgreicher Installation wieder gelöscht werden
