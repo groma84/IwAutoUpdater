@@ -43,7 +43,14 @@ namespace IwAutoUpdater.BLL.AutoUpdater
 
                 while (true)
                 {
-                    CheckIfUpdateIsNecessaryAndEnqueueCommands(settings, servers, messageReceivers);
+                    try
+                    {
+                        CheckIfUpdateIsNecessaryAndEnqueueCommands(settings, servers, messageReceivers);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error("NeverendingCreationLoop: " + ex.Message + " @ " + ex.StackTrace);
+                    }
                     waitTime = CalculateWaitTimeToNextMinute(_nowGetter);
                     await Task.Delay(waitTime);
                 }
@@ -82,7 +89,7 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                     if (!UpdatePackageInCommandAlreadyQueued(command, CommandsProducerConsumer.Queue))
                     {
                         _logger.Debug("Queueing first command for {PackageName}", command.PackageName);
-                        CommandsProducerConsumer.Queue.TryAdd(command);                        
+                        CommandsProducerConsumer.Queue.TryAdd(command);
                     }
                 }
             }

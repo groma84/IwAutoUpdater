@@ -39,7 +39,6 @@ namespace IwAutoUpdater.BLL.Commands
                     _logger.Debug("{filePath} exists -> deleting", _fullPathToLocalFile);
                     _singleFile.Delete(_fullPathToLocalFile);
                     _logger.Debug("{filePath} deleted", _fullPathToLocalFile);
-
                 }
 
                 _logger.Debug("Getting remote file from {uri}", _package.PackageName);

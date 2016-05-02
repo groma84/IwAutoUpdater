@@ -1,6 +1,7 @@
 ﻿using IwAutoUpdater.BLL.AutoUpdater.Contracts;
 using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,14 +25,21 @@ namespace IwAutoUpdater.BLL.AutoUpdater
 
                 var commandQueue = CommandsProducerConsumer.Queue;
 
-                while (!commandQueue.IsCompleted)
+                while (!commandQueue.IsCompleted) // wir setzen IsCompleted niemals auf true, daher ist das hier (absichtlich) eine Endlosschleife
                 {
-                    command = commandQueue.Take(); // Take() blockiert, solange nichts abzurufen ist
-
-                    if (command != null)
+                    try
                     {
-                        ExecuteOneCommand(command, commandQueue);
-                        command = null;
+                        command = commandQueue.Take(); // Take() blockiert, solange nichts abzurufen ist
+
+                        if (command != null)
+                        {
+                            ExecuteOneCommand(command, commandQueue);
+                            command = null;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error("NeverendingWorkLoop: " + ex.Message + " @ " + ex.StackTrace);
                     }
                 }
             });

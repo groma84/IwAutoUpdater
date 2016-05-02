@@ -37,7 +37,6 @@ namespace IwAutoUpdater.BLL.AutoUpdater
                 try
                 {
                     await commandCreator.NeverendingCreationLoop(settings);
-
                 }
                 catch (Exception ex)
                 {
