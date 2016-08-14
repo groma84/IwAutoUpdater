@@ -1,2 +1,4 @@
 ﻿Serilog
+Serilog.Sinks.ColoredConsole
 Serilog.Sinks.EventLog
+Serilog.Sinks.RollingFile

@@ -4,5 +4,8 @@ nuget SimpleInjector
 nuget Moq
 nuget Serilog
 nuget Serilog.Sinks.EventLog
+nuget Serilog.Sinks.ColoredConsole
+nuget Serilog.Sinks.RollingFile
 nuget Newtonsoft.Json
 nuget CommandLineParser
+nuget Topshelf

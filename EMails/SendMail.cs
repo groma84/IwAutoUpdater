@@ -1,4 +1,5 @@
 ﻿using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.EMails.Contracts;
 using System.Net;
 using System.Net.Mail;
@@ -7,8 +8,17 @@ namespace IwAutoUpdater.DAL.EMails
 {
     public class SendMail : ISendMail
     {
+        private readonly ILogger _logger;
+
+        public SendMail(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         void ISendMail.Send(MailData mailData, string pickupDirectory)
         {
+            _logger.Debug("Sending Mail '{@Mail}' via Pickup Directory '{@PickupDir}'", mailData, pickupDirectory);
+
             var smtpClient = new SmtpClient();
             smtpClient.PickupDirectoryLocation = pickupDirectory;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
@@ -18,6 +28,8 @@ namespace IwAutoUpdater.DAL.EMails
 
         void ISendMail.Send(MailData mailData, AddressUsernamePassword mailSettings)
         {
+            _logger.Debug("Sending Mail '{@Mail}' via SMTP '{@Settings}'", mailData, mailSettings);
+
             var hostAndPort = mailSettings.Address.Split(new[] { ':' });
 
             var smtpClient = new SmtpClient();
