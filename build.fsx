@@ -18,6 +18,11 @@ Target "BuildRelease" (fun _ ->
     |> Log "Build-Output: "
 )
 
+Target "DeleteConfigFiles" (fun _ ->
+    !! (buildDir + "config*.json")
+    |> DeleteFiles
+)
+
 Target "Default" (fun _ ->
     trace ("Building with FAKE")
 )
@@ -25,6 +30,7 @@ Target "Default" (fun _ ->
 // Dependencies
 "Clean"
     ==> "BuildRelease"
+    ==> "DeleteConfigFiles"
     ==> "Default"
 
 // start build

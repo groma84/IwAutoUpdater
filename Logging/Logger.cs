@@ -9,12 +9,12 @@ namespace IwAutoUpdater.CrossCutting.Logging
         public Logger()
         {
             _log = new LoggerConfiguration()
+                        .MinimumLevel.Debug()
 #if DEBUG
-                .MinimumLevel.Debug()
-#endif
                         .WriteTo.ColoredConsole()
-                        .WriteTo.RollingFile(@"Logs\IWAU.Console-{Date}.txt", Serilog.Events.LogEventLevel.Information)
-#if RELEASE
+#endif
+                        .WriteTo.RollingFile(@".\Logs\IWAU.Console-{Date}.txt", retainedFileCountLimit: 10)
+#if (!DEBUG)
                         .WriteTo.EventLog("IwAutoUpdaterService", "IwAutoUpdaterService", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
 #endif
                         .CreateLogger();
