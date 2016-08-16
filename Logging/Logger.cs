@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System;
 
 namespace IwAutoUpdater.CrossCutting.Logging
 {
@@ -13,9 +14,10 @@ namespace IwAutoUpdater.CrossCutting.Logging
 #if DEBUG
                         .WriteTo.ColoredConsole()
 #endif
-                        .WriteTo.RollingFile(@".\Logs\IWAU.Console-{Date}.txt", retainedFileCountLimit: 10)
+                        .WriteTo.RollingFile($@"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\IwAutoUpdaterService\Logs\" + "log_{Date}.txt", retainedFileCountLimit: 10)
 #if (!DEBUG)
-                        .WriteTo.EventLog("IwAutoUpdaterService", "IwAutoUpdaterService", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+                        // unsere EventSource wird schon von TopShelf angelegt (heißt automatisch so wie der Service)
+                        .WriteTo.EventLog("IwAutoUpdaterService", "IwAutoUpdaterService", manageEventSource: false, restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
 #endif
                         .CreateLogger();
         }
