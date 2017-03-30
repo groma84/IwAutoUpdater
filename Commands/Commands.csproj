@@ -52,6 +52,7 @@
     <Compile Include="RunInstallerCommand.cs" />
     <Compile Include="SendErrorNotifications.cs" />
     <Compile Include="SendNotifications.cs" />
+    <Compile Include="CheckFreeDiskspace.cs" />
     <Compile Include="UnzipFile.cs" />
     <Compile Include="UpdateDatabase.cs" />
   </ItemGroup>

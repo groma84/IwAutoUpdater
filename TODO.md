@@ -2,16 +2,18 @@
 ## NEXT
 
 ## BUGS
-###in v0.3.6
+###in v0.3.7
 
 ## FEATURES (unsortiert)
-###für v0.3.7
-- Config-Creator
+###für v0.3.8
 
 ###später
 
 
 ## DONE
+###v0.3.7
+- CheckFreeDiskspace
+
 ###v0.3.6
 - Windows Service
 - FAKE Buildskript

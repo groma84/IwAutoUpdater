@@ -1,6 +1,5 @@
 ﻿using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
-using System;
 using System.IO;
 
 namespace IwAutoUpdater.DAL.Updates

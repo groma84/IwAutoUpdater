@@ -1,4 +1,5 @@
-﻿using IwAutoUpdater.DAL.WebAccess.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -27,6 +28,7 @@ namespace IwAutoUpdater.DAL.WebAccess.Test
         }
 
         [TestMethod]
+        [TestCategory(TestCategories.NeedsInternet)]
         public void HtmlGetterTest_DownloadHtml_OhneProxy_ExistierendeUrl_StatusCode200()
         {
             var actual = _htmlGetter.DownloadHtml(_correctUrl);
@@ -35,6 +37,7 @@ namespace IwAutoUpdater.DAL.WebAccess.Test
         }
 
         [TestMethod]
+        [TestCategory(TestCategories.NeedsInternet)]
         public void HtmlGetterTest_DownloadHtml_OhneProxy_KaputteUrl_StatusCode404()
         {
             var actual = _htmlGetter.DownloadHtml(_notExistingUrl);

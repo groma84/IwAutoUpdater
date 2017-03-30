@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CheckFreeDiskspaceTest.cs" />
     <Compile Include="CheckIfNewerTest.cs" />
     <Compile Include="CleanupBlackboardTest.cs" />
     <Compile Include="GetVersionInfoTest.cs" />

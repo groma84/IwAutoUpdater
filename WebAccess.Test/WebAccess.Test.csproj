@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{B256AB11-1017-4002-ADB7-85B0A1831F80}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAccess.Contracts\WebAccess.Contracts.csproj">
       <Project>{6a31f43e-1857-44a5-871e-088571424b50}</Project>
       <Name>WebAccess.Contracts</Name>

@@ -48,6 +48,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 var checkIfNewer = new CheckIfNewer(workFolder, package, _singleFile);
                 var getFile = new DeleteOldAndGetNewFile(workFolder, package, _singleFile, _logger);
                 var unzipFile = new UnzipFile(workFolder, package);
+                var checkFreeDiskspace = new CheckFreeDiskspace(workFolder, package);
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
                 checkIfNewer.RunAfterCompletedWithResultTrue = getFile;
@@ -55,10 +56,15 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 getFile.RunAfterCompletedWithResultTrue = cleanupOldUnpackedFiles;
                 getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile, _blackboard);
 
-                cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = unzipFile;
+                cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = checkFreeDiskspace;
                 cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles, _blackboard);
 
-                Command finalCommand = unzipFile;
+                Command finalCommand = checkFreeDiskspace;
+
+                checkFreeDiskspace.RunAfterCompletedWithResultTrue = unzipFile;
+                checkFreeDiskspace.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkFreeDiskspace, _blackboard);
+
+                finalCommand = unzipFile;
 
                 if (!package.Settings.DownloadOnly)
                 {
