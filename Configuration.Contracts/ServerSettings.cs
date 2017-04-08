@@ -22,5 +22,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public AddressUsernamePassword CheckUrlProxySettings;
 
         public string ReadVersionInfoFrom;
+
+        public string ZipPassword;
     }
 }

@@ -6,6 +6,8 @@
 
 ## FEATURES (unsortiert)
 ###für v0.3.8
+- Unterstützung passwortgeschützter zip-Dateien
+- Ablegen von Neueste Installierte Version in einer Textdatei pro Paket im work-Ordner - dadurch keine rumliegenden zip-Files mehr
 
 ###später
 

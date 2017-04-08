@@ -9,5 +9,6 @@ nuget Serilog.Sinks.RollingFile
 nuget Newtonsoft.Json
 nuget CommandLineParser
 nuget Topshelf
+nuget SharpZipLib
 
 nuget FAKE

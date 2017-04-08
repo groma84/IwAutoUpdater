@@ -48,7 +48,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new UnzipFile(_workFolder, _package);
+            var x = new CheckFreeDiskspace(_workFolder, _package);
             x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);

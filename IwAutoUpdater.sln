@@ -74,7 +74,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.bat = build.bat
 		build.fsx = build.fsx
 		paket-install.bat = paket-install.bat
-		paket-update.bat = paket-update.bat
 		.paket\paket.bootstrapper.exe = .paket\paket.bootstrapper.exe
 		paket.dependencies = paket.dependencies
 		TODO.md = TODO.md

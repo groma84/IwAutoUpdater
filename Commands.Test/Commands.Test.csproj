@@ -108,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />
+    <None Include="UnzipFileTest\UnzipFileTestPw.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="UpdateDatabaseTestBatchFile.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

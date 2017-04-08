@@ -8,6 +8,6 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Contracts
 {
     public interface ICommandBuilder
     {
-        IEnumerable<Command> GetCommands(String workFolder, IEnumerable<IUpdatePackage> updatePackages, IEnumerable<INotificationReceiver> notificationReceivers);
+        IEnumerable<Command> GetCommands(string workFolder, IEnumerable<IUpdatePackage> updatePackages, IEnumerable<INotificationReceiver> notificationReceivers);
     }
 }

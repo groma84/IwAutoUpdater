@@ -47,7 +47,7 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                 var checkIfNewer = new CheckIfNewer(workFolder, package, _singleFile);
                 var getFile = new DeleteOldAndGetNewFile(workFolder, package, _singleFile, _logger);
-                var unzipFile = new UnzipFile(workFolder, package);
+                var unzipFile = new UnzipFile(workFolder, package.Settings.ZipPassword, package);
                 var checkFreeDiskspace = new CheckFreeDiskspace(workFolder, package);
                 var cleanupOldUnpackedFiles = new CleanupOldUnpackedFiles(workFolder, package, _directory, _logger);
 
