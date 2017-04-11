@@ -35,5 +35,10 @@ namespace IwAutoUpdater.DAL.LocalFiles
         {
             return File.ReadAllText(fullPath);
         }
+
+        void ISingleFile.Write(string localFullPath, string content)
+        {
+            File.WriteAllText(localFullPath, content);
+        }
     }
 }

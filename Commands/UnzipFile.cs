@@ -1,6 +1,8 @@
 ﻿using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
 
@@ -8,18 +10,22 @@ namespace IwAutoUpdater.BLL.Commands
 {
     public class UnzipFile : Command
     {
+        private readonly ILogger _logger;
+        private readonly IDirectory _directory;
         private readonly string _password;
         private readonly string _fullPathToLocalFile;
         private readonly IUpdatePackage _package;
         private readonly string _workFolder;
 
-        public UnzipFile(string workFolder, string password, IUpdatePackage package)
+        public UnzipFile(string workFolder, string password, IUpdatePackage package, IDirectory directory, ILogger logger)
         {
             _workFolder = workFolder;
             _package = package;
 
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
             _password = password;
+            _directory = directory;
+            _logger = logger;
         }
 
         public override CommandResult Do()
@@ -39,9 +45,16 @@ namespace IwAutoUpdater.BLL.Commands
                 {
                     zf.Password = _password;
                 }
-               
+
+                _directory.CreateIfNotExists(extractTo);
+
                 foreach (ZipEntry entry in zf)
                 {
+                    if (!entry.IsFile)
+                    {
+                        continue; // Ignore directories
+                    }
+
                     var entryFileName = entry.Name;
 
                     var buffer = new byte[4096];
@@ -49,9 +62,10 @@ namespace IwAutoUpdater.BLL.Commands
 
                     var fullZipToPath = Path.Combine(extractTo, entryFileName);
                     string directoryName = Path.GetDirectoryName(fullZipToPath);
+
                     if (directoryName.Length > 0)
                     {
-                        Directory.CreateDirectory(directoryName);
+                        _directory.CreateIfNotExists(directoryName);
                     }
 
                     using (var streamWriter = File.Create(fullZipToPath))
@@ -74,7 +88,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new UnzipFile(_workFolder, _password, _package);
+            var x = new UnzipFile(_workFolder, _password, _package, _directory, _logger);
             x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);

@@ -46,7 +46,7 @@
     <Compile Include="GetVersionInfo.cs" />
     <Compile Include="CheckIfNewer.cs" />
     <Compile Include="CheckUrlHttpStatusIs200.cs" />
-    <Compile Include="CleanupOldUnpackedFiles.cs" />
+    <Compile Include="CleanupOldFiles.cs" />
     <Compile Include="DeleteOldAndGetNewFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunInstallerCommand.cs" />

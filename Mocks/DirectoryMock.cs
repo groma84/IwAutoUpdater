@@ -5,6 +5,13 @@ namespace Mocks
 {
     public class DirectoryMock : IDirectory
     {
+
+        public int CreateIfNotExistsCalled = 0;
+        void IDirectory.CreateIfNotExists(string directoryName)
+        {
+            ++CreateIfNotExistsCalled;
+        }
+
         public int DeleteCalled = 0;
         public string LastDeletedPath = "";
         void IDirectory.Delete(string fullPath)

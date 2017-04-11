@@ -60,7 +60,6 @@ namespace IwAutoUpdater.BLL.CommandPlanner.Test
             {
                 new ServerSettings()
                 {
-                    DownloadOnly = false,
                     Path = _path,
                     SkipDatabaseUpdate = false,
                     Type = GetDataMethod.LocalFile

@@ -19,13 +19,12 @@ namespace IwAutoUpdater.BLL.Commands
         private readonly IEnumerable<INotificationReceiver> _receivers;
         private readonly IUpdatePackage _package;
 
-        public SendNotifications(IEnumerable<INotificationReceiver> receivers, bool isDownloadOnly, bool withSkipDatabaseUpdate, IUpdatePackage package, INowGetter nowGetter, IBlackboard blackboard)
+        public SendNotifications(IEnumerable<INotificationReceiver> receivers, bool withSkipDatabaseUpdate, IUpdatePackage package, INowGetter nowGetter, IBlackboard blackboard)
         {
             _package = package;
             _receivers = receivers;
             _blackboard = blackboard;
             _nowGetter = nowGetter;
-            _isDownloadOnly = isDownloadOnly;
             _withSkipDatabaseUpdate = withSkipDatabaseUpdate;
         }
 
@@ -65,7 +64,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new SendNotifications(_receivers, _isDownloadOnly, _withSkipDatabaseUpdate, _package, _nowGetter, _blackboard);
+            var x = new SendNotifications(_receivers, _withSkipDatabaseUpdate, _package, _nowGetter, _blackboard);
             x.RunAfterCompletedWithResultFalse = RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(ResultsOfPreviousCommands);
@@ -96,10 +95,8 @@ namespace IwAutoUpdater.BLL.Commands
 
         private string BuildMessage(string packageName)
         {
-            var verb = _isDownloadOnly ? "heruntergeladen" : "aktualisiert";
-
             var sb = new StringBuilder();
-            sb.AppendLine($"Paket '{packageName}' wurde um {_nowGetter.Now} automatisch {verb}.");
+            sb.AppendLine($"Paket '{packageName}' wurde um {_nowGetter.Now} automatisch aktualisiert.");
             sb.AppendLine();
             if (_withSkipDatabaseUpdate)
             {

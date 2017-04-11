@@ -110,7 +110,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
                 {
                     new ServerSettings()
                     {
-                        DownloadOnly = false,
                         Path = @"//otherSystem/buildDir/Server1_Packaged.zip",
                         SkipDatabaseUpdate = false,
                         Type = Base.GetDataMethod.LocalFile,
@@ -149,7 +148,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Test
 
             Assert.AreEqual(expected.Servers.ElementAt(0).Path, actual.Servers.ElementAt(0).Path);
             Assert.AreEqual(expected.Servers.ElementAt(0).Type, actual.Servers.ElementAt(0).Type);
-            Assert.AreEqual(expected.Servers.ElementAt(0).DownloadOnly, actual.Servers.ElementAt(0).DownloadOnly);
             Assert.AreEqual(expected.Servers.ElementAt(0).SkipDatabaseUpdate, actual.Servers.ElementAt(0).SkipDatabaseUpdate);
 
             Assert.AreEqual(expected.Servers.ElementAt(0).InstallerCommand, actual.Servers.ElementAt(0).InstallerCommand);

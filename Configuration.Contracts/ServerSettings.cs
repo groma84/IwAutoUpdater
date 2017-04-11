@@ -8,7 +8,6 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public GetDataMethod Type;
         public string Path;
  
-        public bool DownloadOnly;
         public bool SkipDatabaseUpdate;
 
         public string InstallerCommand;

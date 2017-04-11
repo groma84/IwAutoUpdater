@@ -39,6 +39,12 @@ namespace Mocks
             return Write[localFullPath];
         }
 
+        public int WriteStringCalls = 0;
+        void ISingleFile.Write(string localFullPath, string contents)
+        {
+            ++WriteStringCalls;
+        }
+
         public int ReadAsStringCalls = 0;
         public string ReadAsString = "";
         string ISingleFile.ReadAsString(string fullPath)

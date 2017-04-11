@@ -11,9 +11,7 @@ namespace IwAutoUpdater.CrossCutting.Logging
         {
             _log = new LoggerConfiguration()
                         .MinimumLevel.Debug()
-#if DEBUG
                         .WriteTo.ColoredConsole()
-#endif
                         .WriteTo.RollingFile($@"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\IwAutoUpdaterService\Logs\" + "log_{Date}.txt", retainedFileCountLimit: 10)
 #if (!DEBUG)
                         // unsere EventSource wird schon von TopShelf angelegt (heißt automatisch so wie der Service)

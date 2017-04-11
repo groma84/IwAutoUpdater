@@ -20,11 +20,15 @@ namespace IwAutoUpdater.BLL.Commands.Test
         CommandResult _commandResult = new CommandResult();
 
         private UnzipFile _unzipFile;
+        private DirectoryMock _directoryMock;
 
         [TestInitialize]
         public void TestInitialize()
         {
             TestCleanup();
+
+            _directoryMock = new DirectoryMock();
+            _loggerMock = new LoggerMock();
         }
 
         [TestCleanup]
@@ -51,7 +55,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageMock = new UpdatePackageMock();
             _updatePackageMock.Access = _updatePackageAccessMock;
 
-            _unzipFile = new UnzipFile(_workFolder, null, _updatePackageMock);
+            _unzipFile = new UnzipFile(_workFolder, null, _updatePackageMock, _directoryMock, _loggerMock);
 
             var actual = _unzipFile.Do();
             Assert.IsTrue(actual.Successful);
@@ -70,7 +74,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _updatePackageMock = new UpdatePackageMock();
             _updatePackageMock.Access = _updatePackageAccessMock;
 
-            _unzipFile = new UnzipFile(_workFolder, "passwort", _updatePackageMock);
+            _unzipFile = new UnzipFile(_workFolder, "passwort", _updatePackageMock, _directoryMock, _loggerMock);
             var actual = _unzipFile.Do();
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.Errors.Count());

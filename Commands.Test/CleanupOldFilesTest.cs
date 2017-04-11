@@ -7,9 +7,9 @@ using System.IO;
 namespace IwAutoUpdater.BLL.Commands.Test
 {
     [TestClass]
-    public class CleanupOldUnpackedFilesTest 
+    public class CleanupOldFilesTest 
     {
-        private CleanupOldUnpackedFiles _cleanupOldUnpackedFilesTest;
+        private CleanupOldFiles _cleanupOldUnpackedFilesTest;
         private string _workFolder = "CleanupOldUnpackedFilesTestDirectory";
         private string _getFileNameOnly = "cleanFilesTest";
         private UpdatePackageMock _updatePackageMock;
@@ -18,6 +18,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
         CommandResult _commandResult;
         private LoggerMock _loggerMock;
+        private SingleFileMock _singleFileMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -34,7 +35,10 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _loggerMock = new LoggerMock();
 
-            _cleanupOldUnpackedFilesTest = new CleanupOldUnpackedFiles(_workFolder, _updatePackageMock, _directoryMock, _loggerMock);
+            _singleFileMock = new SingleFileMock();
+
+
+            _cleanupOldUnpackedFilesTest = new CleanupOldFiles(false, _workFolder, _updatePackageMock, _directoryMock, _singleFileMock, _loggerMock);
         }
 
         [TestCleanup]

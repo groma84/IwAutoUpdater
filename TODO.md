@@ -5,14 +5,17 @@
 ###in v0.3.7
 
 ## FEATURES (unsortiert)
-###für v0.3.8
-- Unterstützung passwortgeschützter zip-Dateien
-- Ablegen von Neueste Installierte Version in einer Textdatei pro Paket im work-Ordner - dadurch keine rumliegenden zip-Files mehr
+###für vNext
 
 ###später
 
 
 ## DONE
+###für v1.0.0
+- Unterstützung passwortgeschützter zip-Dateien: Eintrag ZipPassword in config.json
+- Ablegen von Neueste Installierte Version in einer Textdatei pro Paket im work-Ordner - dadurch keine rumliegenden zip-Files mehr
+- Wegfall von "DownloadOnly"-Option!
+
 ###v0.3.7
 - CheckFreeDiskspace
 

@@ -6,5 +6,6 @@ namespace IwAutoUpdater.DAL.LocalFiles.Contracts
     {
         void Delete(string fullPath);
         IEnumerable<string> GetFiles(string fullPath, string searchPattern);
+        void CreateIfNotExists(string directoryName);
     }
 }

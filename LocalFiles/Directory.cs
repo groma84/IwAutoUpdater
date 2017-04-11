@@ -13,6 +13,12 @@ namespace IwAutoUpdater.DAL.LocalFiles
             _logger = logger;
         }
 
+        void IDirectory.CreateIfNotExists(string directoryName)
+        {
+            _logger.Debug("Creating directory if not exists {Foldername}", directoryName);
+            System.IO.Directory.CreateDirectory(directoryName);
+        }
+
         void IDirectory.Delete(string fullPath)
         {
             if (System.IO.Directory.Exists(fullPath))
