@@ -2,20 +2,23 @@
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using System.Linq;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
 
 namespace IwAutoUpdater.DAL.Updates
 {
     internal class HttpDownloadAccess : IUpdatePackageAccess
     {
+        private readonly ILogger _logger;
         private readonly ProxySettings _proxySettings;
         private readonly IHtmlGetter _htmlGetter;
         private string _url;
 
-        public HttpDownloadAccess(string url, IHtmlGetter htmlGetter, ProxySettings proxySettings = null)
+        public HttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings = null)
         {
             _url = url;
             _htmlGetter = htmlGetter;
             _proxySettings = proxySettings;
+            _logger = logger;
         }
 
         void IDisposable.Dispose()
@@ -46,7 +49,9 @@ namespace IwAutoUpdater.DAL.Updates
             {
                 // zumindest der IIS schickt als Last Modified immer UTC, wir erwarten hier aber Maschinen-Lokalzeit
                 var machineTimezone = TimeZone.CurrentTimeZone;
-                return existingFileDate < machineTimezone.ToLocalTime(serverLastModified.Value);
+                var compareTime = machineTimezone.ToLocalTime(serverLastModified.Value);
+                _logger.Debug("HttpDownloadAccess -> IsRemoteFileNewer: remoteDate: {RemoteDate}", compareTime);
+                return existingFileDate < compareTime;
             }
         }
     }

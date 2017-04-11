@@ -1,5 +1,6 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using System;
@@ -8,13 +9,15 @@ namespace IwAutoUpdater.DAL.Updates
 {
     public class UpdatePackageFactory : IUpdatePackageFactory
     {
+        private readonly ILogger _logger;
         private readonly IHtmlGetter _htmlGetter;
         private readonly IUpdatePackageAccessFactory _updatePackageAccessFactory;
 
-        public UpdatePackageFactory(IUpdatePackageAccessFactory updatePackageAccessFactory, IHtmlGetter htmlGetter)
+        public UpdatePackageFactory(IUpdatePackageAccessFactory updatePackageAccessFactory, IHtmlGetter htmlGetter, ILogger logger)
         {
             _updatePackageAccessFactory = updatePackageAccessFactory;
             _htmlGetter = htmlGetter;
+            _logger = logger;
         }
 
         IUpdatePackage IUpdatePackageFactory.Create(ServerSettings serverSettings)
@@ -24,16 +27,16 @@ namespace IwAutoUpdater.DAL.Updates
             switch (serverSettings.Type)
             {
                 case GetDataMethod.LocalFile:
-                    updatePackageAccess = _updatePackageAccessFactory.CreateLocalFileAccess(serverSettings.Path);
+                    updatePackageAccess = _updatePackageAccessFactory.CreateLocalFileAccess(serverSettings.Path, _logger);
                     break;
 
                 case GetDataMethod.UncPath:
-                    updatePackageAccess = _updatePackageAccessFactory.CreateUncPathAccess(serverSettings.Path);
+                    updatePackageAccess = _updatePackageAccessFactory.CreateUncPathAccess(serverSettings.Path, _logger);
                     break;
 
                 case GetDataMethod.HttpDownload:
                     ProxySettings proxySettings = CreateProxySettings(serverSettings);
-                    updatePackageAccess = _updatePackageAccessFactory.CreateHttpDownloadAccess(serverSettings.Path, _htmlGetter, proxySettings);
+                    updatePackageAccess = _updatePackageAccessFactory.CreateHttpDownloadAccess(serverSettings.Path, _htmlGetter, _logger, proxySettings);
                     break;
 
                 default:

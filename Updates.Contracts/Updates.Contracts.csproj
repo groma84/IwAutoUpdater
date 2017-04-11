@@ -55,6 +55,10 @@
       <Project>{1a58f82c-2d06-4d23-a39f-2e871e69dcff}</Project>
       <Name>Configuration.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging.Contracts\Logging.Contracts.csproj">
+      <Project>{e3b09a03-4f96-4f3d-98de-ab73131b5f8e}</Project>
+      <Name>Logging.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAccess.Contracts\WebAccess.Contracts.csproj">
       <Project>{6a31f43e-1857-44a5-871e-088571424b50}</Project>
       <Name>WebAccess.Contracts</Name>

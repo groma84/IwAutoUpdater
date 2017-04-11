@@ -15,7 +15,6 @@ namespace IwAutoUpdater.DAL.LocalFiles
 
         void IDirectory.CreateIfNotExists(string directoryName)
         {
-            _logger.Debug("Creating directory if not exists {Foldername}", directoryName);
             System.IO.Directory.CreateDirectory(directoryName);
         }
 

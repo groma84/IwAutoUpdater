@@ -1,17 +1,18 @@
-﻿using IwAutoUpdater.DAL.WebAccess.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
 
 namespace IwAutoUpdater.DAL.Updates.Contracts
 {
     public interface IUpdatePackageAccessFactory
     {
-        IUpdatePackageAccess CreateLocalFileAccess(string filePath);
+        IUpdatePackageAccess CreateLocalFileAccess(string filePath, ILogger logger);
 
         /// <summary>
         /// Der Zugriff auf die Dateifreigabe erfolgt immer mit dem Benutzer, der das Programm ausführt
         /// </summary>
         /// <param name="uncPath"></param>
         /// <returns></returns>
-        IUpdatePackageAccess CreateUncPathAccess(string uncPath);
+        IUpdatePackageAccess CreateUncPathAccess(string uncPath, ILogger logger);
 
         /// <summary>
         ///  
@@ -20,6 +21,6 @@ namespace IwAutoUpdater.DAL.Updates.Contracts
         /// <param name="htmlGetter"></param>
         /// <param name="proxySettings">Kann auch null sein, wenn kein Proxy genutzt werden soll</param>
         /// <returns></returns>
-        IUpdatePackageAccess CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ProxySettings proxySettings);
+        IUpdatePackageAccess CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings);
     }
 }

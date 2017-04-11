@@ -10,13 +10,13 @@ namespace IwAutoUpdater.BLL.Commands
     public class CheckIfNewer : Command
     {
         private readonly ILogger _logger;
-        private readonly Func<DateTime> _utcNowGetter;
+        private readonly Func<DateTime> _localtimeNowGetter;
         private readonly ISingleFile _singleFile;
         private readonly IUpdatePackage _package;
         private readonly string _workFolder;
         private readonly string _fullPathToLocalFile;
 
-        public CheckIfNewer(string workFolder, Func<DateTime> utcNowGetter, IUpdatePackage package, ISingleFile singleFile, ILogger logger)
+        public CheckIfNewer(string workFolder, Func<DateTime> localtimeNowGetter, IUpdatePackage package, ISingleFile singleFile, ILogger logger)
         {
             _workFolder = workFolder;
             _package = package;
@@ -25,7 +25,7 @@ namespace IwAutoUpdater.BLL.Commands
             _fullPathToLocalFile = Path.Combine(_workFolder, package.Access.GetFilenameOnly());
 
             _vordraengelFaktor = int.MaxValue; // CheckIfNewer aller Pakete soll immer mit maximaler Priorität ausgeführt werden
-            _utcNowGetter = utcNowGetter;
+            _localtimeNowGetter = localtimeNowGetter;
             _logger = logger;
         }
 
@@ -50,7 +50,7 @@ namespace IwAutoUpdater.BLL.Commands
 
             if (remoteIsNewer)
             {
-                var content = _utcNowGetter().ToString("s");
+                var content = _localtimeNowGetter().ToString("s");
                 _logger.Debug("Writing local protocolfile at {ProtocolFile} with content {Content}", downloadProtocolFile, content);
                 _singleFile.Write(downloadProtocolFile, content);
             }
@@ -59,7 +59,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override Command Copy()
         {
-            var x = new CheckIfNewer(_workFolder, _utcNowGetter, _package, _singleFile, _logger);
+            var x = new CheckIfNewer(_workFolder, _localtimeNowGetter, _package, _singleFile, _logger);
             x.RunAfterCompletedWithResultFalse = this.RunAfterCompletedWithResultFalse;
             x.RunAfterCompletedWithResultTrue = this.RunAfterCompletedWithResultTrue;
             x.AddResultsOfPreviousCommands(this.ResultsOfPreviousCommands);

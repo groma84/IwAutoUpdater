@@ -1,5 +1,6 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,22 +16,25 @@ namespace IwAutoUpdater.DAL.Updates.Test
         private UpdatePackageAccessFactoryMock _updatePackageFactoryAccessMock;
         private ServerSettings _serverSettings;
         private Mock<IHtmlGetter> _htmlGetterMock;
+        private ILogger _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
         {
             TestCleanup();
 
+            _loggerMock = new LoggerMock();
+
             _serverSettings = new ServerSettings();
             _serverSettings.Type = GetDataMethod.LocalFile;
             _serverSettings.Path = "UpdatePackageFactoryTest_CreateDefaultCommand";
 
             _updatePackageFactoryAccessMock = new UpdatePackageAccessFactoryMock();
-            _updatePackageFactoryAccessMock.CreateLocalFileAccess.Add(_serverSettings.Path, new LocalFileAccess(_serverSettings.Path));
+            _updatePackageFactoryAccessMock.CreateLocalFileAccess.Add(_serverSettings.Path, new LocalFileAccess(_serverSettings.Path, _loggerMock));
 
             _htmlGetterMock = new Mock<IHtmlGetter>();
             
-            _updatePackageFactory = new UpdatePackageFactory(_updatePackageFactoryAccessMock, _htmlGetterMock.Object);
+            _updatePackageFactory = new UpdatePackageFactory(_updatePackageFactoryAccessMock, _htmlGetterMock.Object, _loggerMock);
         }
 
         [TestCleanup]

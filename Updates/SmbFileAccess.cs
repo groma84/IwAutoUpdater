@@ -1,4 +1,5 @@
-﻿using IwAutoUpdater.DAL.Updates.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.Updates.Contracts;
 using System;
 using System.IO;
 
@@ -6,11 +7,13 @@ namespace IwAutoUpdater.DAL.Updates
 {
     public class SmbFileAccess : IUpdatePackageAccess
     {
+        private readonly ILogger _logger;
         FileInfo _fileInfo;
 
-        public SmbFileAccess(FileInfo fileInfo)
+        public SmbFileAccess(FileInfo fileInfo, ILogger logger)
         {
             _fileInfo = fileInfo;
+            _logger = logger;
         }
 
         void IDisposable.Dispose()
@@ -38,6 +41,7 @@ namespace IwAutoUpdater.DAL.Updates
             }
 
             var remoteDate = _fileInfo.LastWriteTime;
+            _logger.Debug("SmbFileAccess -> IsRemoteFileNewer: remoteDate: {RemoteDate}", remoteDate);
             return (remoteDate > existingFileDate);
         }
     }

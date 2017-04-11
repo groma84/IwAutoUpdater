@@ -2,7 +2,7 @@
 ## NEXT
 
 ## BUGS
-###in v0.3.7
+###in v1.0.1
 
 ## FEATURES (unsortiert)
 ###für vNext
@@ -11,7 +11,10 @@
 
 
 ## DONE
-###für v1.0.0
+###v1.0.1
+- die Vergleichszeiten sind jetzt wie vorher in LocalTime, so dass es zu keiner Endlos-Deployment-Schleife mehr kommt
+
+###v1.0.0
 - Unterstützung passwortgeschützter zip-Dateien: Eintrag ZipPassword in config.json
 - Ablegen von Neueste Installierte Version in einer Textdatei pro Paket im work-Ordner - dadurch keine rumliegenden zip-Files mehr
 - Wegfall von "DownloadOnly"-Option!

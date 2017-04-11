@@ -6,7 +6,7 @@ namespace IwAutoUpdater.DAL.Updates.Contracts
     [DIIgnore]
     public interface IUpdatePackageAccess : IDisposable
     {
-        bool IsRemoteFileNewer(DateTime existingFileDate);
+        bool IsRemoteFileNewer(DateTime existingFileDateLocalTime);
 
         /// <summary>
         /// Ermittelt aus dem gesamten Pfad nur den Dateinamen inklusive Dateiendung

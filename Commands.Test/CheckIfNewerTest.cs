@@ -47,7 +47,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
             _singleFileMock.DoesExist = false;
 
-            var cin = new CheckIfNewer(_workFolder, () => DateTime.UtcNow, _updatePackageMock, _singleFileMock, _loggerMock);
+            var cin = new CheckIfNewer(_workFolder, () => DateTime.Now, _updatePackageMock, _singleFileMock, _loggerMock);
             var actual = cin.Do();
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.Errors.Count());
@@ -67,7 +67,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _singleFileMock.DoesExist = true;
             _singleFileMock.ReadAsString = "2015-05-15T14:13:10";
 
-            var cin = new CheckIfNewer(_workFolder, () => DateTime.UtcNow, _updatePackageMock, _singleFileMock, _loggerMock);
+            var cin = new CheckIfNewer(_workFolder, () => DateTime.Now, _updatePackageMock, _singleFileMock, _loggerMock);
             var actual = cin.Do();
             Assert.IsFalse(actual.Successful);
             Assert.AreEqual(0, actual.Errors.Count());
@@ -87,7 +87,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             _singleFileMock.DoesExist = true;
             _singleFileMock.ReadAsString = "1995-05-15T14:13:10";
 
-            var cin = new CheckIfNewer(_workFolder, () => DateTime.UtcNow, _updatePackageMock, _singleFileMock, _loggerMock);
+            var cin = new CheckIfNewer(_workFolder, () => DateTime.Now, _updatePackageMock, _singleFileMock, _loggerMock);
             var actual = cin.Do();
             Assert.IsTrue(actual.Successful);
             Assert.AreEqual(0, actual.Errors.Count());

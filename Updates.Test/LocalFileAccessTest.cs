@@ -1,5 +1,7 @@
-﻿using IwAutoUpdater.DAL.Updates.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.Updates.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Mocks;
 using System;
 using System.Linq;
 
@@ -10,13 +12,16 @@ namespace IwAutoUpdater.DAL.Updates.Test
     {
         IUpdatePackageAccess _localFileAccess;
         string _filePath = "LocalFileAccessTest.txt";
+        private ILogger _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()
         {
             TestCleanup();
 
-            _localFileAccess = new LocalFileAccess(_filePath);
+            _loggerMock = new LoggerMock();
+
+            _localFileAccess = new LocalFileAccess(_filePath, _loggerMock);
         }
 
         [TestCleanup]

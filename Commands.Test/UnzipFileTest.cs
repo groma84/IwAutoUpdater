@@ -21,6 +21,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
 
         private UnzipFile _unzipFile;
         private DirectoryMock _directoryMock;
+        private LoggerMock _loggerMock;
 
         [TestInitialize]
         public void TestInitialize()

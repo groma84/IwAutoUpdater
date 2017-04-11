@@ -1,4 +1,5 @@
-﻿using IwAutoUpdater.DAL.Updates.Contracts;
+﻿using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
 using System.IO;
 
@@ -6,20 +7,20 @@ namespace IwAutoUpdater.DAL.Updates
 {
     public class UpdatePackageAccessFactory : IUpdatePackageAccessFactory
     {
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateLocalFileAccess(string filePath)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateLocalFileAccess(string filePath, ILogger logger)
         {
-            return new LocalFileAccess(filePath);
+            return new LocalFileAccess(filePath, logger);
         }
 
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ProxySettings proxySettings)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings)
         {
-            return new HttpDownloadAccess(url, htmlGetter, proxySettings);
+            return new HttpDownloadAccess(url, htmlGetter, logger, proxySettings);
         }
 
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath, ILogger logger)
         {
             var fi = new FileInfo(uncPath);
-            return new SmbFileAccess(fi);
+            return new SmbFileAccess(fi, logger);
         }
     }
 }
