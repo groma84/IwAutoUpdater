@@ -11,6 +11,9 @@
 
 
 ## DONE
+###v1.1.0
+- Unterstützung für einfache HTTP-Authentifizierung beim Abruf der Download-Pakete eingefügt
+
 ###v1.0.1
 - die Vergleichszeiten sind jetzt wie vorher in LocalTime, so dass es zu keiner Endlos-Deployment-Schleife mehr kommt
 

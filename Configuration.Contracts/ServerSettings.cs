@@ -7,7 +7,9 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
     {
         public GetDataMethod Type;
         public string Path;
- 
+        public string HttpDownloadUsername;
+        public string HttpDownloadPassword;
+
         public bool SkipDatabaseUpdate;
 
         public string InstallerCommand;

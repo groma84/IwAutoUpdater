@@ -8,17 +8,21 @@ namespace IwAutoUpdater.DAL.Updates
 {
     internal class HttpDownloadAccess : IUpdatePackageAccess
     {
+        private readonly string _password;
+        private readonly string _username;
         private readonly ILogger _logger;
         private readonly ProxySettings _proxySettings;
         private readonly IHtmlGetter _htmlGetter;
         private string _url;
 
-        public HttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings = null)
+        public HttpDownloadAccess(string url, string username, string password, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings = null)
         {
             _url = url;
             _htmlGetter = htmlGetter;
             _proxySettings = proxySettings;
             _logger = logger;
+            _username = username;
+            _password = password;
         }
 
         void IDisposable.Dispose()
@@ -27,7 +31,7 @@ namespace IwAutoUpdater.DAL.Updates
 
         byte[] IUpdatePackageAccess.GetFile()
         {
-            var result = _htmlGetter.DownloadFile(_url, _proxySettings);
+            var result = _htmlGetter.DownloadFile(_url, _username, _password, _proxySettings);
 
             return result.FileContent;
         }

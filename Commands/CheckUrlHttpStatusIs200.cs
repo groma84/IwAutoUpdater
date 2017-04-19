@@ -36,7 +36,7 @@ namespace IwAutoUpdater.BLL.Commands
         {
             _logger.Debug("Trying to download html from {url}", _url);
 
-            var htmlResult = _htmlGetter.DownloadHtml(_url, _proxySettings);
+            var htmlResult = _htmlGetter.DownloadHtml(_url, null, null, _proxySettings);
 
             _logger.Debug("Checking status code of html result for {url}", _url);
 

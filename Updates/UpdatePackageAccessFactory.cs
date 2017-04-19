@@ -12,9 +12,9 @@ namespace IwAutoUpdater.DAL.Updates
             return new LocalFileAccess(filePath, logger);
         }
 
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, string username, string password, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings)
         {
-            return new HttpDownloadAccess(url, htmlGetter, logger, proxySettings);
+            return new HttpDownloadAccess(url, username, password, htmlGetter, logger, proxySettings);
         }
 
         IUpdatePackageAccess IUpdatePackageAccessFactory.CreateUncPathAccess(string uncPath, ILogger logger)

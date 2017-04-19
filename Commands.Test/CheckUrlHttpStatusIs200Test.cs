@@ -43,7 +43,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         [TestMethod]
         public void CheckUrlHttpStatusIs200Test_HtmlDownloadOkay_ResultIsTrue()
         {
-            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
+            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), null, null, It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
             {
                 Content = "content",
                 HttpStatusCode = 200
@@ -52,7 +52,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             var actual = _checkUrlHttpStatusIs200.Do();
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Errors.Count() == 0);
-            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>()), Times.Once);
+            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), null, null, It.IsAny<ProxySettings>()), Times.Once);
             Assert.IsTrue(actual.Successful);
         }
 
@@ -61,7 +61,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             var failedContent = "failedContent";
 
-            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
+            _htmlGetterMock.Setup(mock => mock.DownloadHtml(It.IsAny<string>(), null, null, It.IsAny<ProxySettings>())).Returns(new HtmlDownload()
             {
                 Content = failedContent,
                 HttpStatusCode = 500
@@ -71,7 +71,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Errors.Count() == 1);
             Assert.AreEqual(failedContent, actual.Errors.First().Text);
-            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), It.IsAny<ProxySettings>()), Times.Once);
+            _htmlGetterMock.Verify(mock => mock.DownloadHtml(It.IsAny<string>(), null, null, It.IsAny<ProxySettings>()), Times.Once);
             Assert.IsFalse(actual.Successful);
         }
     }

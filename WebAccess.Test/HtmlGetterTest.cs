@@ -31,7 +31,7 @@ namespace IwAutoUpdater.DAL.WebAccess.Test
         [TestCategory(TestCategories.NeedsInternet)]
         public void HtmlGetterTest_DownloadHtml_OhneProxy_ExistierendeUrl_StatusCode200()
         {
-            var actual = _htmlGetter.DownloadHtml(_correctUrl);
+            var actual = _htmlGetter.DownloadHtml(_correctUrl, null, null);
             Assert.AreEqual(200, actual.HttpStatusCode);
             Assert.IsFalse(String.IsNullOrEmpty(actual.Content));
         }
@@ -40,7 +40,7 @@ namespace IwAutoUpdater.DAL.WebAccess.Test
         [TestCategory(TestCategories.NeedsInternet)]
         public void HtmlGetterTest_DownloadHtml_OhneProxy_KaputteUrl_StatusCode404()
         {
-            var actual = _htmlGetter.DownloadHtml(_notExistingUrl);
+            var actual = _htmlGetter.DownloadHtml(_notExistingUrl, null, null);
             Assert.AreEqual(404, actual.HttpStatusCode);
             Assert.IsFalse(String.IsNullOrEmpty(actual.Content)); // Fehlerseite kommt trotzdem zurück
         }

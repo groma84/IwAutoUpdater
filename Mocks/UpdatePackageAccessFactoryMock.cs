@@ -25,7 +25,7 @@ namespace Mocks
 
         public Dictionary<string, IUpdatePackageAccess> CreateHttpDownloadAccess = new Dictionary<string, IUpdatePackageAccess>();
         public int CreateHttpDownloadAccessCalled = 0;
-        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings)
+        IUpdatePackageAccess IUpdatePackageAccessFactory.CreateHttpDownloadAccess(string url, string username, string password, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings)
         {
             ++CreateHttpDownloadAccessCalled;
             return CreateHttpDownloadAccess[url];

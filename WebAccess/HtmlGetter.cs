@@ -9,47 +9,29 @@ namespace IwAutoUpdater.DAL.WebAccess
 {
     public class HtmlGetter : IHtmlGetter
     {
-        HtmlDownload IHtmlGetter.DownloadHtml(string url)
+        HtmlDownload IHtmlGetter.DownloadHtml(string url, string username, string password)
         {
-            return DownloadString(url);
+            return DownloadString(url, username, password);
         }
 
-        HtmlDownload IHtmlGetter.DownloadHtml(string url, ProxySettings proxySettings)
+        HtmlDownload IHtmlGetter.DownloadHtml(string url, string username, string password, ProxySettings proxySettings)
         {
             if (proxySettings == null)
             {
-                return DownloadString(url);
+                return DownloadString(url, username, password);
             }
 
-            Action<WebClient> proxySettingsSetter = ((webClient) =>
-            {
-                webClient.Proxy = new WebProxy(proxySettings.Address);
-                if (!String.IsNullOrEmpty(proxySettings.Username) && !String.IsNullOrEmpty(proxySettings.Password))
-                {
-                    webClient.Proxy.Credentials = new NetworkCredential(proxySettings.Username, proxySettings.Password);
-                }
-            });
-
-            return DownloadString(url, proxySettingsSetter);
+            return DownloadString(url, username, password, ProxySettingsSetterCreator(proxySettings));
         }
 
-        HtmlDownload IHtmlGetter.DownloadFile(string url, ProxySettings proxySettings)
+        HtmlDownload IHtmlGetter.DownloadFile(string url, string username, string password, ProxySettings proxySettings)
         {
             if (proxySettings == null)
             {
-                return DownloadFile(url);
+                return DownloadFile(url, username, password);
             }
 
-            Action<WebClient> proxySettingsSetter = ((webClient) =>
-            {
-                webClient.Proxy = new WebProxy(proxySettings.Address);
-                if (!String.IsNullOrEmpty(proxySettings.Username) && !String.IsNullOrEmpty(proxySettings.Password))
-                {
-                    webClient.Proxy.Credentials = new NetworkCredential(proxySettings.Username, proxySettings.Password);
-                }
-            });
-
-            return DownloadFile(url, proxySettingsSetter);
+            return DownloadFile(url, username, password, ProxySettingsSetterCreator(proxySettings));
         }
 
         async Task<DateTime?> IHtmlGetter.GetLastModifiedViaHead(string url, ProxySettings proxySettings)
@@ -61,27 +43,31 @@ namespace IwAutoUpdater.DAL.WebAccess
             return response.Content.Headers.LastModified?.DateTime;
         }
 
-        private HtmlDownload DownloadFile(string url, Action<WebClient> proxySettingsSetter = null)
+        private HtmlDownload DownloadFile(string url, string username, string password, Action<WebClient> proxySettingsSetter = null)
         {
             return DownloadCore(
                 url,
+                username,
+                password,
                 proxySettingsSetter,
                 (webClient) => new HtmlDownload { FileContent = webClient.DownloadData(url) },
                 () => new HtmlDownload { FileContent = null, HttpStatusCode = 503 }
                 );
         }
 
-        private HtmlDownload DownloadString(string url, Action<WebClient> proxySettingsSetter = null)
+        private HtmlDownload DownloadString(string url, string username, string password, Action<WebClient> proxySettingsSetter = null)
         {
             return DownloadCore(
                  url,
+                 username,
+                 password,
                  proxySettingsSetter,
                  (webClient) => new HtmlDownload { Content = webClient.DownloadString(url) },
                  () => new HtmlDownload { Content = $"WebException caught: Timeout", HttpStatusCode = 503 }
                  );
         }
 
-        private HtmlDownload DownloadCore(string url, Action<WebClient> proxySettingsSetter, Func<WebClientWithTimeout, HtmlDownload> download, Func<HtmlDownload> onTimeout)
+        private HtmlDownload DownloadCore(string url, string username, string password, Action<WebClient> proxySettingsSetter, Func<WebClientWithTimeout, HtmlDownload> download, Func<HtmlDownload> onTimeout)
         {
             var result = new HtmlDownload();
 
@@ -89,10 +75,12 @@ namespace IwAutoUpdater.DAL.WebAccess
 
             var webClient = new WebClientWithTimeout(timeout);
 
-            if (proxySettingsSetter != null)
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                proxySettingsSetter(webClient);
+                webClient.Credentials = new NetworkCredential(username, password);
             }
+
+            proxySettingsSetter?.Invoke(webClient);
 
             try
             {
@@ -124,6 +112,18 @@ namespace IwAutoUpdater.DAL.WebAccess
             }
 
             return result;
+        }
+
+        private static Action<WebClient> ProxySettingsSetterCreator(ProxySettings proxySettings)
+        {
+            return new Action<WebClient>(webClient =>
+            {
+                webClient.Proxy = new WebProxy(proxySettings.Address);
+                if (!String.IsNullOrEmpty(proxySettings.Username) && !String.IsNullOrEmpty(proxySettings.Password))
+                {
+                    webClient.Proxy.Credentials = new NetworkCredential(proxySettings.Username, proxySettings.Password);
+                }
+            });
         }
     }
 }

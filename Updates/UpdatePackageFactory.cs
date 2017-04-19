@@ -36,7 +36,7 @@ namespace IwAutoUpdater.DAL.Updates
 
                 case GetDataMethod.HttpDownload:
                     ProxySettings proxySettings = CreateProxySettings(serverSettings);
-                    updatePackageAccess = _updatePackageAccessFactory.CreateHttpDownloadAccess(serverSettings.Path, _htmlGetter, _logger, proxySettings);
+                    updatePackageAccess = _updatePackageAccessFactory.CreateHttpDownloadAccess(serverSettings.Path, serverSettings.HttpDownloadUsername, serverSettings.HttpDownloadPassword, _htmlGetter, _logger, proxySettings);
                     break;
 
                 default:

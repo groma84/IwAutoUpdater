@@ -21,6 +21,6 @@ namespace IwAutoUpdater.DAL.Updates.Contracts
         /// <param name="htmlGetter"></param>
         /// <param name="proxySettings">Kann auch null sein, wenn kein Proxy genutzt werden soll</param>
         /// <returns></returns>
-        IUpdatePackageAccess CreateHttpDownloadAccess(string url, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings);
+        IUpdatePackageAccess CreateHttpDownloadAccess(string url, string username, string password, IHtmlGetter htmlGetter, ILogger logger, ProxySettings proxySettings);
     }
 }
