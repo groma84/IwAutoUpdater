@@ -6,9 +6,10 @@
 
 ## FEATURES (unsortiert)
 ###für vNext
+- DownloadOnly wieder einbauen für externe Server etc.
 
 ###später
-
+- Unterstützung für Pre-Install- und Post-Install-Skript einfügen
 
 ## DONE
 ###v1.1.0
