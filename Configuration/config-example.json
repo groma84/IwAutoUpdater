@@ -20,6 +20,8 @@
     {
       "type": "uncPath",
       "path": "\\\\buildtool\\c$\\DEPLOYDIR\\server1\\server1.zip",
+      "httpDownloadUsername": null,
+      "httpDownloadPassword": null,
       "zipPassword": "secret",
       "skipDatabaseUpdate": "false",
       "installerCommand": "InstallProgram.bat",

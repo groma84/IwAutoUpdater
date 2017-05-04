@@ -3,6 +3,7 @@ using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using System.IO;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using System;
 
 namespace IwAutoUpdater.BLL.Commands
 {
@@ -47,6 +48,10 @@ namespace IwAutoUpdater.BLL.Commands
                 _logger.Debug("Writing downloaded file to {filePath}", _fullPathToLocalFile);
 
                 writeSuccess = _singleFile.Write(_fullPathToLocalFile, remoteFile);
+            }
+            catch (Exception ex)
+            {
+                return new CommandResult(false, new[] { new Error { Exception = ex } });
             }
             finally
             {
