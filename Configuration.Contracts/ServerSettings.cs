@@ -10,6 +10,7 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public string HttpDownloadUsername;
         public string HttpDownloadPassword;
 
+        public bool DownloadOnly;
         public bool SkipDatabaseUpdate;
 
         public string InstallerCommand;

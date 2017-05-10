@@ -48,7 +48,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
         {
             _notificationReceiverMock.SendNotification = true;
 
-            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, false, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
+            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, false, false, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
 
             var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);
@@ -64,7 +64,7 @@ namespace IwAutoUpdater.BLL.Commands.Test
             var exceptionToThrow = new NotificationSentException("Fehler");
             _notificationReceiverMock.SendNotificationThrowThisException = exceptionToThrow;
 
-            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, false, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
+            _sendNotifications = new SendNotifications(new[] { _notificationReceiverMock }, false, false, _updatePackageMock, _nowGetterMock, _blackboardMock.Object);
 
             var actual = _sendNotifications.Do();
             Assert.IsNotNull(actual);

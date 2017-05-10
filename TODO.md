@@ -6,12 +6,14 @@
 
 ## FEATURES (unsortiert)
 ###für vNext
-- DownloadOnly wieder einbauen für externe Server etc.
 
 ###später
 - Unterstützung für Pre-Install- und Post-Install-Skript einfügen
 
 ## DONE
+###v1.2.0
+- DownloadOnly wieder eingebaut für externe Server etc.
+
 ###v1.1.0
 - Unterstützung für einfache HTTP-Authentifizierung beim Abruf der Download-Pakete eingefügt
 

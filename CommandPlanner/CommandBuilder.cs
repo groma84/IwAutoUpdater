@@ -56,79 +56,84 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                 getFile.RunAfterCompletedWithResultTrue = cleanupOldUnpackedFiles;
                 getFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, getFile, _blackboard);
 
-                cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = checkFreeDiskspace;
-                cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles, _blackboard);
+                Command finalCommand = cleanupOldUnpackedFiles;
 
-                Command finalCommand = checkFreeDiskspace;
-
-                checkFreeDiskspace.RunAfterCompletedWithResultTrue = unzipFile;
-                checkFreeDiskspace.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkFreeDiskspace, _blackboard);
-
-                finalCommand = unzipFile;
-
-                var runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder,
-                    package, _runExternalCommand, _logger);
-
-                unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
-                unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile, _blackboard);
-
-                finalCommand = runInstallerCommand;
-
-                Command updateDatabase = null;
-                if (!package.Settings.SkipDatabaseUpdate)
+                if (!package.Settings.DownloadOnly)
                 {
-                    updateDatabase = new UpdateDatabase(
-                        package.Settings.DatabaseUpdaterCommand, package.Settings.DatabaseUpdaterCommandArguments, package.Settings.ConnectionString,
-                        workFolder,
+                    cleanupOldUnpackedFiles.RunAfterCompletedWithResultTrue = checkFreeDiskspace;
+                    cleanupOldUnpackedFiles.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, cleanupOldUnpackedFiles, _blackboard);
+
+                    finalCommand = checkFreeDiskspace;
+
+                    checkFreeDiskspace.RunAfterCompletedWithResultTrue = unzipFile;
+                    checkFreeDiskspace.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, checkFreeDiskspace, _blackboard);
+
+                    finalCommand = unzipFile;
+
+                    var runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder,
                         package, _runExternalCommand, _logger);
 
-                    runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
-                    runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand, _blackboard);
+                    unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
+                    unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile, _blackboard);
 
-                    finalCommand = updateDatabase;
-                }
+                    finalCommand = runInstallerCommand;
 
-                if (package.Settings.CheckUrlsAfterInstallation != null)
-                {
-                    ProxySettings proxySettings = null;
-                    if (package.Settings.CheckUrlProxySettings != null)
+                    Command updateDatabase = null;
+                    if (!package.Settings.SkipDatabaseUpdate)
                     {
-                        proxySettings = new ProxySettings();
-                        proxySettings.Address = package.Settings.CheckUrlProxySettings.Address;
+                        updateDatabase = new UpdateDatabase(
+                            package.Settings.DatabaseUpdaterCommand, package.Settings.DatabaseUpdaterCommandArguments, package.Settings.ConnectionString,
+                            workFolder,
+                            package, _runExternalCommand, _logger);
 
-                        if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Password) && !String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Username))
+                        runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
+                        runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand, _blackboard);
+
+                        finalCommand = updateDatabase;
+                    }
+
+                    if (package.Settings.CheckUrlsAfterInstallation != null)
+                    {
+                        ProxySettings proxySettings = null;
+                        if (package.Settings.CheckUrlProxySettings != null)
                         {
-                            proxySettings.Username = package.Settings.CheckUrlProxySettings.Username;
-                            proxySettings.Password = package.Settings.CheckUrlProxySettings.Password;
+                            proxySettings = new ProxySettings();
+                            proxySettings.Address = package.Settings.CheckUrlProxySettings.Address;
+
+                            if (!String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Password) && !String.IsNullOrEmpty(package.Settings.CheckUrlProxySettings.Username))
+                            {
+                                proxySettings.Username = package.Settings.CheckUrlProxySettings.Username;
+                                proxySettings.Password = package.Settings.CheckUrlProxySettings.Password;
+                            }
+                        }
+
+                        foreach (var url in package.Settings.CheckUrlsAfterInstallation)
+                        {
+                            var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, _logger, proxySettings);
+                            finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
+                            finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
+                            finalCommand = checkUrlHttpStatusIs200;
                         }
                     }
 
-                    foreach (var url in package.Settings.CheckUrlsAfterInstallation)
+                    // ggf. Versionsinfo Datei auslesen
+                    if (!string.IsNullOrEmpty(package.Settings.ReadVersionInfoFrom))
                     {
-                        var checkUrlHttpStatusIs200 = new CheckUrlHttpStatusIs200(url, package, _htmlGetter, _logger, proxySettings);
-                        finalCommand.RunAfterCompletedWithResultTrue = checkUrlHttpStatusIs200;
+                        var getVersionInfo = new GetVersionInfo(workFolder, package, package.Settings.ReadVersionInfoFrom, _singleFile, _blackboard);
+                        finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
                         finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
-                        finalCommand = checkUrlHttpStatusIs200;
+                        finalCommand = getVersionInfo;
                     }
-                }
 
-                // ggf. Versionsinfo Datei auslesen
-                if (!string.IsNullOrEmpty(package.Settings.ReadVersionInfoFrom))
-                {
-                    var getVersionInfo = new GetVersionInfo(workFolder, package, package.Settings.ReadVersionInfoFrom, _singleFile, _blackboard);
-                    finalCommand.RunAfterCompletedWithResultTrue = getVersionInfo;
+                    // Entpacktes Verzeichnis & lokale ZIP-Datei löschen (anhängen immer an finalCommand)
+                    var cleanupOldAfterDeployment = new CleanupOldFiles(!package.Settings.DownloadOnly, workFolder, package, _directory, _singleFile, _logger);
+                    finalCommand.RunAfterCompletedWithResultTrue = cleanupOldAfterDeployment;
                     finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
-                    finalCommand = getVersionInfo;
+                    finalCommand = cleanupOldAfterDeployment;
                 }
-
-                // Entpacktes Verzeichnis & lokale ZIP-Datei löschen (anhängen immer an finalCommand)
-                var cleanupOldAfterDeployment = new CleanupOldFiles(true, workFolder, package, _directory, _singleFile, _logger);
-                finalCommand.RunAfterCompletedWithResultTrue = cleanupOldAfterDeployment;
-                finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
-                finalCommand = cleanupOldAfterDeployment;
 
                 // Abschließende Nachricht verschicken (anhängen immer an finalCommand)
-                var sendNotifications = new SendNotifications(notificationReceivers, package.Settings.SkipDatabaseUpdate, package, _nowGetter, _blackboard);
+                var sendNotifications = new SendNotifications(notificationReceivers, package.Settings.DownloadOnly, package.Settings.SkipDatabaseUpdate, package, _nowGetter, _blackboard);
                 finalCommand.RunAfterCompletedWithResultTrue = sendNotifications;
                 finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand.Copy(), _blackboard);
                 finalCommand = sendNotifications;
