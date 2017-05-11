@@ -40,7 +40,7 @@ namespace IwAutoUpdater.BLL.Commands
 
         public override CommandResult Do()
         {
-            _logger.Debug($"Running installer command '{_installerCommand}' with arguments '{_installerCommandArguments}' in folder '{_fullPathToLocalDirectory}'");
+            _logger.Debug($"Running command '{_installerCommand}' with arguments '{_installerCommandArguments}' in folder '{_fullPathToLocalDirectory}'");
 
             var externalCommandResult = _runExternalCommand.Run(_installerCommand, _installerCommandArguments, _fullPathToLocalDirectory);
 

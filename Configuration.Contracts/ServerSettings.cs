@@ -13,8 +13,12 @@ namespace IwAutoUpdater.CrossCutting.Configuration.Contracts
         public bool DownloadOnly;
         public bool SkipDatabaseUpdate;
 
+        public string PreInstallCommand;
+        public string PreInstallCommandArguments;
         public string InstallerCommand;
         public string InstallerCommandArguments;
+        public string PostInstallCommand;
+        public string PostInstallCommandArguments;
 
         public string DatabaseUpdaterCommand;
         public string DatabaseUpdaterCommandArguments;

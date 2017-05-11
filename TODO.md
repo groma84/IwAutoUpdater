@@ -2,17 +2,17 @@
 ## NEXT
 
 ## BUGS
-###in v1.0.1
+###in v1.2.0
 
 ## FEATURES (unsortiert)
 ###für vNext
 
 ###später
-- Unterstützung für Pre-Install- und Post-Install-Skript einfügen
 
 ## DONE
 ###v1.2.0
 - DownloadOnly wieder eingebaut für externe Server etc.
+- Unterstützung für Pre-Install- und Post-Install-Skript eingefügt
 
 ###v1.1.0
 - Unterstützung für einfache HTTP-Authentifizierung beim Abruf der Download-Pakete eingefügt

@@ -1,16 +1,16 @@
 ﻿using IwAutoUpdater.BLL.CommandPlanner.Contracts;
-using System;
-using System.Collections.Generic;
+using IwAutoUpdater.BLL.Commands;
 using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.CrossCutting.SFW.Contracts;
+using IwAutoUpdater.DAL.ExternalCommands.Contracts;
+using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
-using IwAutoUpdater.BLL.Commands;
-using IwAutoUpdater.DAL.LocalFiles.Contracts;
-using IwAutoUpdater.CrossCutting.Logging.Contracts;
-using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
-using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using SFW.Contracts;
+using System;
+using System.Collections.Generic;
 
 namespace IwAutoUpdater.BLL.CommandPlanner
 {
@@ -70,13 +70,41 @@ namespace IwAutoUpdater.BLL.CommandPlanner
 
                     finalCommand = unzipFile;
 
-                    var runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder,
-                        package, _runExternalCommand, _logger);
-
-                    unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
                     unzipFile.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, unzipFile, _blackboard);
 
+                    RunInstallerCommand runInstallerCommand = new RunInstallerCommand(package.Settings.InstallerCommand, package.Settings.InstallerCommandArguments, workFolder,
+                        package, _runExternalCommand, _logger);
+                    runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand, _blackboard); ;
+
+                    if (!string.IsNullOrWhiteSpace(package.Settings.PreInstallCommand))
+                    {
+                        var preInstallCommand = new RunInstallerCommand(package.Settings.PreInstallCommand, package.Settings.PreInstallCommandArguments, workFolder,
+                            package, _runExternalCommand, _logger);
+
+                        preInstallCommand.RunAfterCompletedWithResultTrue = runInstallerCommand;
+                        preInstallCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, preInstallCommand, _blackboard);
+
+                        finalCommand = preInstallCommand;
+
+                        unzipFile.RunAfterCompletedWithResultTrue = preInstallCommand;
+                    }
+                    else
+                    {
+                        unzipFile.RunAfterCompletedWithResultTrue = runInstallerCommand;
+                    }
+
                     finalCommand = runInstallerCommand;
+
+                    if (!string.IsNullOrWhiteSpace(package.Settings.PostInstallCommand))
+                    {
+                        var postInstallCommand = new RunInstallerCommand(package.Settings.PostInstallCommand, package.Settings.PostInstallCommandArguments, workFolder,
+                           package, _runExternalCommand, _logger);
+                        postInstallCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, postInstallCommand, _blackboard);
+
+                        runInstallerCommand.RunAfterCompletedWithResultTrue = postInstallCommand;
+
+                        finalCommand = postInstallCommand;
+                    }
 
                     Command updateDatabase = null;
                     if (!package.Settings.SkipDatabaseUpdate)
@@ -86,8 +114,8 @@ namespace IwAutoUpdater.BLL.CommandPlanner
                             workFolder,
                             package, _runExternalCommand, _logger);
 
-                        runInstallerCommand.RunAfterCompletedWithResultTrue = updateDatabase;
-                        runInstallerCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, runInstallerCommand, _blackboard);
+                        finalCommand.RunAfterCompletedWithResultTrue = updateDatabase;
+                        finalCommand.RunAfterCompletedWithResultFalse = new SendErrorNotifications(notificationReceivers, finalCommand, _blackboard);
 
                         finalCommand = updateDatabase;
                     }
