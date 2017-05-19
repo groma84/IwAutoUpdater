@@ -7,10 +7,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
-using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using IwAutoUpdater.CrossCutting.Base;
 using System.Collections.Concurrent;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 
 namespace IwAutoUpdater.BLL.AutoUpdater
 {

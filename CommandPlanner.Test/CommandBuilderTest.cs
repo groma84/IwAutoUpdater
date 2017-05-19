@@ -2,10 +2,10 @@
 using IwAutoUpdater.BLL.Commands;
 using IwAutoUpdater.CrossCutting.Configuration.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
 using Moq;
-using SFW.Contracts;
 using System.IO;
 using System.Linq;
 

@@ -1,8 +1,8 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
-using SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using System.Collections.Generic;
 
-namespace SFW
+namespace IWAutoUpdater.CrossCutting.SFW
 {
     [DIAsSingleton]
     public class Blackboard : IBlackboard

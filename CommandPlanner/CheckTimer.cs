@@ -1,5 +1,5 @@
 ﻿using IwAutoUpdater.BLL.CommandPlanner.Contracts;
-using IwAutoUpdater.CrossCutting.SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using System;
 
 namespace IwAutoUpdater.BLL.CommandPlanner

@@ -1,6 +1,6 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Updates.Contracts;
-using SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 
 namespace IwAutoUpdater.BLL.Commands
 {

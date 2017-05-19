@@ -1,4 +1,4 @@
-﻿namespace SFW.Contracts
+﻿namespace IWAutoUpdater.CrossCutting.SFW.Contracts
 {
     public class BlackboardEntry
     {

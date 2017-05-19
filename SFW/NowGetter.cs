@@ -1,7 +1,7 @@
-﻿using IwAutoUpdater.CrossCutting.SFW.Contracts;
+﻿using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using System;
 
-namespace IwAutoUpdater.CrossCutting.SFW
+namespace IWAutoUpdater.CrossCutting.SFW
 {
     public class NowGetter : INowGetter
     {

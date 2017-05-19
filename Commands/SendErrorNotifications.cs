@@ -1,6 +1,6 @@
 ﻿using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.DAL.Notifications.Contracts;
-using SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

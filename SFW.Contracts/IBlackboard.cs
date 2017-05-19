@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFW.Contracts
+namespace IWAutoUpdater.CrossCutting.SFW.Contracts
 {
     public interface IBlackboard
     {

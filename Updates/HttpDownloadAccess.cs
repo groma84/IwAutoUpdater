@@ -43,7 +43,7 @@ namespace IwAutoUpdater.DAL.Updates
 
         bool IUpdatePackageAccess.IsRemoteFileNewer(DateTime existingFileDate)
         {
-            var serverLastModified = _htmlGetter.GetLastModifiedViaHead(_url, _proxySettings).Result;
+            var serverLastModified = _htmlGetter.GetLastModifiedViaHead(_url, _username, _password, _proxySettings).Result;
 
             if (!serverLastModified.HasValue)
             {

@@ -5,6 +5,28 @@ using System.Reflection;
 using System.IO;
 using System.Linq;
 using IwAutoUpdater.CrossCutting.Base;
+using IwAutoUpdater.BLL.AutoUpdater;
+using IwAutoUpdater.BLL.AutoUpdater.Contracts;
+using IwAutoUpdater.BLL.CommandPlanner.Contracts;
+using IwAutoUpdater.BLL.CommandPlanner;
+using IwAutoUpdater.CrossCutting.Configuration;
+using IwAutoUpdater.CrossCutting.Configuration.Contracts;
+using IwAutoUpdater.CrossCutting.Logging.Contracts;
+using IwAutoUpdater.CrossCutting.Logging;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW;
+using IwAutoUpdater.DAL.EMails.Contracts;
+using IwAutoUpdater.DAL.EMails;
+using IwAutoUpdater.DAL.ExternalCommands.Contracts;
+using IwAutoUpdater.DAL.ExternalCommands;
+using IwAutoUpdater.DAL.LocalFiles.Contracts;
+using IwAutoUpdater.DAL.LocalFiles;
+using IwAutoUpdater.DAL.Notifications.Contracts;
+using IwAutoUpdater.DAL.Notifications;
+using IwAutoUpdater.DAL.Updates.Contracts;
+using IwAutoUpdater.DAL.Updates;
+using IwAutoUpdater.DAL.WebAccess.Contracts;
+using IwAutoUpdater.DAL.WebAccess;
 
 namespace IwAutoUpdater.DIMappings
 {
@@ -35,7 +57,45 @@ namespace IwAutoUpdater.DIMappings
         {
             SimpleInjector.Container container = new SimpleInjector.Container();
 
-            InitDIMappingsViaReflection(container);
+
+            /** da wir nicht zuviele Interfaces haben, machen wir es alles hier an einer Stelle
+            /* vorher war es schön bequem via Reflection&T4-Template, leider erkennt VS dann beim
+            /* Debuggen nicht mehr, welche DLLs er laden muss...
+            */
+
+            // CrossCutting.Configuration
+            container.Register(typeof(IConfiguration), typeof(JsonFileConfiguration), Lifestyle.Singleton);
+            container.Register(typeof(IConfigurationFileAccess), typeof(ConfigurationFileAccess), Lifestyle.Singleton);
+            // CrossCutting.Logging
+            container.Register(typeof(ILogger), typeof(Logger), Lifestyle.Singleton);
+            // CrossCutting.SFW
+            container.Register(typeof(IBlackboard), typeof(Blackboard), Lifestyle.Singleton);
+            container.Register(typeof(INowGetter), typeof(NowGetter), Lifestyle.Singleton);
+
+            // DAL.EMails
+            container.Register(typeof(ISendMail), typeof(SendMail), Lifestyle.Singleton);
+            // DAL.ExternalCommands
+            container.Register(typeof(IRunExternalCommand), typeof(ExternalCommandRunner), Lifestyle.Singleton);
+            // DAL.LocalFiles
+            container.Register(typeof(IDirectory), typeof(DAL.LocalFiles.Directory), Lifestyle.Singleton);
+            container.Register(typeof(ISingleFile), typeof(SingleFile), Lifestyle.Singleton);
+            // DAL.Notifications
+            container.Register(typeof(INotificationReceiverFactory), typeof(NotificationReceiverFactory), Lifestyle.Singleton);
+            // DAL.Updates
+            container.Register(typeof(IUpdatePackageAccessFactory), typeof(UpdatePackageAccessFactory), Lifestyle.Singleton);
+            container.Register(typeof(IUpdatePackageFactory), typeof(UpdatePackageFactory), Lifestyle.Singleton);
+            // DAL.WebAccess
+            container.Register(typeof(IHtmlGetter), typeof(HtmlGetter), Lifestyle.Singleton);
+
+            // BLL.AutoUpdater
+            container.Register(typeof(IAutoUpdaterCommandCreator), typeof(AutoUpdaterCommandCreator), Lifestyle.Singleton);
+            container.Register(typeof(IAutoUpdaterThreadFactory), typeof(AutoUpdaterThreadFactory), Lifestyle.Singleton);
+            container.Register(typeof(IAutoUpdaterWorker), typeof(AutoUpdaterWorker), Lifestyle.Singleton);
+            // BLL.CommandPlanner
+            container.Register(typeof(ICheckTimer), typeof(CheckTimer), Lifestyle.Singleton);
+            container.Register(typeof(ICommandBuilder), typeof(CommandBuilder), Lifestyle.Singleton);
+            container.Register(typeof(IConfigurationConverter), typeof(ConfigurationConverter), Lifestyle.Singleton);
+
 
             if (additionalRegistrations != null)
             {
@@ -50,6 +110,11 @@ namespace IwAutoUpdater.DIMappings
             container.Verify();
 
             return container;
+        }
+
+        static void Register(SimpleInjector.Container container, Type iface, Type impl, Lifestyle lifestyle)
+        {
+
         }
 
         private static void InitDIMappingsViaReflection(SimpleInjector.Container container)
@@ -117,7 +182,7 @@ namespace IwAutoUpdater.DIMappings
 
             contractAssemblies = new Queue<Assembly>();
             implementationAssemblies = new Queue<Assembly>();
-            foreach (var dllFilePath in Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
+            foreach (var dllFilePath in System.IO.Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
             {
                 if (dllFilePath.ToLowerInvariant().EndsWith(".test.dll") || dllFilePath.ToLowerInvariant().Contains("mock"))
                 {

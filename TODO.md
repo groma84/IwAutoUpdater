@@ -2,7 +2,7 @@
 ## NEXT
 
 ## BUGS
-###in v1.2.0
+###in v1.2.1
 
 ## FEATURES (unsortiert)
 ###für vNext
@@ -10,6 +10,10 @@
 ###später
 
 ## DONE
+###v1.2.1
+- einfache HTTP-Authentifizierung beim Abruf der Download-Pakete funktioniert jetzt
+- Dependency Injection Registrierung wieder auf Handarbeit umgestellt, da der Automatismus Probleme beim Debuggen macht
+
 ###v1.2.0
 - DownloadOnly wieder eingebaut für externe Server etc.
 - Unterstützung für Pre-Install- und Post-Install-Skript eingefügt

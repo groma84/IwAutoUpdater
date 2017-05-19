@@ -2,7 +2,7 @@
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using System.IO;
-using SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 
 namespace IwAutoUpdater.BLL.Commands
 {

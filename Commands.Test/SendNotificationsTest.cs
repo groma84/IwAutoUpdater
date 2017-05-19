@@ -1,8 +1,8 @@
 ﻿using IwAutoUpdater.DAL.Notifications.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mocks;
 using Moq;
-using SFW.Contracts;
 using System.Linq;
 
 namespace IwAutoUpdater.BLL.Commands.Test

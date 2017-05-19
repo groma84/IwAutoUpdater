@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IwAutoUpdater.CrossCutting.SFW.Contracts
+namespace IWAutoUpdater.CrossCutting.SFW.Contracts
 {
     public interface INowGetter
     {

@@ -2,13 +2,12 @@
 using IwAutoUpdater.BLL.Commands;
 using IwAutoUpdater.CrossCutting.Base;
 using IwAutoUpdater.CrossCutting.Logging.Contracts;
-using IwAutoUpdater.CrossCutting.SFW.Contracts;
 using IwAutoUpdater.DAL.ExternalCommands.Contracts;
 using IwAutoUpdater.DAL.LocalFiles.Contracts;
 using IwAutoUpdater.DAL.Notifications.Contracts;
 using IwAutoUpdater.DAL.Updates.Contracts;
 using IwAutoUpdater.DAL.WebAccess.Contracts;
-using SFW.Contracts;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using System;
 using System.Collections.Generic;
 

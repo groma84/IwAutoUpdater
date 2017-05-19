@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SFW;
-using SFW.Contracts;
+﻿using IWAutoUpdater.CrossCutting.SFW;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace IwAutoUpdater.CrossCutting.SFW.Test

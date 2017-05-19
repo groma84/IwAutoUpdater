@@ -1,4 +1,5 @@
-﻿using IwAutoUpdater.CrossCutting.SFW.Contracts;
+﻿using IWAutoUpdater.CrossCutting.SFW;
+using IWAutoUpdater.CrossCutting.SFW.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

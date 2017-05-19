@@ -34,11 +34,28 @@ namespace IwAutoUpdater.DAL.WebAccess
             return DownloadFile(url, username, password, ProxySettingsSetterCreator(proxySettings));
         }
 
-        async Task<DateTime?> IHtmlGetter.GetLastModifiedViaHead(string url, ProxySettings proxySettings)
+        async Task<DateTime?> IHtmlGetter.GetLastModifiedViaHead(string url, string username, string password, ProxySettings proxySettings)
         {
-            HttpClient httpClient = new HttpClient();
+            HttpResponseMessage response = null;
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Head, url);
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            {
+                using (var handler = new HttpClientHandler { Credentials = new NetworkCredential(username, password), PreAuthenticate = true })
+                {
+                    using (var client = new HttpClient(handler))
+                    {
+                        response = await client.SendAsync(request);
+                    }
+                }
+            }
+            else
+            {
+                using (var client = new HttpClient())
+                {
+                    response = await client.SendAsync(request);
+                }
+            }
 
             return response.Content.Headers.LastModified?.DateTime;
         }

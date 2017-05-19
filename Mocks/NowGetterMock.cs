@@ -1,5 +1,5 @@
-﻿using System;
-using IwAutoUpdater.CrossCutting.SFW.Contracts;
+﻿using IWAutoUpdater.CrossCutting.SFW.Contracts;
+using System;
 
 namespace Mocks
 {
